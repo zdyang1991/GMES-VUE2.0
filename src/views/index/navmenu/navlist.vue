@@ -9,8 +9,8 @@
       </el-submenu>
       <el-submenu index="2">
         <template slot="title">上线界面</template>
-        <el-menu-item index="2-1">装配上线</el-menu-item>
-        <el-menu-item index="2-2">机加上线</el-menu-item>
+        <el-menu-item index="/online/assemblyOnline">装配上线</el-menu-item>
+        <el-menu-item index="/online/machineplusOnline">机加上线</el-menu-item>
       </el-submenu>
 	    </el-menu>
 	</div>

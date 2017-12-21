@@ -1,6 +1,5 @@
 import {Users} from '../components/users';
-import {Progress} from '../components/Progress';
-import {Proinfo} from '../components/Proinfo';
+import {AssemblyOrder} from '../components/assemblyorder'
 
 window.document.addEventListener('touchstart', function (event) {
   /* Do Nothing */
@@ -8,8 +7,8 @@ window.document.addEventListener('touchstart', function (event) {
 
 const install = function (Vue) {
   Vue.component(Users.name, Users);
-  Vue.component(Progress.name, Progress);
-  Vue.component(Proinfo.name, Proinfo);
+  Vue.component(AssemblyOrder.name, AssemblyOrder);
+
 
   // Vue.prototype.$dialog = {
   //   confirm: Confirm,
