@@ -55,7 +55,13 @@
 </template>
 
 <script type="text/babel">
-
+  export default {
+    data(){
+      return{
+        tableData:[]
+      }
+    }
+  }
 </script>
 
 
