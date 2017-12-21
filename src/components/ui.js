@@ -1,5 +1,6 @@
 import {Users} from '../components/users';
 import {AssemblyOrder} from '../components/assemblyorder'
+import {Convention} from '../components/convention'
 
 window.document.addEventListener('touchstart', function (event) {
   /* Do Nothing */
@@ -8,6 +9,7 @@ window.document.addEventListener('touchstart', function (event) {
 const install = function (Vue) {
   Vue.component(Users.name, Users);
   Vue.component(AssemblyOrder.name, AssemblyOrder);
+  Vue.component(Convention.name, Convention);
 
 
   // Vue.prototype.$dialog = {
