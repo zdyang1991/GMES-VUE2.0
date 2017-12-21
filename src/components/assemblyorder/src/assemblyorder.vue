@@ -5,31 +5,26 @@
     <!-- 第一行 -->
     <div class="row f-df">
       <div class="row-container f-df">
-        <div :class='[upperConfig.remainAmount ? "f-w60p" : "f-w100p"]' class="item-container">
-          <label class="label">当前规格</label>
-          <div class="detail" title="LJI3KID349534589">{{upperData.carDescription}}</div>
+        <div class="item-container">
+          <label class="label">工单编号</label>
+          <div class="detail" title="LJI3KID349534589">NO_000000000003</div>
         </div>
-
-        <div v-if="upperConfig.remainAmount" class="item-container remain-amount-box blink f-w40p">
-          <div class="remain-amount-container">
-            <span class="remain-amount-label">剩余数量:</span>
-            <span class="remain-amount">{{upperData.remainingQuantity}}</span>
-          </div>
+        <div class="item-container">
+          <label class="label">机型</label>
+          <div class="detail" title="LJI3KID349534589">HGJ-1</div>
         </div>
       </div>
     </div>
-
     <!-- 第二行 -->
-    <div v-if="upperConfig.enums" class="row f-df">
+    <div class="row f-df">
       <div class="row-container f-df">
-        <!-- upperData.configEnums -->
-        <div class="item-container f-w50p">
-          <label class="label">{{upperData.configEnums | configEnumsFilt(0, "configText") || "特性"}}</label>
-          <div class="detail"> {{upperData.configEnums | configEnumsFilt(0, "valueText")}}</div>
+        <div class="item-container">
+          <label class="label">序列号</label>
+          <div class="detail" title="LJI3KID349534589">1616161616166161616</div>
         </div>
-        <div class="item-container f-w50p">
-          <label class="label">{{upperData.configEnums | configEnumsFilt(1, "configText") || "特性"}}</label>
-          <div class="detail"> {{upperData.configEnums | configEnumsFilt(1, "valueText")}}</div>
+        <div class="item-container">
+          <label class="label">物料描述</label>
+          <div class="detail" title="LJI3KID349534589">发动机00001</div>
         </div>
       </div>
     </div>
@@ -37,88 +32,39 @@
     <!-- 第三行 -->
     <div class="row f-df">
       <div class="row-container f-df">
-        <div class="item-container f-f1">
-          <label class="label">产品标识号</label>
-          <div class="detail">{{upperData.productNumFormat}}</div>
+        <div class="item-container">
+          <label class="label">计划数量</label>
+          <div class="detail" title="LJI3KID349534589">1</div>
         </div>
-        <div class="item-container f-f1">
-          <label class="label">生产管理号</label>
-          <div class="detail">{{upperData.productIdFormat}}</div>
+        <div class="item-container">
+          <label class="label">顺序号</label>
+          <div class="detail" title="LJI3KID349534589">20171205001</div>
         </div>
-        <div v-if="upperConfig.confirmButton" class="item-container f-f1">
-          <el-button type="primary" class="confirmOnline" :loading="loadFlag" @click='$emit("confirmEvent")' :disabled="loadFlag || !(upperData.productId && upperData.productNum)">上线确认</el-button>
-        </div>
-        <div v-if="upperConfig.historyButton" class="item-container f-f1">
-          <el-button type="primary" class="confirmOnline" @click='$emit("getTable", true)'>历史记录</el-button>
-        </div>
-        <div v-if="upperConfig.jumpButton" class="item-container f-f1">
-          <el-button type="primary" class="confirmOnline" :loading="loadFlag" @click='$emit("jumpEvent")' :disabled="loadFlag">跳过异常</el-button>
-        </div>
-
       </div>
     </div>
 
     <!-- 第四行 -->
-    <div v-if="upperConfig.remark" class="row f-df">
-      <div class="row-container f-df">
-        <div class="item-container f-f1">
-          <label class="label">备注</label>
-          <div class="remark">{{upperData.remark}}</div>
-        </div>
-      </div>
-    </div>
-    <div v-else class="pictureRow f-df">
-      <div class="pictureRow-container f-df">
-        <div class="item-container f-f1">
-          <div v-if="upperData.picture" class="img-container" :style="{backgroundImage: 'url(' + upperData.picture + ')'}"></div>
-          <div v-else class="img-container no-info"></div>
-        </div>
-      </div>
-    </div>
   </div>
 </template>
 <script>
-  import { Message } from 'element-ui';
+  import {Message} from 'element-ui';
   import util from "@/js/util"
-  import { http, fetch } from '@/js/http';
-  import { mapGetters, mapActions } from 'vuex';
+  import {http, fetch} from '@/js/http';
+  import {mapGetters, mapActions} from 'vuex';
+
   export default {
-    name:"AssemblyOrder",
+    name: "AssemblyOrder",
     data() {
-      return {
-
-      }
+      return {}
     },
-    filters: {
-      configEnumsFilt(configEnums, item, type) {
-        var configText = "";
-
-        // 防止特性为undefined
-        if (configEnums && configEnums.length) {
-          var enums = configEnums[item];
-
-          // 防止特性个数不够
-          if (enums) {
-            configText = enums[type];  // configText  valueText
-          }
-        }
-        return configText;
-      },
-
-    },
+    filters: {},
     // 放在计算属性
-    computed: {
-
-    },
-    created () {
+    computed: {},
+    created() {
       // 防止报错
-      if (!this.upperConfig) {
-        this.upperConfig = {};
-      }
-    },
-    methods: {
 
     },
+    methods: {},
     props: ['upperData', 'loadFlag', "upperConfig"],
   }
 
@@ -152,7 +98,6 @@
     flex-direction: column;
   }
 
-
   .row-container {
     height: 65px;
     width: 100%;
@@ -162,28 +107,30 @@
     height: 100%;
     width: 100%;
   }
+
   /* 从第二个子元素开始生效 */
 
-  .item-container:nth-child(n+2) {
-    margin-left: 20px;
+  .item-container {
+    width: 50%;
+    margin-left: 15px;
   }
 
   .label {
     color: #595959;
-    font-size: 18px;
+    font-size: 25px;
     line-height: 25px;
   }
 
   .detail {
     color: #222222;
     font-weight: bolder;
-    font-size: 18px;
+    font-size: 27px;
     border-bottom: 1px solid #CDCDCD;
-    line-height: 36px;
+    line-height: 30px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    min-height: 36px;
+    min-height: 40px;
   }
 
   .remain-amount-box {

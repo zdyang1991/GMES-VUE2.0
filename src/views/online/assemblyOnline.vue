@@ -2,12 +2,13 @@
 <template>
   <div class="bg" v-if="true" element-loading-text="玩命加载中">
     <div class="body f-df">
-      <div class="right">
+      <div class="left">
+        <AssemblyOrder></AssemblyOrder>
         <!--<div v-if="upperData.picture" class="img-container" :style="{backgroundImage: 'url(' + upperData.picture + ')'}"></div>-->
         <!--<div v-else class="img-container no-info"></div>-->
       </div>
-      <div class="left">
-        <AssemblyOrder></AssemblyOrder>
+      <div class="right">
+
       </div>
     </div>
     <div class="bottom">
