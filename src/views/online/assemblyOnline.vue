@@ -8,7 +8,7 @@
         <!--<div v-else class="img-container no-info"></div>-->
       </div>
       <div class="right">
-
+        <div class="img-container no-info"></div>
       </div>
     </div>
     <div class="bottom">
@@ -43,7 +43,7 @@
 </template>
 
 <script>
-// import currentorder from './component/currentOrder.vue';
+  // import currentorder from './component/currentOrder.vue';
 </script>
 
 
