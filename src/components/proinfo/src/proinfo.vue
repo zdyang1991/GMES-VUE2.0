@@ -1,77 +1,54 @@
 <template>
   <div>
     <div id="currentorder" class="right-container">
-
       <!-- 第一行 -->
       <div class="row f-df">
         <div class="row-container f-df">
-          <div  class="item-container f-w60p">
-            <label class="label">当前规格</label>
+          <div class="item-container f-f1">
+            <label class="label">物料编号</label>
             <div class="detail"></div>
           </div>
-
-          <div  class="item-container remain-amount-box blink f-w40p">
-            <div class="remain-amount-container">
-              <span class="remain-amount-label">剩余数量:</span>
-              <span class="remain-amount"></span>
-            </div>
+          <div class="item-container f-f1">
+            <label class="label">物料描述</label>
+            <div class="detail"></div>
           </div>
         </div>
       </div>
-
       <!-- 第二行 -->
-      <div  class="row f-df">
+      <div class="row f-df">
         <div class="row-container f-df">
-          <!-- upperData.configEnums -->
-          <div class="item-container f-w50p">
-            <label class="label"></label>
-            <div class="detail"> </div>
+          <div class="item-container f-f1">
+            <label class="label">物料编号</label>
+            <div class="detail"></div>
           </div>
-          <div class="item-container f-w50p">
-            <label class="label">{{upperData.configEnums | configEnumsFilt(1, "configText") || "特性"}}</label>
-            <div class="detail"> {{upperData.configEnums | configEnumsFilt(1, "valueText")}}</div>
+          <div class="item-container f-f1">
+            <label class="label">物料描述</label>
+            <div class="detail"></div>
           </div>
         </div>
       </div>
-
       <!-- 第三行 -->
       <div class="row f-df">
         <div class="row-container f-df">
           <div class="item-container f-f1">
-            <label class="label">产品标识号</label>
-            <div class="detail">{{upperData.productNumFormat}}</div>
+            <label class="label">计划数量</label>
+            <div class="detail"></div>
           </div>
           <div class="item-container f-f1">
-            <label class="label">生产管理号</label>
-            <div class="detail">{{upperData.productIdFormat}}</div>
+            <label class="label">产品序列号</label>
+            <div class="detail"></div>
           </div>
-          <div v-if="upperConfig.confirmButton" class="item-container f-f1">
-            <el-button type="primary" class="confirmOnline" :loading="loadFlag" @click='$emit("confirmEvent")' :disabled="loadFlag || !(upperData.productId && upperData.productNum)">上线确认</el-button>
-          </div>
-          <div v-if="upperConfig.historyButton" class="item-container f-f1">
-            <el-button type="primary" class="confirmOnline" @click='$emit("getTable", true)'>历史记录</el-button>
-          </div>
-          <div v-if="upperConfig.jumpButton" class="item-container f-f1">
-            <el-button type="primary" class="confirmOnline" :loading="loadFlag" @click='$emit("jumpEvent")' :disabled="loadFlag">跳过异常</el-button>
-          </div>
-
         </div>
       </div>
-
-      <!-- 第四行 -->
-      <div v-if="upperConfig.remark" class="row f-df">
+      <div class="row f-df">
         <div class="row-container f-df">
           <div class="item-container f-f1">
-            <label class="label">备注</label>
-            <div class="remark">{{upperData.remark}}</div>
+            <label class="label">发动机号</label>
+            <div class="detail"></div>
           </div>
-        </div>
-      </div>
-      <div v-else class="pictureRow f-df">
-        <div class="pictureRow-container f-df">
           <div class="item-container f-f1">
-            <div v-if="upperData.picture" class="img-container" :style="{backgroundImage: 'url(' + upperData.picture + ')'}"></div>
-            <div v-else class="img-container no-info"></div>
+            <label class="label">订单编号</label>
+            <div class="detail"></div>
           </div>
         </div>
       </div>
@@ -93,8 +70,12 @@
 
   .row {
     flex: 1;
-    padding: 20px;
+    padding: 1rem;
     box-sizing: border-box;
+  }
+
+  .row:first-child {
+    margin-top: 1rem;
   }
 
   .pictureRow {
@@ -113,7 +94,6 @@
     flex-direction: column;
   }
 
-
   .row-container {
     height: 65px;
     width: 100%;
@@ -123,6 +103,7 @@
     height: 100%;
     width: 100%;
   }
+
   /* 从第二个子元素开始生效 */
 
   .item-container:nth-child(n+2) {
