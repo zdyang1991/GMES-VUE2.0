@@ -1,0 +1,58 @@
+@font-face {
+  font-family: 'element-icons';  /* project id 430021 */
+  src: url('//at.alicdn.com/t/font_430021_vhb3oeug8f72e29.eot');
+  src: url('//at.alicdn.com/t/font_430021_vhb3oeug8f72e29.eot?#iefix') format('embedded-opentype'),
+  url('//at.alicdn.com/t/font_430021_vhb3oeug8f72e29.woff') format('woff'),
+  url('//at.alicdn.com/t/font_430021_vhb3oeug8f72e29.ttf') format('truetype'),
+  url('//at.alicdn.com/t/font_430021_vhb3oeug8f72e29.svg#iconfont') format('svg');
+}
+
+@font-face {
+  font-family: 'iconfont';  /* project id 430021 */
+  src: url('//at.alicdn.com/t/font_430021_vhb3oeug8f72e29.eot');
+  src: url('//at.alicdn.com/t/font_430021_vhb3oeug8f72e29.eot?#iefix') format('embedded-opentype'),
+  url('//at.alicdn.com/t/font_430021_vhb3oeug8f72e29.woff') format('woff'),
+  url('//at.alicdn.com/t/font_430021_vhb3oeug8f72e29.ttf') format('truetype'),
+  url('//at.alicdn.com/t/font_430021_vhb3oeug8f72e29.svg#iconfont') format('svg');
+}
+
+[class^="el-icon-pad"], [class*=" el-icon-pad"] {
+  font-family:"element-icons" !important;
+  font-size:0.9rem;
+  font-style:normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+[class^="icon-pad"], [class*="icon-pad"] {
+  font-family:"iconfont" !important;
+  font-size:0.9rem;
+  font-style:normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+
+/* 注:如果不涉及<input icon="xxx" > 那么icon命名直接用 .icon-pad-xxx 反之就用.el-icon-pad-xxx */
+
+.icon-pad-menu:before { content: "\e61e"; }
+
+.el-icon-pad-nodata:before {content: "\e951";}
+.el-icon-pad-add:before { content: "\e600"; }
+.el-icon-pad-analyse:before { content: "\e722"; }
+.el-icon-pad-menu2:before { content: "\e78b"; }
+.el-icon-pad-notice:before { content: "\e7a3"; }
+.el-icon-pad-andon:before { content: "\e716"; }
+.el-icon-pad-alarm:before { content: "\e69b"; }
+.el-icon-pad-edit:before { content: "\e628"; }
+.el-icon-pad-clock:before { content: "\e60e"; }
+.el-icon-pad-off:before { content: "\e64e"; }
+.el-icon-pad-off:before { content: "\e64e"; }
+.el-icon-pad-user:before { content: "\e715"; }
+.el-icon-pad-password:before { content: "\e709"; }
+.el-icon-pad-add:before { content: "\e6e0"; }
+.el-icon-pad-analyse:before { content: "\e722"; }
+.el-icon-pad-andon:before { content: "\e716"; }
+.el-icon-pad-alarm:before { content: "\e7a3"; }
+.el-icon-pad-edit:before { content: "\e628"; }
+.el-icon-pad-clock:before { content: "\e909"; }

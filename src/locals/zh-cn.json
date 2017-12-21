@@ -1,0 +1,13 @@
+{
+	"message":{
+  		"hello": "你好"
+	},
+	"title":"前端",
+	"navMenu":[
+		{"name":"菜单一","childMenu":["接口生成","接口列表"]},
+		{"name":"菜单二"},
+		{"name":"菜单三"},
+		{"name":"语言"}
+	],
+	"submitB":"登录"
+}
