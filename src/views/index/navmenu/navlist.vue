@@ -18,6 +18,12 @@
         <el-menu-item index="/online/assemblyOnline">装配上线</el-menu-item>
         <el-menu-item index="/online/machineplusOnline">机加上线</el-menu-item>
       </el-submenu>
+      <el-submenu index="4">
+        <template slot="title">
+          装配下线
+        </template>
+        <el-menu-item index="/assembleInsert">装配下线</el-menu-item>
+      </el-submenu>
 	    </el-menu>
 	</div>
 </template>

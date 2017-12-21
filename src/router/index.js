@@ -20,6 +20,7 @@ import SystemConfiguration from '@/views/system/systemconfiguration.vue';
 import Initialize from '@/views/initialize/initialize.vue';
 import AssemblyOnline from '@/views/online/assemblyOnline.vue';
 import MachineplusOnline from '@/views/online/machineplusOnline.vue';
+import AssembleInsert from '@/views/assembleInsert/assembleInsert.vue';
 const routes = [
   {
     path: '/', component: Index, redirect: '/home',
@@ -40,7 +41,8 @@ const routes = [
       {path: '/system',component: SystemConfiguration,name: '系统配置'},
       {path: '/initialize', component: Initialize, name: '初始化'},
       {path: '/online/assemblyOnline', component: AssemblyOnline, name: '装配上线'},
-      {path: '/online/machineplusOnline', component: MachineplusOnline, name: '机加上线'}
+      {path: '/online/machineplusOnline', component: MachineplusOnline, name: '机加上线'},
+      {path: '/assembleInsert', component: AssembleInsert, name: '机加上线'}
     ]
   },
   {path: '/login', component: Login}
