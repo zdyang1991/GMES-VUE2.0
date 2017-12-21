@@ -65,12 +65,16 @@
 
   .left {
     width: 55%;
-    height: 100%;
+    /*height: 100%;*/
     background-color: white;
+    margin-bottom: 20px;
   }
 
   .right {
+    margin-left: 20px;
     width: 45%;
+    /*height:100%;*/
+    margin-bottom: 20px;
     background: white;
   }
 
@@ -83,8 +87,8 @@
   }
 
   .bottom {
-    height: 161px;
-    margin-top: 10px;
+    height: 170px;
+    /*margin-top: 10px;*/
     background: white;
   }
 
