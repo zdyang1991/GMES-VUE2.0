@@ -3,6 +3,7 @@ import {AssemblyOrder} from '../components/assemblyorder'
 import {Convention} from '../components/convention'
 import {Proinfo} from '../components/proinfo'
 import {Progress} from '../components/progress'
+import {DragBall} from '../components/dragball'
 
 window.document.addEventListener('touchstart', function (event) {
   /* Do Nothing */
@@ -14,6 +15,7 @@ const install = function (Vue) {
   Vue.component(Convention.name, Convention);
   Vue.component(Proinfo.name, Proinfo);
   Vue.component(Progress.name, Progress);
+  Vue.component(DragBall.name, DragBall);
 
 
   // Vue.prototype.$dialog = {
