@@ -2,12 +2,18 @@
 	<div id="nav-menu-list">
 		<el-menu :unique-opened="true"  class="el-menu-vertical-demo" theme="dark" v-bind:router="true">
       <el-submenu index="1">
+        <template slot="title">
+          系统管理
+        </template>
+        <el-menu-item index="/system">系统配置</el-menu-item>
+      </el-submenu>
+      <el-submenu index="2">
           <template slot="title">
             初始化
           </template>
         <el-menu-item index="/initialize">初始化</el-menu-item>
       </el-submenu>
-      <el-submenu index="2">
+      <el-submenu index="3">
         <template slot="title">上线界面</template>
         <el-menu-item index="/online/assemblyOnline">装配上线</el-menu-item>
         <el-menu-item index="/online/machineplusOnline">机加上线</el-menu-item>

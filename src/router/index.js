@@ -16,6 +16,7 @@ import AndonPullCordsMultilevelOperate 	from '@/views/andon/andonPullCordsMultil
 import AndonMonitoring 					from '@/views/andon/andonMonitoring/index.vue';
 import SopWorkInstruction from '@/views/pcs/sopWorkInstruction';
 import RealTimeMonitoringOfPositionDefect from '@/views/pqc/realTimeMonitoringOfPositionDefect';
+import SystemConfiguration from '@/views/system/systemconfiguration.vue';
 import Initialize from '@/views/initialize/initialize.vue';
 import AssemblyOnline from '@/views/online/assemblyOnline.vue';
 import MachineplusOnline from '@/views/online/machineplusOnline.vue';
@@ -36,6 +37,7 @@ const routes = [
       {path: '/pqc/realTimeMonitoringOfPositionDefect', component: RealTimeMonitoringOfPositionDefect},
       {path: '/andon/andonMonitoring', component: AndonMonitoring},
       {path: '/andon/andonPullCordsMultilevelOperate', component: AndonPullCordsMultilevelOperate},
+      {path: '/system',component: SystemConfiguration,name: '系统配置'},
       {path: '/initialize', component: Initialize, name: '初始化'},
       {path: '/online/assemblyOnline', component: AssemblyOnline, name: '装配上线'},
       {path: '/online/machineplusOnline', component: MachineplusOnline, name: '机加上线'}
