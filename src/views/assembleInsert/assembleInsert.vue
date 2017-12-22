@@ -15,8 +15,8 @@
     <div class="bottom-box">
       <el-button type="danger">需要热试</el-button>
       <el-button type="primary">保存</el-button>
-
     </div>
+    <dragball></dragball>
   </div>
 </template>
 

@@ -52,6 +52,10 @@
              </el-table-column>
            </el-table>
          </div>
+        <div class="fixed-box">
+          <span>历史记录</span>
+          <span></span>
+        </div>
       </div>
 </template>
 <script>
