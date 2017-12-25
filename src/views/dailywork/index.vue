@@ -7,7 +7,7 @@
 		<div class="vin-detail bg">
 			<template v-for="item in product">
 				<form-input :items="item" :styles="formInputstyle" swMode="x"></form-input>
-			</template> 
+			</template>
 			<form-input :items="configEnums" :styles="formInputstyle" swMode="x"></form-input>
 		</div>
 		<div class="dailywork-list f-df f-f1">
@@ -100,7 +100,7 @@
 </template>
 
 <script>
-import { mapGetters, 
+import { mapGetters,
 		 mapActions
 	   } 			from 'vuex';
 import userinfo 	from '@/js/userinfo'
@@ -190,7 +190,7 @@ export default {
     }),
 	methods:{
 		...mapActions([
-	      'text', 
+	      'text',
 	    ]),
 	    abbreviation(arr = []){
 			return arr.length > 2 ?  `${arr[0]}...${arr[arr.length-1]}` : arr;
@@ -210,7 +210,7 @@ export default {
 			fetch.post('restful/service/execute',datas).then((data)=>{
 				_this.configEnums = [];
 				const {
-					product , 
+					product ,
 					configEnums ,
 					orderPlan,
 					routingAcquiItemAssigns
@@ -241,7 +241,7 @@ export default {
 
 
 			})
-			/*util.service("GMES-CLIENT-PCS00016",datas,null).done(function(data){
+			/*utils.service("GMES-CLIENT-PCS00016",datas,null).done(function(data){
 				notie.alert({text: '完成', time: 3,type:1});
 				_this.clearDesList()
 				_this.productNumList.shift()

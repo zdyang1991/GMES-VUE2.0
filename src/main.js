@@ -17,7 +17,8 @@ import UI from './components/ui';
 import utils from  "./plugins/utils";
 import axios from 'axios'
 import vueAxios from 'vue-axios'
-import './util/util.js'
+import './utils/util.js'
+import './config/config.js'
 
 var locales = {
   'zh-cn':{

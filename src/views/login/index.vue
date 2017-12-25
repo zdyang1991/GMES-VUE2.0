@@ -10,17 +10,23 @@
 				<div class="avatar"></div>
 				<!-- 头像end -->
 				<div class="f-mt10 f-mb10 f-fs16 f-tac">{{$t("submitB")}}</div>
-				<el-form ref="form" :model="form">
-					<el-form-item prop="username" :rules=rule.nameRule>
-						<el-input v-model="form.username" :autofocus=true  ref="form.username" placeholder="用户名" icon="pad-user" @keyup.enter.native="onSubmit('form')"></el-input>
-					</el-form-item>
-					<el-form-item prop="password" :rules=rule.passwordRule>
-						<el-input v-model="form.password" placeholder="密码" icon="pad-password" @keyup.enter.native="onSubmit('form')"></el-input>
-					</el-form-item>
-					<el-form-item>
-						<el-button type="primary" class="submitBtn f-trans10 f-h45" @click="onSubmit('form')" :loading=loadingFlag>{{$t("submitB")}}</el-button>
-					</el-form-item>
-				</el-form>
+        <form action="" id="loginInfo">
+          <el-form>
+            <el-form-item  :rules=rule.nameRule>
+              <el-input v-model="userCode" :autofocus=true  ref="form.username" placeholder="用户名" icon="pad-user" @keyup.enter.native="onSubmit('form')"></el-input>
+            </el-form-item>
+            <el-form-item  :rules=rule.passwordRule>
+              <el-input v-model="password" placeholder="密码" icon="pad-password" @keyup.enter.native="onSubmit('form')"></el-input>
+            </el-form-item>
+            <el-form-item  :rules=rule.passwordRule>
+              <el-input v-model="siteCode" placeholder="工厂编码" icon="pad-password" @keyup.enter.native="onSubmit('form')"></el-input>
+            </el-form-item>
+            <el-form-item>
+              <el-button type="primary" class="submitBtn f-trans10 f-h45" @click="onSubmit('form')" :loading=loadingFlag>{{$t("submitB")}}</el-button>
+            </el-form-item>
+          </el-form>
+        </form>
+
 				<el-radio-group class="f-fr" v-model="language" @change="changeLang">
 					<el-radio-button label="中文"></el-radio-button>
 					<el-radio-button label="English"></el-radio-button>
@@ -30,7 +36,6 @@
 		<div class="login-copyright">©2017 杭州吉利易云科技有限公司 版权所有</div>
 	</div>
 </template>
-
 <script>
 	import { http } from '@/js/http'
 	import particles from "@/js/vendors/particles/particles"
@@ -43,11 +48,14 @@
 		data() {
 			return {
 				language: '中文',
-				form: {
-					username: 'sunya',
-					password: 'a1234567',
-					grant_type: "password"
-				},
+        userCode:'',
+        password:'',
+        siteCode:'',
+//				form: {
+//					username: 'sunya',
+//					password: 'a1234567',
+//					grant_type: "password"
+//				},
 				rule: {
 					nameRule: [
 						{ required: true, message: '账号不能为空'},
@@ -60,7 +68,21 @@
 			}
 		},
 		methods: {
+      onSubmit(){
+        console.log(this.userCode)
+        this.$httpUtil.post('restful/doLogin',
+          {
+            data: 'userCode=' + this.userCode + '&password=' + this.password + '&siteCode=' + this.siteCode
+          }
+        ).then((response) => {
+          console.log(response)
+          if(response.returnCode==0){
 
+          }
+
+        }).catch(error => {
+        });
+      } ,
 //			onSubmit(formName) {
 //				this.$refs[formName].validate(async (valid) => {
 //					if (valid) {

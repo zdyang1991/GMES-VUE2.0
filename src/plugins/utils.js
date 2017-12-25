@@ -20,30 +20,35 @@ const httpOptionDefault = {
   validateType: true
 };
 
-const transformRequest = function(data) {
-  let ret = ''
-  for (let it in data) {
-    ret += encodeURIComponent(it) + '=' + encodeURIComponent(data[it]) + '&'
-  }
-  return ret
-};
 
+
+const prepareOption = function(opt) {
+  const option = Object.assign({}, httpOptionDefault, opt);
+  if (option.formId != null) {
+    option.dataObj = formJsonParam(option.formId);
+  }
+
+  if (option.dataObj != null) {
+    option.data = transformRequest(option.dataObj);
+  }
+  return option;
+};
 const saveApproverData = function() {
-  if (global.cashier.realName != null && global.cashier.realName != 'undefined') {
-    var approverData = {
-      cashier: global.cashier,
-      cashierType: global.cashierType,
-      cashierAdd: global.cashierAdd
-    };
-    global.localStorageData.setItem('approverData', JSON.stringify(approverData));
-  }
-};
 
+};
+const getTimeOut = function(option) {
+  return new Promise(function(resolve, reject) {
+    setTimeout(() => {
+      option.noLoading = true;
+      reject({ code: 0, msg: "服务端请求超时！" });
+    }, option.timeout)
+  });
+};
 const getLoading = function(option, req) {
   return new Promise(function(resolve, reject) {
     setTimeout(() => {
       if (!option.noLoading) {
-        Loading.open(option.loadingMsg);
+      
         const pending = new Promise(function(resolve, reject) {
           setTimeout(() => {
             resolve();
@@ -58,46 +63,20 @@ const getLoading = function(option, req) {
   });
 };
 
-const getTimeOut = function(option) {
-  return new Promise(function(resolve, reject) {
-    setTimeout(() => {
-      option.noLoading = true;
-      reject({ code: 0, msg: "服务端请求超时！" });
-    }, option.timeout)
-  });
-};
-
 const getRace = function(req, option) {
   return Promise.race([req, getLoading(option, req), getTimeOut(option)]).then(response => {
     if (response.returnMsg != null && response.returnMsg != '' && response.returnMsg != undefined) {
-      Loading.close();
       Toast({ mes: response.returnMsg, timeout: option.sucessTimeout, icon: 'success' });
     }
     return Promise.resolve(response);
   }).catch(error => {
-    if (!option.noLoading) {
-      option.noLoading = true;
-      Loading.close();
-    }
-
+    
     if (error.code == '1001') {
       error.msg = '会话失效，请重新登录';
     }
     Toast({ mes: error.msg, timeout: option.errorTimeout, icon: 'error' });
     return Promise.reject(error);
   })
-};
-
-const prepareOption = function(opt) {
-  const option = Object.assign({}, httpOptionDefault, opt);
-  if (option.formId != null) {
-    option.dataObj = formJsonParam(option.formId);
-  }
-
-  if (option.dataObj != null) {
-    option.data = transformRequest(option.dataObj);
-  }
-  return option;
 };
 
 
@@ -184,7 +163,6 @@ const install = function(Vue) {
         }).then((response) => {
           if (!option.noLoading) {
             option.noLoading = true;
-            Loading.close();
           }
           saveApproverData();
           if (option.clearGlobal) {

@@ -112,7 +112,7 @@
                     productTrackNum: "1",// 产品跟踪号，填1，还没有，必要
                 }];
 
-                util.post({ 
+                util.post({
                     subassemblyOnlinesJson: JSON.stringify(arr),
                     serviceCode: "GMES-CLIENT-PCS0014",
                 })
@@ -160,9 +160,9 @@
             jumpEvent() {
                 this.pageNum ++;
                 this._getData();
-                // util.confirm(this.moduleConfig, [this.upperData])
+                // utils.confirm(this.moduleConfig, [this.upperData])
                 //     .then((response) => {
-                //         if (util.rightCode(response)) {
+                //         if (utils.rightCode(response)) {
                 //             this.upperData = {};
 
                 //             Message({
