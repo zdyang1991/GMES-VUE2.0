@@ -42,7 +42,7 @@ const routes = [
       {path: '/initialize', component: Initialize, name: '初始化'},
       {path: '/online/assemblyOnline', component: AssemblyOnline, name: '装配上线'},
       {path: '/online/machineplusOnline', component: MachineplusOnline, name: '机加上线'},
-      {path: '/assembleInsert', component: AssembleInsert, name: '机加上线'}
+      {path: '/assembleInsert', component: AssembleInsert, name: '装配下线'}
     ]
   },
   {path: '/login', component: Login}
