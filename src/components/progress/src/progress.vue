@@ -30,9 +30,9 @@
 </script>
 <style lang="less" scoped>
   .progress{
-    height: 25rem;
+    height: 27rem;
     .container{
-      height: 22rem;
+      height: 27rem;
     }
   }
 

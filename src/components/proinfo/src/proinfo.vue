@@ -6,7 +6,7 @@
         <div class="row-container f-df">
           <div class="item-container f-f1">
             <label class="label">物料编号</label>
-            <div class="detail"></div>
+            <div class="detail">222222112</div>
           </div>
           <div class="item-container f-f1">
             <label class="label">物料描述</label>
@@ -112,14 +112,14 @@
 
   .label {
     color: #595959;
-    font-size: 18px;
-    line-height: 25px;
+    font-size: 2rem;
+    line-height: 2rem;
   }
 
   .detail {
     color: #222222;
     font-weight: bolder;
-    font-size: 18px;
+    font-size: 2.3rem;
     border-bottom: 1px solid #CDCDCD;
     line-height: 36px;
     overflow: hidden;
