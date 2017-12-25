@@ -8,7 +8,7 @@
 					<div class="info-name f-ell" :title="userData.userText"><span class="f-fs16">{{userData.userText}}</span><span class="f-fs12 f-ml3" :title="userData.userCode">({{userData.userCode}})</span></div>
 				<div class="f-fs12 f-mt3 f-ell">用户站点 ({{station}})</div>
 			</div>
-			
+
 		</div>
 		</router-link>
 		<nav-list class="body" @closeMenu="closeMenus"></nav-list>
@@ -20,27 +20,16 @@
 
 <script>
 	import navList    from './navlist.vue'
-	import userinfo   from '@/js/userinfo'
-	import { mapGetters } from 'vuex';
 
 	export default {
 		data(){
 			return {
 				navMenuList:[],
 				jobInfo: "暂无岗位信息",
-				stationInfo: "暂无站点信息" 
+				stationInfo: "暂无站点信息"
 			}
 		},
-		computed: {
-			...mapGetters({
-				userData: 'recorduserData',
-				userStations: 'recordoperuserStations',
-  			}),
-  			station(){
-  				return Object.keys(this.userStations)[0]
-  			}
 
-  		},
 		components:{
 			navList,
 		},
@@ -100,7 +89,7 @@
 	.info {
 		width: 150px;
 	}
-	
+
 	.info a {
 		color:#f1f5f8;
 	}

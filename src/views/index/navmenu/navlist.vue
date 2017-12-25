@@ -28,16 +28,13 @@
 </template>
 
 <script>
-	import { mapGetters } from 'vuex';
 	export default {
 		data(){
 			return {
 				navMenuList:[],
 			}
 		},
-		computed: mapGetters({
-        	moduleMenuList: 'recordmoduleMenus',
-  		}),
+
 		methods:{
 			closeMenu(){
 				this.$emit('closeMenu')

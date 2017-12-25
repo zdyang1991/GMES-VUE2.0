@@ -8,19 +8,18 @@
 
 <script>
 
-import { mapGetters } from 'vuex';
 export default {
 	data() {
 		return {
 
     }
-	},  
+	},
   computed:{
     title(){
       return this.$store.state.common.headTitle;
     }
   }
- 
+
 }
 </script>
 <style lang="less" scoped>
@@ -40,5 +39,5 @@ export default {
       font-size: 0.8rem;
     }
   }
-	
+
 </style>

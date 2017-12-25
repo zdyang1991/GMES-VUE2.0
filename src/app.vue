@@ -8,10 +8,7 @@
 </template>
 
 <script>
-	import userinfo from '@/js/userinfo'
 	import './css/iconfont.css'
-	import '@/js/rem'
-	import jQuery from 'jquery';
 	export default {
 		name: 'app',
 		data() {

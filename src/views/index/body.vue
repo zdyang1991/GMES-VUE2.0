@@ -8,13 +8,12 @@
 
 <script>
 
-import Dailywork from '../dailywork/index.vue'
 
 export default {
 	data(){
 		return {}
 	}
-	
+
 }
 </script>
 <style lang="less" scoped>
@@ -24,5 +23,5 @@ export default {
   	background: #ededed;
   	overflow:hidden;
   }
-	
+
 </style>

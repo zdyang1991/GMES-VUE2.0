@@ -47,10 +47,6 @@
   </div>
 </template>
 <script>
-  import {Message} from 'element-ui';
-  import util from "@/js/util"
-  import {http, fetch} from '@/js/http';
-  import {mapGetters, mapActions} from 'vuex';
 
   export default {
     name: "AssemblyOrder",

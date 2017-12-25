@@ -36,12 +36,6 @@
 </template>
 
 <script>
-	import userinfo from '@/js/userinfo'
-	import getTime from '@/js/timeFormat'
-	import timer from '@/js/timerManager'
-	import config from '@/js/config'
-	import { http, fetch } from '@/js/http'
-	import { mapGetters } from 'vuex';
 	export default {
 		data() {
 			return {
@@ -93,14 +87,7 @@
 			}
 
 		},
-		computed: {
-			...mapGetters({
-				moduleMenuList:'recordmoduleMenus'
-			}),
-			speeds() {
-				return `${this.speed.toString()}ms`;
-			}
-		},
+
 		methods: {
 			async onSubmit() {
 				const datas = [];

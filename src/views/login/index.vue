@@ -9,7 +9,7 @@
         <!-- 头像start -->
         <div class="avatar"></div>
         <!-- 头像end -->
-        <div class="f-mt10 f-mb10 f-fs16 f-tac">{{$t("submitB")}}</div>
+        <div class="f-mt10 f-mb10 f-fs16 f-tac">GMES-CLIENT</div>
         <form action="" id="loginInfo">
           <el-form>
             <el-form-item :rules=rule.nameRule>
@@ -25,29 +25,20 @@
             <!--</el-form-item>-->
             <el-form-item>
               <el-button type="primary" class="submitBtn f-trans10 f-h45" @click="onSubmit('form')"
-                         :loading=loadingFlag>{{$t("submitB")}}
+                         :loading=loadingFlag>登录
               </el-button>
             </el-form-item>
           </el-form>
         </form>
 
-        <el-radio-group class="f-fr" v-model="language" @change="changeLang">
-          <el-radio-button label="中文"></el-radio-button>
-          <el-radio-button label="English"></el-radio-button>
-        </el-radio-group>
       </div>
     </div>
     <div class="login-copyright">©2017 杭州吉利易云科技有限公司 版权所有</div>
   </div>
 </template>
 <script>
-  import {http} from '@/js/http'
-  import particles from "@/js/vendors/particles/particles"
-  import userinfo from '@/js/userinfo'
-  import Vue from 'vue';
-  import {Loading} from 'element-ui';
-  import config from '@/js/config'
-
+//  import {http} from '@/js/http'
+import particles from "@/js/vendors/particles/particles"
   export default {
     data() {
       return {
@@ -113,10 +104,10 @@
 //					}
 //				});
 //			},
-      changeLang(lang) {
-        localStorage.lang = lang === '中文' ? 'zh-cn' : 'en';
-        Vue.config.lang = localStorage.lang;
-      }
+//      changeLang(lang) {
+//        localStorage.lang = lang === '中文' ? 'zh-cn' : 'en';
+//        Vue.config.lang = localStorage.lang;
+//      }
     },
     mounted() {
       particlesJS('particles-js', {
