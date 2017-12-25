@@ -6,11 +6,9 @@
 		<!--粒子效果容器end-->
 		<div class="login-panel input-shine">
 			<div class="login-panel-inner">
-
 				<!-- 头像start -->
 				<div class="avatar"></div>
 				<!-- 头像end -->
-
 				<div class="f-mt10 f-mb10 f-fs16 f-tac">{{$t("submitB")}}</div>
 				<el-form ref="form" :model="form">
 					<el-form-item prop="username" :rules=rule.nameRule>
@@ -64,7 +62,6 @@
 		methods: {
 			onSubmit(formName) {
 				this.$refs[formName].validate(async (valid) => {
-
 					if (valid) {
 						this.loadingFlag = true;
 						const data = { ...this.form };// 不复制原型属性
