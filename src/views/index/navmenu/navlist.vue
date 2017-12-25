@@ -19,7 +19,7 @@
       <el-menu-item index="/assembleInsert">
         <span slot="title">装配下线</span>
       </el-menu-item>
-      <el-menu-item index="3">
+      <el-menu-item index="/hothost">
         <span slot="title">热试</span>
       </el-menu-item>
 
