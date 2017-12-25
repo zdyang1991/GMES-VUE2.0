@@ -1,3 +1,4 @@
+//全局方法
 urlPage = function (url, me, data) {
   if (!url) {
     return false;
@@ -151,18 +152,7 @@ getCurrentMonth = function () {
   return currentMonth;
 };
 globalClear = function () {
-  global.attachmentsList=[];
-  global.customerInfo = {customerName: '', customerId: ''};
-  global.projectInfo = {projectName: '', projectId: ''};
-  global.productList = [];
-  global.cashier = {};
-  global.imagesList=[];
-  global.cashierType = false;
-  global.cashierAdd = true;
-  global.dealAccountInfo = {accountName:'',accountNo:'', dealDesc:''};
-  global.categoryInfo={categoryName:'',categoryId:''};
-  global.accountInfo={accountName:'',accountId:''};
-  global.payee={payeeName:'',payeeId:''};
+
 };
 setApproverData = function (me) {
   if(global.cashier.realName==null||global.cashier.realName=='') {
@@ -205,45 +195,4 @@ isNumber =function(str){
     return false;
   }
 };
-//校验是否包含汉字
-checkChinese =function(val){
-  if((/[\u4e00-\u9fa5]/g).test(val)){
-    return true;
-  }else{
-    return false;
-  }
-};
-//校验是否包含字母
-checkLetter =function(val){
-  if((/[a-zA-Z]/g).test(val)){
-    return true;
-  }else{
-    return false;
-  }
-};
-//检测金额不能为空
-checkNull = function(val){
-  if(val == ''){
-    return true;
-  }else{
-    return false;
-  }
-};
-//小数位数限制
-limPoint = function(val){
-  if(/^(-)?[0-9]{1,10}([.][0-9]{1,2})?$/.test(val)){
-    return false;
-  }else{
-    return true;
-  }
-};
 
-isPositive =function (val) {
-  if(isNumber(val)){
-    if(val>0){
-      return true;
-    }else{
-      return false;
-    }
-  }
-}

@@ -60,32 +60,33 @@
 			}
 		},
 		methods: {
-			onSubmit(formName) {
-				this.$refs[formName].validate(async (valid) => {
-					if (valid) {
-						this.loadingFlag = true;
-						const data = { ...this.form };// 不复制原型属性
-						data.username += `_${config.apiBaseUrl.siteCode}_zh`;
-						// let loadingInstance = Loading.service({ text: '拼命登录中...' });
-						const res = await http.post('oauth/token', { body: data }, true)
-						if (res.status || typeof res != 'object') {
-							this.$message('用户名和密码有误');
-							this.loadingFlag = false;
-							return false;
-						}
-						for (var name in res) {
-							localStorage.setItem(name, res[name]);
-						}
-						userinfo.loginUserDataInit().then((data) => {
-							router.push('home');
-							this.loadingFlag = false;
-						}).catch((data = '登录失败') => {
-							this.loadingFlag = false;
-							this.$message(data)
-						});
-					}
-				});
-			},
+
+//			onSubmit(formName) {
+//				this.$refs[formName].validate(async (valid) => {
+//					if (valid) {
+//						this.loadingFlag = true;
+//						const data = { ...this.form };// 不复制原型属性
+//						data.username += `_${config.apiBaseUrl.siteCode}_zh`;
+//						// let loadingInstance = Loading.service({ text: '拼命登录中...' });
+//						const res = await http.post('oauth/token', { body: data }, true)
+//						if (res.status || typeof res != 'object') {
+//							this.$message('用户名和密码有误');
+//							this.loadingFlag = false;
+//							return false;
+//						}
+//						for (var name in res) {
+//							localStorage.setItem(name, res[name]);
+//						}
+//						userinfo.loginUserDataInit().then((data) => {
+//							router.push('home');
+//							this.loadingFlag = false;
+//						}).catch((data = '登录失败') => {
+//							this.loadingFlag = false;
+//							this.$message(data)
+//						});
+//					}
+//				});
+//			},
 			changeLang(lang) {
 				localStorage.lang = lang === '中文' ? 'zh-cn' : 'en';
 				Vue.config.lang = localStorage.lang;
