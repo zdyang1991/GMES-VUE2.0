@@ -54,7 +54,7 @@
          </div>
         <div class="fixed-box">
           <span>历史记录</span>
-          <span></span>
+          <span>TGA初始化</span>
         </div>
       </div>
 </template>
