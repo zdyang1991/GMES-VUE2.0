@@ -12,7 +12,6 @@ export default new Vuex.Store({
     hideSearch(state){
       state.searchShow = false
     },
-    
   },
   getters:{
   

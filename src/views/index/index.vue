@@ -22,6 +22,7 @@ export default {
     created(){
 
     },
+
     components:{
     	appFoot,
     	appBody,
