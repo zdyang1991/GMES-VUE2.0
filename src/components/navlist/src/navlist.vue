@@ -1,6 +1,6 @@
 <template>
-	<div id="nav-menu-list">
-		<el-menu :unique-opened="true"  class="el-menu-vertical-demo" theme="dark" v-bind:router="true">
+  <div id="nav-menu-list">
+    <el-menu :unique-opened="true" class="el-menu-vertical-demo" theme="dark" v-bind:router="true">
       <el-menu-item index="/system">
         <span slot="title">串口配置</span>
       </el-menu-item>
@@ -22,30 +22,15 @@
       <el-menu-item index="/hothost">
         <span slot="title">热试</span>
       </el-menu-item>
-
-	    </el-menu>
-	</div>
+    </el-menu>
+  </div>
 </template>
 
-<script>
-	export default {
-		data(){
-			return {
-				navMenuList:[],
-			}
-		},
-
-		methods:{
-      handleOpen(key, keyPath) {
-        console.log(key, keyPath);
-      },
-      handleClose(key, keyPath) {
-        console.log(key, keyPath);
-      }
-		}
-	}
+<script type="text/babel">
+  export default {
+    name: 'navlist'
+  }
 </script>
-
 <style lang="less" scoped>
-
+@import "../../../css/navlist.less";
 </style>

@@ -93,7 +93,7 @@ util.processDone = function (response) {
 
     try {
         if (code !== "0" && code !== "success") {
-            message += response.returnCode || response.code + " " + 
+            message += response.returnCode || response.code + " " +
                        response.errorMessage || response.message;
             notie.alert({ text: message, time: 5 });
         }
@@ -178,7 +178,7 @@ util.processData = function (config, data) {
         return {
             // 特性列表最多两个特性
             configEnums: [{
-                configCode: "",// 配置编号 
+                configCode: "",// 配置编号
                 configText: "",// 配置描述
                 valueText: "",//配置详情描述
                 fileName: ""// 图片文件名
@@ -246,7 +246,6 @@ util.confirm = function(moduleConfig, array) {
     var params = {
         // productTrackNum: "",// 产品跟踪号  目前不用
         siteCode: config.apiBaseUrl.siteCode,// 站点信息
-        stationCode: moduleConfig.stationCode,
         // productionSeqNum: "",// 生产管理号 作用同 productId
         // productNum: "",// 产品标识号
     };

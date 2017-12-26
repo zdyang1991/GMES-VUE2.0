@@ -5,8 +5,8 @@
 		<div class="head" @click="closeMenus">
 			<div class="logo"></div>
 			<div class="info">
-					<div class="info-name f-ell" :title="userData.userText"><span class="f-fs16">{{userData.userText}}</span><span class="f-fs12 f-ml3" :title="userData.userCode">({{userData.userCode}})</span></div>
-				<div class="f-fs12 f-mt3 f-ell">用户站点 ({{station}})</div>
+					<div class="info-name f-ell" ><span class="f-fs16"></span><span class="f-fs12 f-ml3"></span></div>
+				<div class="f-fs12 f-mt3 f-ell">用户站点</div>
 			</div>
 
 		</div>
@@ -20,7 +20,6 @@
 
 <script>
 	import navList    from './navlist.vue'
-
 	export default {
 		data(){
 			return {

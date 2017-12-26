@@ -24,8 +24,7 @@ export default {
     	}
     },
     created(){
-      this.$store.dispatch('getUserData');
-      this.$store.dispatch('getModuleMenus');
+
     },
     components:{
     	appFoot,
@@ -55,5 +54,5 @@ export default {
   		flex:1;
   	}
   }
-	
+
 </style>

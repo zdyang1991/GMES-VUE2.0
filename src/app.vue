@@ -45,7 +45,6 @@
 					router.push('/login')
 				})
 			}
-
 			//this.setViewport();
 		}
 	}
