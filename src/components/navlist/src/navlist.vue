@@ -1,5 +1,5 @@
 <template>
-  <div id="nav-menu-list">
+  <div id="nav-menu-list" v-if="isMenuShow">
     <ul  v-for="item in MenuListData">
       <li>
         <router-link :to="{name:item.menuText}" tag="div">
