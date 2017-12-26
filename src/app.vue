@@ -38,13 +38,13 @@
 			}
 		},
 		created() {
-			if (!localStorage.access_token) {
-				router.push('/login')
-			} else {
-				userinfo.isLogin(() => {
-					router.push('/login')
-				})
-			}
+//			if (!localStorage.access_token) {
+//				router.push('/login')
+//			} else {
+//				userinfo.isLogin(() => {
+//					router.push('/login')
+//				})
+//			}
 			//this.setViewport();
 		}
 	}
