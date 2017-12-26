@@ -46,11 +46,7 @@ import particles from "@/js/vendors/particles/particles"
         userCode: 'admin',
         password: 'a1234567',
         siteCode: siteCode,
-//				form: {
-//					username: 'sunya',
-//					password: 'a1234567',
-//					grant_type: "password"
-//				},
+        MenuListData:[],
         rule: {
           nameRule: [
             {required: true, message: '账号不能为空'},
@@ -70,7 +66,9 @@ import particles from "@/js/vendors/particles/particles"
             data: 'userCode=' + this.userCode + '&password=' + this.password + '&siteCode=' + this.siteCode
           }
         ).then((response) => {
-          console.log(response)
+
+          console.log(response.data.data.menus)
+          this.$store.state.menulist = response.data.data.menus;
           if (response.status == 200) {
             this.$router.push('/initialize');
           }

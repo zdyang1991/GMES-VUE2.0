@@ -1,6 +1,6 @@
 <template>
   <div id="nav-menu-list">
-    <el-menu :unique-opened="true" class="el-menu-vertical-demo" theme="dark" v-bind:router="true">
+    <el-menu :unique-opened="true" class="el-menu-vertical-demo" theme="dark" v-bind:router="true" v-if="isMenuShow">
       <el-menu-item index="/system">
         <span slot="title">串口配置</span>
       </el-menu-item>
@@ -28,7 +28,16 @@
 
 <script type="text/babel">
   export default {
-    name: 'navlist'
+    name: 'navlist',
+    props:['isMenuShow'],
+    data(){
+      return{
+
+      }
+    },
+    methods:{
+
+    }
   }
 </script>
 <style lang="less" scoped>

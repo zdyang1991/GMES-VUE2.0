@@ -2,52 +2,19 @@
 <template>
 	<div id="app-foot">
 		<div class="btn-list">
-			<div class="foot-btn f-cp">
+			<div class="foot-btn f-cp" v-on:click="menuClick()">
 				<i class="icon-pad-menu" style="color:#6f7d9b;"></i>
 			</div>
 		</div>
-    <navlist class="body"></navlist>
-		<el-popover ref="popover2" placement="bottom" trigger="click">
-			<div class="f-tac"></div>
-		</el-popover>
-		<div class="system-info" sw-role="cell">
-			<div class="time" sw-role="cell" sw-mode="y" sw-valign="center">
-				<div>{{systime}}</div>
-				<div>{{sysdate}}/{{week}}</div>
-			</div>
-			<div class="signal">
-				<canvas  id="canvas-signal" width="50" height="40"></canvas>
-			</div>
-		</div>
-
-		<el-dialog title="添加快捷菜单" :visible.sync="dialogVisible">
-			<el-form ref="form" :model="form" label-width="80px" label-position=top class="form-content">
-				<el-form-item>
-					<el-checkbox-group v-model="form.type">
-						<el-checkbox ></el-checkbox>
-					</el-checkbox-group>
-				</el-form-item>
-				<el-form-item class="btn">
-					<el-button type="primary">确定</el-button>
-					<el-button type="primary">取消</el-button>
-				</el-form-item>
-			</el-form>
-		</el-dialog>
+    <navlist  :isMenuShow='isMenuShow'></navlist>
 	</div>
 </template>
 
 <script>
 	export default {
-		data() {
+		data(){
 			return {
-				form: {
-					type: [],
-				},
-				dialogVisible: false,
-				disabled: false,
-				sysdate: '',
-				week: '',
-				systime: '',
+        isMenuShow:false
 			}
 		},
 		created() {
@@ -56,7 +23,10 @@
 		},
 
 		methods: {
-
+      menuClick(){
+        this.isMenuShow = !this.isMenuShow
+        console.log(this.isMenuShow)
+      }
     }
 	}
 </script>

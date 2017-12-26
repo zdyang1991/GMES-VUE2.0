@@ -6,14 +6,15 @@ import App from './app';
 import vueRouter from 'vue-router';
 import routes from './router';
 import ElementUI from 'element-ui';
-import 'element-ui/lib/theme-chalk/index.css'
+import 'element-ui/lib/theme-chalk/index.css';
 import './css/common.css';
 import UI from './components/ui';
 import utils from  "./plugins/utils";
-import axios from 'axios'
-import vueAxios from 'vue-axios'
-import './utils/util.js'
-import './config/config.js'
+import axios from 'axios';
+import vueAxios from 'vue-axios';
+import './utils/util.js';
+import './config/config.js';
+import store from './store';
 
 Vue.use(utils);
 Vue.use(ElementUI);
@@ -43,5 +44,6 @@ window.router = new vueRouter({
 new Vue({
   el: '#app',
   router,
+  store,
   render: h => h(App)
 })

@@ -2,10 +2,7 @@
 	<div class="hello-pad" @click="closeMenu">
 	    <app-head></app-head>
 	    <app-body class="content"></app-body>
-		<app-foot @changeNavMenu="NavMenuEmit"></app-foot>
-		<transition name="el-fade-in">
-			<nav-menu v-show="isShowNavMenu" @closeMenuss="closeMenu"></nav-menu>
-		</transition>
+		  <app-foot @changeNavMenu=""></app-foot>
  	</div>
 </template>
 
@@ -14,8 +11,7 @@
 import appFoot from './foot.vue'
 import appBody from './body.vue'
 import appHead from './head.vue'
-
-import navMenu from './navmenu/index.vue'
+//import navMenu from './navmenu/index.vue'
 
 export default {
 	data(){
@@ -30,7 +26,6 @@ export default {
     	appFoot,
     	appBody,
     	appHead,
-    	navMenu
     },
     methods:{
   		closeMenu() {
@@ -38,7 +33,11 @@ export default {
   		},
     	NavMenuEmit(data){
     		this.isShowNavMenu = !this.isShowNavMenu
-    	}
+    	},
+      changeNavMenu(){
+    	  console.log(q11)
+      }
+
     }
 }
 </script>

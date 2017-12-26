@@ -1,17 +1,8 @@
 <!-- 侧边栏 -->
 <template>
-	<div id="nav-menu" @click.stop>
-		<router-link :to="'\/userCenter'">
-		<div class="head" @click="closeMenus">
-			<div class="logo"></div>
-			<div class="info">
-					<div class="info-name f-ell" ><span class="f-fs16"></span><span class="f-fs12 f-ml3"></span></div>
-				<div class="f-fs12 f-mt3 f-ell">用户站点</div>
-			</div>
+	<div id="nav-menu">
 
-		</div>
-		</router-link>
-		<nav-list class="body" @closeMenu="closeMenus"></nav-list>
+
 		<div class="foot">
 			<el-button @click="loginOut" type="primary" icon="pad-off" class="loginOut">退出登录</el-button>
 		</div>
