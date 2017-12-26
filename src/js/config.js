@@ -1,4 +1,4 @@
 export default {
-	apiBaseUrl: process.env,
-	version : padversion
+	apiBaseUrl:'http://10.200.151.229:8021/'
+
 }

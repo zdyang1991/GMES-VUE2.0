@@ -8,6 +8,15 @@
       <el-button type="primary">登录</el-button>
       <el-button type="success">全屏</el-button>
 		</div>
+    <div class="system-info" sw-role="cell">
+      <div class="time" sw-role="cell" sw-mode="y" sw-valign="center">
+        <div>16:20</div>
+        <div>2017/12/26/</div>
+      </div>
+      <div class="signal">
+        <canvas v-popover:popover2 id="canvas-signal" width="50" height="40"></canvas>
+      </div>
+    </div>
     <navlist  :isMenuShow='isMenuShow'></navlist>
 	</div>
 </template>

@@ -11,13 +11,13 @@
         <!-- 头像end -->
         <div class="f-mt10 f-mb10 f-fs16 f-tac">GMES-CLIENT</div>
         <form action="" id="loginInfo">
-          <el-form>
+          <el-form ref="form" :model="form">
             <el-form-item :rules=rule.nameRule>
-              <el-input v-model="userCode" :autofocus=true ref="form.username" placeholder="用户名" icon="pad-user"
+              <el-input v-model="form.userCode" :autofocus=true ref="form.username" placeholder="用户名" icon="pad-user"
                         @keyup.enter.native="onSubmit('form')"></el-input>
             </el-form-item>
             <el-form-item :rules=rule.passwordRule>
-              <el-input v-model="password" placeholder="密码" icon="pad-password"
+              <el-input v-model="form.password" placeholder="密码" icon="pad-password"
                         @keyup.enter.native="onSubmit('form')"></el-input>
             </el-form-item>
             <!--<el-form-item  :rules=rule.passwordRule>-->
@@ -37,16 +37,19 @@
   </div>
 </template>
 <script>
-//  import {http} from '@/js/http'
-import particles from "@/js/vendors/particles/particles"
+  import util from '../../utils/util.js';
+  import particles from "@/js/vendors/particles/particles"
+  import config from '../../js/config'
+
   export default {
     data() {
       return {
-        language: '中文',
-        userCode: 'admin',
-        password: 'a1234567',
-        siteCode: siteCode,
-        MenuListData:[],
+        form: {
+          userCode: '',
+          password: '',
+          siteCode: '1001'
+        },
+        MenuListData: [],
         rule: {
           nameRule: [
             {required: true, message: '账号不能为空'},
@@ -58,25 +61,53 @@ import particles from "@/js/vendors/particles/particles"
         loadingFlag: false,
       }
     },
+
     methods: {
       onSubmit() {
-        console.log(this.userCode)
-        this.$httpUtil.post('restful/doLogin',
-          {
-            data: 'userCode=' + this.userCode + '&password=' + this.password + '&siteCode=' + this.siteCode
-          }
-        ).then((response) => {
-
-          console.log(response.data.data.menus)
-          this.$store.state.menulist = response.data.data.menus;
-          if (response.status == 200) {
-            console.log('ddddddddddd')
-            console.log(response);
-            this.$router.push(response.data.data.terminal.homePage);
-          }
-
-        }).catch(error => {
-        });
+        let _this = this;
+        console.log(config.apiBaseUrl)
+        this.$http({
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+          },
+          method: 'post',
+          url: config.apiBaseUrl + 'restful/doLogin',
+          data: util.jsonToFormData(_this.form)
+        })
+          .then((response) => {
+            _this.$store.state.menulist = response.data.data.menus;
+            var homepage = response.data.data.terminal.homePage;
+            if (response.data.returnCode == 0) {
+              console.log("as");
+              if (homepage == null || homepage == undefined || homepage == "") {
+                this.$router.push('/system');
+              } else {
+                this.$router.push(response.data.data.terminal.homePage);
+              }
+            }
+          })
+        ;
+//        console.log(this.userCode)
+//        this.$httpUtil.post('restful/doLogin',
+//          {
+//            data: 'userCode=' + this.userCode + '&password=' + this.password + '&siteCode=' + this.siteCode
+//          }
+//        ).then((response) => {
+//          console.log(response);
+//          this.$store.state.menulist = response.data.data.menus;
+//          var homepage=response.data.data.terminal.homePage;
+//
+//          if (response.data.returnCode == 0) {
+//            console.log("as");
+//            if (homepage==null||homepage==undefined||homepage==""){
+//              this.$router.push('/system');
+//            }else {
+//              this.$router.push(response.data.data.terminal.homePage);
+//            }
+//          }
+//
+//        }).catch(error => {
+//        });
       },
 //			onSubmit(formName) {
 //				this.$refs[formName].validate(async (valid) => {

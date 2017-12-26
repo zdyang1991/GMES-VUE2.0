@@ -9,16 +9,18 @@ import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 import './css/common.css';
 import UI from './components/ui';
-import utils from  "./plugins/utils";
 import axios from 'axios';
 import vueAxios from 'vue-axios';
-import './utils/util.js';
-import './config/config.js';
-import store from './store';
+import config from './js/config';
 
-Vue.use(utils);
+
+//import './config/config.js';
+import store from './store';
+Vue.prototype.$http = axios;
+// Vue.use(utils);
 Vue.use(ElementUI);
-Vue.use(vueAxios, axios);
+Vue.use(axios);
+Vue.use(vueAxios);
 Vue.use(VueI18n);
 Vue.use(UI);
 // 全局添加x-token字段

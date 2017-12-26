@@ -1,6 +1,6 @@
 // 湘潭测试环境
 module.exports = {
-    baseApi:'"http://10.86.130.27:8010/gmes-client-server/manage/"',
+    baseApi:'"http://10.200.151.229:8021/"',
     mqttServer :'"10.86.130.25"',
     mqttPort : 15675,
     mqttUserName : '"gmesdev"',
