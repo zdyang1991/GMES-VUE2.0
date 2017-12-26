@@ -70,7 +70,9 @@ import particles from "@/js/vendors/particles/particles"
           console.log(response.data.data.menus)
           this.$store.state.menulist = response.data.data.menus;
           if (response.status == 200) {
-            this.$router.push('/initialize');
+            console.log('ddddddddddd')
+            console.log(response);
+            this.$router.push(response.data.data.terminal.homePage);
           }
 
         }).catch(error => {

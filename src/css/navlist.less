@@ -1,20 +1,34 @@
 #nav-menu-list {
   position: absolute;
-  top: -24.8rem;
+  top: -38.8rem;
   left: 1rem;
-  color: red;
+  color: #fff;
   width: 10rem;
-  height: 20rem;
-  background-color: darkblue;
+  height: 38rem;
+  font-size: 1.3rem;
+  background-color: #467ca2;
   ul{
     li{
-      height: 3rem;
+      height: 4rem;
       display: flex;
       align-items: center;
       text-align: center;
       justify-content: center;
+      &:hover{
+        background-color: #d6e6f1;
+        color: #316a91;
+      }
+    }
+    li.active{
     }
   }
 
 
+}
+.router-slid-enter-active, .router-slid-leave-active {
+  transition: all .4s;
+}
+.router-slid-enter, .router-slid-leave-active {
+  transform: translate3d(0, 3rem, 0);
+  opacity: 0;
 }
