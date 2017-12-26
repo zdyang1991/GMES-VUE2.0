@@ -5,6 +5,8 @@
 			<div class="foot-btn f-cp" v-on:click="menuClick()">
 				<i class="icon-pad-menu" style="color:#6f7d9b;"></i>
 			</div>
+      <el-button type="primary">登录</el-button>
+      <el-button type="success">全屏</el-button>
 		</div>
     <navlist  :isMenuShow='isMenuShow'></navlist>
 	</div>
@@ -18,7 +20,6 @@
 			}
 		},
 		created() {
-
 
 		},
 
@@ -87,4 +88,7 @@
 		border-radius: 5px;
 		font-size: 20px;
 	}
+  .el-button{
+    margin-left: 3rem;
+  }
 </style>
