@@ -82,6 +82,9 @@
 </template>
 
 <script type="text/babel">
+  import util from '../../utils/util.js';
+  import config from '../../js/config'
+
   export default {
     data() {
       return {
@@ -92,22 +95,28 @@
           checkBit: '',
           stopBit: '',
           enable: '',
-          terminalCode:'222'
+          terminalCode: '222'
         }
 
       }
     },
     methods: {
       onSubmit() {
+        this.$http({
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+          },
+          method: 'post',
 
-        var formdata = JSON.stringify(this.form);
+          url: config.apiBaseUrl + 'restful/cm/saveTerminalunit',
+          data: util.jsonToFormData(this.form)
+        })
+          .then((response) => {
+            // success callback
 
-        this.$httpUtil.post('restful/cm/saveTerminalunit ', formdata).then((response) => {
-          // success callback
+          }, (response) => {
 
-        }, (response) => {
-
-        });
+          });
       }
     }
   }
