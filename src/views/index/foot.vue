@@ -2,7 +2,7 @@
 <template>
   <div id="app-foot">
     <div class="btn-list">
-      <div class="foot-btn f-cp" v-on:click="menuClick()">
+      <div class="foot-btn f-cp" id="ment-list" v-on:click="menuClick()">
         <i class="icon-pad-menu" style="color:#6f7d9b;"></i>
       </div>
     </div>
@@ -51,7 +51,18 @@
           _this.systime = getTime.six(data)
           data = data + 1000
         }, 1000)
-      })
+      });
+
+      let body = document.querySelector('body');
+      body.addEventListener('click',(e)=>{
+        if(e.target.id === 'ment-list'){
+          this.isMenuShow = true
+          console.log(2)
+        }else {
+          this.isMenuShow = false
+          console.log(3)
+        }
+      },false)
 
     },
 
