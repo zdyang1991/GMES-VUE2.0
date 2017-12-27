@@ -38,7 +38,13 @@
 			}
 		},
 		created() {
-		  router.push('/login')
+
+
+      var sss = sessionStorage.getItem("userCode")
+      console.log(sss)
+      if(sss== null){
+        router.push('/login')
+      }else{}
 //			if (!localStorage.access_token) {
 //				router.push('/login')
 //			} else {
