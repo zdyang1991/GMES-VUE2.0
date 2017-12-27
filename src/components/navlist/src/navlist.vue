@@ -3,20 +3,21 @@
   <transition name="router-slid">
     <div id="nav-menu-list" v-if="isMenuShow">
       <ul>
-        <li v-on:click="changeColor()"  v-for="item in MenuListData">
+        <li  v-for="item in MenuListData">
           <router-link :to="{name:item.menuText}" tag="div">
             {{item.menuText}}
           </router-link>
         </li>
       </ul>
-      <div class="bottom-con">
+      <button class="bottom-con" v-on:click="quit()">
       退出登录
-      </div>
+      </button>
     </div>
   </transition>
 
 </template>
 <script type="text/babel">
+  import util from '../../../utils/util.js'
   export default {
     name: 'navlist',
     props:['isMenuShow'],
@@ -31,8 +32,9 @@
       }
     },
     methods:{
-      changeColor(){
-
+      quit(){
+        util.sessionClean();
+        this.$router.push('/login');
       }
 
     }

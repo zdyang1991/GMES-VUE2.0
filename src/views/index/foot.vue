@@ -5,8 +5,6 @@
 			<div class="foot-btn f-cp" v-on:click="menuClick()">
 				<i class="icon-pad-menu" style="color:#6f7d9b;"></i>
 			</div>
-      <el-button type="primary">登录</el-button>
-      <el-button type="success" @click="fullScreen()">全屏</el-button>
 		</div>
     <div class="system-info" sw-role="cell">
       <div class="time" sw-role="cell" sw-mode="y" sw-valign="center">
