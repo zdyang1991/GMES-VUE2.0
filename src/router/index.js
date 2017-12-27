@@ -19,7 +19,6 @@ const routes = [
       {path: '/online/machineplusOnline', component: MachineplusOnline, name: '机加上线'},
       {path: '/assembleInsert', component: AssembleInsert, name: '装配下线'},
       {path: '/hothost', component: HostTest, name: '热试'}
-
     ]
   },
   {path: '/login', component: Login}

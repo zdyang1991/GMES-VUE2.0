@@ -13,7 +13,6 @@ import axios from 'axios';
 import vueAxios from 'vue-axios';
 import config from './js/config';
 
-
 //import './config/config.js';
 import store from './store';
 Vue.prototype.$http = axios;

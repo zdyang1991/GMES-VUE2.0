@@ -2,13 +2,16 @@
   </div>
   <transition name="router-slid">
     <div id="nav-menu-list" v-if="isMenuShow">
-      <ul  v-for="item in MenuListData">
-        <li v-on:click="changeColor()">
+      <ul>
+        <li v-on:click="changeColor()"  v-for="item in MenuListData">
           <router-link :to="{name:item.menuText}" tag="div">
             {{item.menuText}}
           </router-link>
         </li>
       </ul>
+      <div class="bottom-con">
+      退出登录
+      </div>
     </div>
   </transition>
 
