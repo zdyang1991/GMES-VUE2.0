@@ -2,6 +2,12 @@
   </div>
   <transition name="router-slid">
     <div id="nav-menu-list" v-if="isMenuShow">
+      <div class="user-info">
+        <div class="image">
+
+        </div>
+        <span>{{userName}}</span>
+      </div>
       <ul>
         <li  v-for="item in MenuListData">
           <router-link :to="{name:item.menuText}" tag="div">
@@ -21,11 +27,16 @@
   export default {
     name: 'navlist',
     props:['isMenuShow'],
+    userName:'',
+
     computed:{
       MenuListData(){
         let obj=JSON.parse(localStorage.getItem("list"))
         return obj
       }
+    },
+    created(){
+      this.userinfo();
     },
     data(){
       return {
@@ -36,7 +47,12 @@
       quit(){
         util.sessionClean();
         this.$router.push('/login');
+      },
+      userinfo(){
+        this.userName=sessionStorage.getItem("userCode");
+
       }
+
 
     }
   }
