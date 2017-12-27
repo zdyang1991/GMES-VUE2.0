@@ -77,8 +77,8 @@
           .then((response) => {
             sessionStorage.setItem("userCode", _this.form.userCode);
             sessionStorage.setItem("password", _this.form.password);
-            _this.$store.state.menulist = response.data.data.menus;
-
+            var menulist = JSON.stringify(response.data.data.menus);
+            window.localStorage.setItem('list',menulist)
             var homepage = response.data.data.terminal.homePage;
             if (response.data.returnCode == 0) {
               if (homepage == null || homepage == undefined || homepage == "") {

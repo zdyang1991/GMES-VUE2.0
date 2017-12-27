@@ -23,13 +23,14 @@
     props:['isMenuShow'],
     computed:{
       MenuListData(){
-        return this.$store.state.menulist;
+        let obj=JSON.parse(localStorage.getItem("list"))
+        return obj
       }
     },
     data(){
-      return{
-        showColor:true,
-      }
+      return {
+        showColor: true,
+      };
     },
     methods:{
       quit(){

@@ -11,5 +11,6 @@ util.jsonToFormData = function (json) {
 util.sessionClean = function () {
   sessionStorage.removeItem('userCode');
   sessionStorage.removeItem('password');
+  window.localStorage.removeItem('list');
 };
 export default util;
