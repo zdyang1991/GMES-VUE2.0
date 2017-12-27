@@ -57,10 +57,8 @@
       body.addEventListener('click',(e)=>{
         if(e.target.id === 'ment-list'){
           this.isMenuShow = true
-          console.log(2)
         }else {
           this.isMenuShow = false
-          console.log(3)
         }
       },false)
 
@@ -69,7 +67,6 @@
     methods: {
       menuClick() {
         this.isMenuShow = !this.isMenuShow
-        console.log(this.isMenuShow)
       },
     }
   }
