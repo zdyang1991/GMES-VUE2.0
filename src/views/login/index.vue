@@ -12,11 +12,11 @@
         <div class="f-mt10 f-mb10 f-fs16 f-tac">GMES-CLIENT</div>
         <form action="" id="loginInfo">
           <el-form ref="form" :model="form">
-            <el-form-item :rules=rule.nameRule>
-              <el-input v-model="form.userCode" :autofocus=true ref="form.username" placeholder="用户名" icon="pad-user"
+            <el-form-item prop="userCode" :rules=rule.nameRule>
+              <el-input v-model="form.userCode" :autofocus=true ref="form.usrCode" placeholder="用户名" icon="pad-user"
                         @keyup.enter.native="onSubmit('form')"></el-input>
             </el-form-item>
-            <el-form-item :rules=rule.passwordRule>
+            <el-form-item prop="password" :rules=rule.passwordRule>
               <el-input v-model="form.password" placeholder="密码" icon="pad-password"
                         @keyup.enter.native="onSubmit('form')"></el-input>
             </el-form-item>
@@ -45,8 +45,8 @@
     data() {
       return {
         form: {
-          userCode: 'admin',
-          password: 'a1234567',
+          userCode: '',
+          password: '',
           siteCode: '1001'
         },
         MenuListData: [],
@@ -63,47 +63,50 @@
     },
 
     methods: {
-      onSubmit() {
-        let _this = this;
-        console.log(config.apiBaseUrl)
-        this.$http({
-          headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-          },
-          method: 'post',
-          url: config.apiBaseUrl + 'restful/doLogin',
-          data: util.jsonToFormData(_this.form)
-        })
-          .then((response) => {
+      onSubmit(formName) {
+        this.$refs[formName].validate(async (valid) => {
+          if (valid) {
+            let _this = this;
+            console.log(config.apiBaseUrl)
+            this.$http({
+              headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+              },
+              method: 'post',
+              url: config.apiBaseUrl + 'restful/doLogin',
+              data: util.jsonToFormData(_this.form)
+            })
+              .then((response) => {
+                sessionStorage.setItem("userCode", _this.form.userCode);
+                sessionStorage.setItem("password", _this.form.password);
+                var menulist = JSON.stringify(response.data.data.menus);
+                window.localStorage.setItem('list', menulist)
+                if (response.data.returnCode == 0) {
+                  this.$message({
+                    message: '登录成功！',
+                    type: 'success'
+                  })
+                  let homepage = response.data.data.terminal.homePage;
+                  if (homepage == null || homepage == undefined || homepage == "") {
+                    this.$message({
+                      message: '请联系管理员配置首页！',
+                      type: 'warning'
+                    })
+                    this.$router.push('/system');
+                  } else {
 
-            sessionStorage.setItem("userCode", _this.form.userCode);
-            sessionStorage.setItem("password", _this.form.password);
-            var menulist = JSON.stringify(response.data.data.menus);
-            window.localStorage.setItem('list', menulist)
-            if (response.data.returnCode == 0) {
-              this.$message({
-                message:'登录成功！',
-                type:'success'
+                    this.$router.push(response.data.data.terminal.homePage);
+                  }
+                }
               })
-              let homepage = response.data.data.terminal.homePage;
-              if (homepage == null || homepage == undefined || homepage == "") {
+              .catch((error) => {
+                console.log(error.response);
                 this.$message({
-                  message:'请联系管理员配置首页！',
-                  type:'warning'
+                  message: "登录失败",
+                  type: 'warning'
                 })
-                this.$router.push('/system');
-              } else {
-
-                this.$router.push(response.data.data.terminal.homePage);
-              }
-            }
-          })
-          .catch((error) => {
-          console.log(error.response);
-         this.$message({
-           message:"登录失败",
-           type:'warning'
-         })
+              })
+          }
         })
       },
 
