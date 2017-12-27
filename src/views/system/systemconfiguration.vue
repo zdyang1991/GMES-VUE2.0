@@ -143,6 +143,7 @@
             }
           })
           .catch((error) => {
+          console.log(error.response);
             this.$message({
               message: error.response.data.errorMessage,
               type: 'error'
