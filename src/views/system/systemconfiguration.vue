@@ -47,8 +47,8 @@
             <el-col :span="12">
               <el-form-item label="校验位">
                 <el-select v-model="form.checkBit" placeholder="请选择校验位">
-                  <el-option label="None" value="None"></el-option>
-                  <el-option label="None" value="None"></el-option>
+                  <el-option label="None" value=""></el-option>
+                  <el-option label="None" value=""></el-option>
                 </el-select>
               </el-form-item>
             </el-col>
@@ -65,8 +65,8 @@
             <el-col :span="12">
               <el-form-item label="是否生效">
                 <el-select v-model="form.enable" placeholder="是否生效">
-                  <el-option label="是" value="是"></el-option>
-                  <el-option label="否" value="否"></el-option>
+                  <el-option label="是" value="1"></el-option>
+                  <el-option label="否" value="0"></el-option>
                 </el-select>
               </el-form-item>
             </el-col>
@@ -112,10 +112,11 @@
           data: util.jsonToFormData(this.form)
         })
           .then((response) => {
-            // success callback
-
+            this.$message({
+              message:response.data.errorMessage,
+              type:'error'
+            })
           }, (response) => {
-
           });
       }
     }

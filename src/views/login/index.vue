@@ -78,16 +78,33 @@
             sessionStorage.setItem("userCode", _this.form.userCode);
             sessionStorage.setItem("password", _this.form.password);
             var menulist = JSON.stringify(response.data.data.menus);
-            window.localStorage.setItem('list',menulist)
-            var homepage = response.data.data.terminal.homePage;
+            window.localStorage.setItem('list', menulist)
+
             if (response.data.returnCode == 0) {
+              this.$message({
+                message:'登录成功！',
+                type:'success'
+              })
+              let homepage = response.data.data.terminal.homePage;
               if (homepage == null || homepage == undefined || homepage == "") {
+                this.$message({
+                  message:'请联系管理员配置首页！',
+                  type:'warning'
+                })
                 this.$router.push('/system');
               } else {
+
                 this.$router.push(response.data.data.terminal.homePage);
               }
             }
           })
+          .catch((error) => {
+          console.log(error.response);
+         this.$message({
+           message:"登录失败",
+           type:'warning'
+         })
+        })
         ;
 //        console.log(this.userCode)
 //        this.$httpUtil.post('restful/doLogin',
