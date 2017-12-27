@@ -38,6 +38,7 @@
 			}
 		},
 		created() {
+		  router.push('/login')
 //			if (!localStorage.access_token) {
 //				router.push('/login')
 //			} else {

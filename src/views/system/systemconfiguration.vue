@@ -5,10 +5,10 @@
         串口设置
       </el-header>
       <el-main>
-        <el-form ref="form" :model="form">
-          <el-row>
+        <el-form :rules="rules" ref="form" :model="form">
+          <el-row :gutter="20">
             <el-col :span="12">
-              <el-form-item label="端口">
+              <el-form-item label="端口" prop="prot">
                 <el-select v-model="form.port" placeholder="请选择端口">
                   <el-option label="COM1" value="COM1"></el-option>
                   <el-option label="COM2" value="COM2"></el-option>
@@ -20,7 +20,7 @@
               </el-form-item>
             </el-col>
             <el-col :span="12">
-              <el-form-item label="波特率">
+              <el-form-item label="波特率" prop="baudRate">
                 <el-select v-model="form.baudRate" placeholder="请选择波特率">
                   <el-option label="300" value="300"></el-option>
                   <el-option label="600" value="600"></el-option>
@@ -38,14 +38,16 @@
               </el-form-item>
             </el-col>
           </el-row>
-          <el-row>
+          <el-row :gutter="20">
             <el-col :span="12">
-              <el-form-item label="数据位">
-                <el-input v-model="form.dataBit" placeholder="请输入数据位"></el-input>
+              <el-form-item label="数据位" prop="dataBit">
+                <el-input v-model="form.dataBit" placeholder="请输入数据位">
+
+                </el-input>
               </el-form-item>
             </el-col>
             <el-col :span="12">
-              <el-form-item label="校验位">
+              <el-form-item label="校验位" prop="checkBit">
                 <el-select v-model="form.checkBit" placeholder="请选择校验位">
                   <el-option label="None" value=""></el-option>
                   <el-option label="None" value=""></el-option>
@@ -53,9 +55,9 @@
               </el-form-item>
             </el-col>
           </el-row>
-          <el-row>
+          <el-row :gutter="20">
             <el-col :span="12">
-              <el-form-item label="停止位">
+              <el-form-item label="停止位" prop="stopBit">
                 <el-select v-model="form.stopBit" placeholder="请选择停止位">
                   <el-option label="1" value="1"></el-option>
                   <el-option label="2" value="2"></el-option>
@@ -63,7 +65,7 @@
               </el-form-item>
             </el-col>
             <el-col :span="12">
-              <el-form-item label="是否生效">
+              <el-form-item label="是否生效" prop="enable">
                 <el-select v-model="form.enable" placeholder="是否生效">
                   <el-option label="是" value="1"></el-option>
                   <el-option label="否" value="0"></el-option>
@@ -96,12 +98,33 @@
           stopBit: '',
           enable: '',
           terminalCode: '222'
+        },
+        rules: {
+          port: [
+            {required: true, message: '请选择端口号', trigger: 'change'}
+          ],
+          baudRate:[
+            {required: true, message: '请选择波特率', trigger: 'change'}
+          ],
+          dataBit:[
+            {required: true, message: '请输入数据位', trigger: 'blur'}
+          ],
+          checkBit:[
+            {required: true, message: '请选择校验位', trigger: 'change'}
+          ],
+          stopBit:[
+            {required: true, message: '请选择停止位', trigger: 'change'}
+          ],
+          enable:[
+            {required: true, message: '请选择是否生效', trigger: 'change'}
+          ]
         }
 
       }
     },
     methods: {
-      onSubmit() {
+      onSubmit(form) {
+        let _this = this
         this.$http({
           headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
@@ -112,12 +135,19 @@
           data: util.jsonToFormData(this.form)
         })
           .then((response) => {
+            if (response.data.returnCode == 0) {
+              this.$message({
+                message: '保存成功',
+                type: 'success'
+              })
+            }
+          })
+          .catch((error) => {
             this.$message({
-              message:response.data.errorMessage,
-              type:'error'
+              message: error.response.data.errorMessage,
+              type: 'error'
             })
-          }, (response) => {
-          });
+          })
       }
     }
   }
