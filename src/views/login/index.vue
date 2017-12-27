@@ -105,59 +105,8 @@
            type:'warning'
          })
         })
-        ;
-//        console.log(this.userCode)
-//        this.$httpUtil.post('restful/doLogin',
-//          {
-//            data: 'userCode=' + this.userCode + '&password=' + this.password + '&siteCode=' + this.siteCode
-//          }
-//        ).then((response) => {
-//          console.log(response);
-//          this.$store.state.menulist = response.data.data.menus;
-//          var homepage=response.data.data.terminal.homePage;
-//
-//          if (response.data.returnCode == 0) {
-//            console.log("as");
-//            if (homepage==null||homepage==undefined||homepage==""){
-//              this.$router.push('/system');
-//            }else {
-//              this.$router.push(response.data.data.terminal.homePage);
-//            }
-//          }
-//
-//        }).catch(error => {
-//        });
       },
-//			onSubmit(formName) {
-//				this.$refs[formName].validate(async (valid) => {
-//					if (valid) {
-//						this.loadingFlag = true;
-//						const data = { ...this.form };// 不复制原型属性
-//						data.username += `_${config.apiBaseUrl.siteCode}_zh`;
-//						// let loadingInstance = Loading.service({ text: '拼命登录中...' });
-//						const res = await http.post('oauth/token', { body: data }, true)
-//						if (res.status || typeof res != 'object') {
-//							this.$message('用户名和密码有误');
-//							this.loadingFlag = false;
-//							return false;
-//						}
-//						for (var name in res) {
-//							localStorage.setItem(name, res[name]);
-//						}
-//						userinfo.loginUserDataInit().then((data) => {
-//							router.push('home');
-//							this.loadingFlag = false;
-//						}).catch((data = '登录失败') => {
-//							this.loadingFlag = false;
-//							this.$message(data)
-//						});
-//					}
-//				});
-//			},
-//      changeLang(lang) {
-//        localStorage.lang = lang === '中文' ? 'zh-cn' : 'en';
-//        Vue.config.lang = localStorage.lang;
-//      }
+
     },
     mounted() {
       particlesJS('particles-js', {
