@@ -15,6 +15,7 @@ import config from './js/config';
 
 //import './config/config.js';
 import store from './store';
+axios.defaults.withCredentials = true
 Vue.prototype.$http = axios;
 // Vue.use(utils);
 Vue.use(ElementUI);
