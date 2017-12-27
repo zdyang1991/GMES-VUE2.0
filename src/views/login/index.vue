@@ -75,7 +75,6 @@
           data: util.jsonToFormData(_this.form)
         })
           .then((response) => {
-
             sessionStorage.setItem("userCode", _this.form.userCode);
             sessionStorage.setItem("password", _this.form.password);
             var menulist = JSON.stringify(response.data.data.menus);

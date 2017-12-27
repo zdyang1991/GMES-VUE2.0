@@ -23,7 +23,8 @@
 
 </template>
 <script type="text/babel">
-  import util from '../../../utils/util.js'
+  import util from '../../../utils/util.js';
+  import config from '../../../js/config';
   export default {
     name: 'navlist',
     props:['isMenuShow'],
@@ -45,8 +46,21 @@
     },
     methods:{
       quit(){
-        util.sessionClean();
-        this.$router.push('/login');
+        this.$http({
+            headers: {
+              'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            method: 'post',
+            url: config.apiBaseUrl + 'restful/loginOut',
+          })
+          .then((response) => {
+            util.sessionClean();
+            this.$router.push('/login');
+          })
+          .catch((error) => {
+
+          })
+
       },
       userinfo(){
         this.userName=sessionStorage.getItem("userCode");
