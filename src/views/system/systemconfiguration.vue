@@ -42,7 +42,6 @@
             <el-col :span="12">
               <el-form-item label="数据位" prop="dataBit" :rules=rule.dataBit>
                 <el-input v-model="form.dataBit" placeholder="请输入数据位">
-
                 </el-input>
               </el-form-item>
             </el-col>
