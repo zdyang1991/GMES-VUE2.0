@@ -4,7 +4,6 @@
     <div id="nav-menu-list" v-if="isMenuShow">
       <div class="user-info">
         <div class="image">
-
         </div>
         <span>{{userName}}</span>
       </div>
@@ -15,8 +14,11 @@
           </router-link>
         </li>
       </ul>
-      <button class="bottom-con" v-on:click="quit()">
-      退出登录
+      <button class="bottom-con" >
+        <div v-on:click="quit()">
+          <span class="el-icon-pad-off"></span>
+          退出登录
+        </div>
       </button>
     </div>
   </transition>
