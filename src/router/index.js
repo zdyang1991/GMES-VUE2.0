@@ -9,6 +9,7 @@ import AssemblyOnline from '@/views/online/assemblyOnline.vue';
 import MachineplusOnline from '@/views/online/machineplusOnline.vue';
 import AssembleInsert from '@/views/assembleInsert/assembleInsert.vue';
 import HostTest from '@/views/hottest/hottest.vue';
+import MachineInsert from '@/views/machineWorkInsert/index.vue';
 const routes = [
   {
     path: '/', component: Index, redirect: '/home',
@@ -18,7 +19,8 @@ const routes = [
       {path: '/online/assemblyOnline', component: AssemblyOnline, name: '装配上线'},
       {path: '/online/machineplusOnline', component: MachineplusOnline, name: '机加上线'},
       {path: '/assembleInsert', component: AssembleInsert, name: '装配下线'},
-      {path: '/hothost', component: HostTest, name: '热试'}
+      {path: '/hothost', component: HostTest, name: '热试'},
+      {path: '/MachineInsert', component: MachineInsert, name: '机加下线'}
     ]
   },
   {path: '/login', component: Login}
