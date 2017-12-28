@@ -81,6 +81,7 @@
                 sessionStorage.setItem("password", _this.form.password);
                 var menulist = JSON.stringify(response.data.data.menus);
                 window.localStorage.setItem('list', menulist)
+                window.localStorage.setItem('terminal',JSON.stringify(response.data.data.terminal))
                 if (response.data.returnCode == 0) {
                   this.$message({
                     message: '登录成功！',

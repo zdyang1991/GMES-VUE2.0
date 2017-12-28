@@ -50,10 +50,11 @@
     },
     methods: {
       getData: function () {
-        console.log("111111111111");
+
+        let loc=JSON.parse(window.localStorage.getItem('terminal'))
         let body = {
-          siteCode: '1001',
-          workCenterCode: 'TEST2',
+          siteCode: loc.siteCode,
+          workCenterCode: loc.workCenterCode,
           statuseCode: '7'
         };
         this.$http({
