@@ -12,7 +12,7 @@
         <div>{{sysdate}}/{{week}}</div>
       </div>
       <div class="signal">
-        <!--<canvas v-popover:popover2 id="canvas-signal" width="50" height="40"></canvas>-->
+        <canvas  id="canvas-signal" width="50" height="40"></canvas>
       </div>
     </div>
     <navlist :isMenuShow='isMenuShow'></navlist>
