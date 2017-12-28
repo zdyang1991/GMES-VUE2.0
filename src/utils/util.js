@@ -12,5 +12,6 @@ util.sessionClean = function () {
   sessionStorage.removeItem('userCode');
   sessionStorage.removeItem('password');
   window.localStorage.removeItem('list');
+  window.localStorage.removeItem('terminal');
 };
 export default util;
