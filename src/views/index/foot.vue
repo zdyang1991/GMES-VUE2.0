@@ -2,8 +2,8 @@
 <template>
   <div id="app-foot">
     <div class="btn-list">
-      <div class="foot-btn f-cp" id="ment-list" v-on:click="menuClick()">
-        <i class="icon-pad-menu" style="color:#6f7d9b;"></i>
+      <div class="foot-btn f-cp icon-pad-menu" id="ment-list" v-on:click="menuClick()" style="color:#fff;">
+        <!--<i class="icon-pad-menu" style="color:#6f7d9b;"></i>-->
       </div>
     </div>
     <div class="system-info" sw-role="cell">
@@ -55,9 +55,7 @@
 
       let body = document.querySelector('body');
       body.addEventListener('click',(e)=>{
-        if(e.target.id === 'ment-list'){
-          this.isMenuShow = true
-        }else {
+        if(e.target.id !== 'ment-list'){
           this.isMenuShow = false
         }
       },false)

@@ -40,9 +40,8 @@
 		created() {
 
 
-      var sss = sessionStorage.getItem("userCode")
-      console.log(sss)
-      if(sss== null){
+      var userCodeInfo = sessionStorage.getItem("userCode");
+      if(userCodeInfo== null){
         router.push('/login')
       }else{}
 //			if (!localStorage.access_token) {
