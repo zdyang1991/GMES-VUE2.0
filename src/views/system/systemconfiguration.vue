@@ -48,8 +48,7 @@
             <el-col :span="12">
               <el-form-item label="校验位" prop="checkBit" :rules=rule.checkBit>
                 <el-select v-model="form.checkBit" placeholder="请选择校验位">
-                  <el-option label="None" value=""></el-option>
-                  <el-option label="None" value=""></el-option>
+                  <el-option label="None" value="null"></el-option>
                 </el-select>
               </el-form-item>
             </el-col>
