@@ -8,8 +8,8 @@
         <span>{{userName}}</span>
       </div>
       <ul>
-        <li  v-for="item in MenuListData">
-          <router-link :to="{name:item.menuText}" tag="div">
+        <li  v-for="(item,index) in MenuListData"  @click="getTitle(index)" ref='menuTitle'>
+          <router-link :to="{name:item.menuText}" tag="div"  >
             {{item.menuText}}
           </router-link>
         </li>
@@ -31,10 +31,9 @@
     name: 'navlist',
     props:['isMenuShow'],
     userName:'',
-
     computed:{
       MenuListData(){
-        let obj=JSON.parse(localStorage.getItem("list"))
+        let obj=JSON.parse(localStorage.getItem("list"));
         return obj
       }
     },
@@ -67,8 +66,11 @@
       userinfo(){
         this.userName=sessionStorage.getItem("userCode");
 
+      },
+      getTitle(index){
+        let getMenuText = this.$refs.menuTitle[index].innerText;
+        this.$store.state.title = getMenuText;
       }
-
 
     }
   }

@@ -6,11 +6,12 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state:{
     menulist: [],
+    title:''
     
   },
   mutations:{
     hideSearch(state){
-      state.searchShow = false
+      state.searchShow = false;
     },
   },
   getters:{

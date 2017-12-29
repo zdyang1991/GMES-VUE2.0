@@ -1,14 +1,16 @@
 <template>
   <div class="hello-pad" @click="closeMenu">
     <app-head></app-head>
-    <app-body class="content"></app-body>
+    <app-body class="content">
+
+    </app-body>
     <app-foot @changeNavMenu=""></app-foot>
   </div>
 </template>
 <script>
-  import appFoot from './foot.vue'
-  import appBody from './body.vue'
-  import appHead from './head.vue'
+  import appFoot from './foot.vue';
+  import appBody from './body.vue';
+  import appHead from './head.vue';
   export default {
     data() {
       return {

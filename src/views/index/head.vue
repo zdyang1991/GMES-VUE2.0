@@ -1,7 +1,7 @@
 <template>
   <div id="app-head">
-      <a href="/#home" class="f-df"><img src="../../assets/logo.png"/></a>
-      <div class="title">{{title}}</div>
+      <a href="#" class="f-df"><img src="../../assets/logo.png"/></a>
+      <div class="title">{{titles}}</div>
       <img src="../../assets/evun_logo.png"/>
   </div>
 </template>
@@ -15,7 +15,8 @@ export default {
     }
 	},
   computed:{
-    title(){
+    titles(){
+        return this.$store.state.title;
     }
   }
 
@@ -37,6 +38,9 @@ export default {
       flex:1;
       font-size: 0.8rem;
     }
+  }
+  .title{
+    font-size: 2rem;
   }
 
 </style>
