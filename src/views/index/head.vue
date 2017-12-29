@@ -39,5 +39,8 @@ export default {
       font-size: 0.8rem;
     }
   }
+  .title{
+    font-size: 2rem;
+  }
 
 </style>
