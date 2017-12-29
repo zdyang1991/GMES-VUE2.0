@@ -11,8 +11,8 @@
         <div>{{systime}}</div>
         <div>{{sysdate}}/{{week}}</div>
       </div>
-      <div class="signal">
-        <canvas  id="canvas-signal" width="50" height="40"></canvas>
+      <div class="signal" :class="this.wifiStatus==0?'success':'fail'">
+
       </div>
     </div>
     <navlist :isMenuShow='isMenuShow'></navlist>
@@ -30,7 +30,8 @@
         sysdate: '',
         week: '',
         systime: '',
-        isMenuShow: false
+        isMenuShow: false,
+        wifiStatus:''
       }
     },
     created() {
@@ -42,6 +43,8 @@
         method: 'get',
         url: config.apiBaseUrl + 'restful/cm/getServerTime',
       }).then((response) => {
+        console.log(response.data.returnCode)
+        this.wifiStatus = response.data.returnCode;
         let data = (new Date(response.data.data)).getTime();//转换为毫秒数
         const date = getTime.gettime(response.data.data);
         _this.sysdate = getTime.five(date);
@@ -56,7 +59,7 @@
       let body = document.querySelector('body');
       body.addEventListener('click',(e)=>{
         if(e.target.id !== 'ment-list'){
-          this.isMenuShow = false
+          this.isMenuShow = false;
         }
       },false)
 
@@ -92,6 +95,18 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      width: 2rem;
+      height: 2rem;
+      margin-left: 2rem;
+      margin-right: 2rem;
+    }
+    .success{
+      background: url("../../assets/WIFI-success.png");
+      background-size: 100%  100%;
+    }
+    .fail{
+      background: url("../../assets/WIFI-faile.png");
+      background-size: 100%  100%;
     }
     .el-checkbox-group label {
       margin-left: 15px;

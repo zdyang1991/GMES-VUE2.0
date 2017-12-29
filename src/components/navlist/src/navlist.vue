@@ -68,7 +68,6 @@
 
       },
       getTitle(index){
-        console.log(2)
         let getMenuText = this.$refs.menuTitle[index].innerText;
         this.$store.state.title = getMenuText;
       }
