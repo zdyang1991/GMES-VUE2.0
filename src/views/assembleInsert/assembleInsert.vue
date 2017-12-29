@@ -1,6 +1,13 @@
 <template>
   <div class="assembleInsert">
-    <convent></convent>
+    <div class="convent">
+      <div class="convent-input">
+        <el-input v-model="code" :autosize="{ minRows: 4, maxRows: 4}" size="80">
+          <template slot="append">确认</template>
+        </el-input>
+      </div>
+      <el-button type="success">已扫数量：22222222</el-button>
+    </div>
     <div class="topbox">
       <el-container>
         <el-aside width="50%">
@@ -16,19 +23,67 @@
       <el-button type="danger">需要热试</el-button>
       <el-button type="primary">保存</el-button>
     </div>
-    <dragball></dragball>
   </div>
 </template>
 
 <script type="text/babel">
-  export  default {
-    data(){
-      return{
-        tableData:[]
+  export default {
+    data() {
+      return {
+        code: '',
+        tableData: []
       }
+    },
+    created() {
+      this.getData();
+    },
+    methods: {
+      getData() {
+        let _this = this;
+        let serialPort = new SerialPort('COM3', function (err) {
+          if (err) {
+            return console.log('Error: ', err.message);
+          }
+        });
+        let Readline = SerialPort.parsers.Readline;
+        let parser = new Readline();
+        serialPort.pipe(parser);
+        serialPort.open(function (error){
+          console.log("打开" + error);
+        })
+        parser.on('data', function (data) {
+          console.log(data);
+          _this.code = data;
+          console.log(_this.code);
+        })
+      }
+
     }
   }
 </script>
 <style lang="less" scoped>
   @import "../../css/assembleInsert.less";
+  .convent {
+    background-color: #fff;
+    height: 7rem;
+    align-items: center;
+    display: flex;
+    /*justify-content: center;!*水平居中*!*/
+    padding-left: 5rem;
+    .convent-input {
+      align-items: center;
+      justify-content: center; /*水平居中*/
+      display: flex;
+      .el-input-group {
+        .el-input__inner {
+          width: 39rem;
+          height: 5rem;
+        }
+      }
+
+    }
+    .el-button {
+      margin-left: 2rem;
+    }
+  }
 </style>
