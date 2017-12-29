@@ -55,7 +55,8 @@
         let body = {
           siteCode: loc.siteCode,
           workCenterCode: loc.workCenterCode,
-          statuseCode: '7'
+          statuseCode: '7',
+          endRow:2
         };
         this.$http({
           headers: {
