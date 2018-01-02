@@ -42,5 +42,4 @@
   }
   }
 </style>
-width: 39rem;
-height: 5rem;
+

@@ -36,7 +36,7 @@
           </div>
           <div class="item-container f-f1">
             <label class="label">产品序列号</label>
-            <div class="detail"></div>
+            <div class="detail">1111111111111111111111111</div>
           </div>
         </div>
       </div>
@@ -71,7 +71,9 @@
   .row {
     flex: 1;
     padding: 1rem;
+    padding-top: 0;
     box-sizing: border-box;
+    margin-top: 0.5rem;
   }
 
   .row:first-child {
@@ -105,6 +107,9 @@
   }
 
   /* 从第二个子元素开始生效 */
+  /*.item-container{*/
+    /*margin-top: 0.2rem;*/
+  /*}*/
 
   .item-container:nth-child(n+2) {
     margin-left: 20px;
@@ -112,20 +117,21 @@
 
   .label {
     color: #595959;
-    font-size: 2rem;
+    font-size: 1.4rem;
     line-height: 2rem;
   }
 
   .detail {
     color: #222222;
     font-weight: bolder;
-    font-size: 2.3rem;
+    font-size: 1.8rem;
     border-bottom: 1px solid #CDCDCD;
     line-height: 36px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
     min-height: 36px;
+    margin-top: 0.8rem;
   }
 
   .remain-amount-box {

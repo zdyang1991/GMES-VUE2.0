@@ -69,13 +69,14 @@
     align-items: center;
     display: flex;
     /*justify-content: center;!*水平居中*!*/
-    padding-left: 5rem;
+    padding-left: 4rem;
     .convent-input {
       align-items: center;
       justify-content: center; /*水平居中*/
       display: flex;
       .el-input-group {
         .el-input__inner {
+          border: 1px solid #1dbf64;
           width: 39rem;
           height: 5rem;
         }
