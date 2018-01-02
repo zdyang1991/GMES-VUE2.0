@@ -32,7 +32,7 @@
   .progress{
     height: 27rem;
     .container{
-      height: 27rem;
+      height: 23rem;
     }
   }
 

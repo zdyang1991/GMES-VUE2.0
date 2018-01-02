@@ -10,9 +10,10 @@
           <pro-gress></pro-gress>
         </el-main>
       </el-container>
+      <!--<button @click="setReviseInfo()">2222222</button>-->
     </div>
     <div class="bottom-form">
-      <el-table :data="tableData" border style="width: 100%">
+      <el-table :data="tableData" border style="width: 100%;" >
         <el-table-column prop="productOrderNum" label="订单编号" width="180">
         </el-table-column>
         <el-table-column prop="productionOrderNum" label="工单编号">
@@ -33,6 +34,7 @@
       <span>历史记录</span>
       <span>TGA初始化</span>
     </div>
+
   </div>
 </template>
 <script>
@@ -40,18 +42,24 @@
   export default {
     data() {
       return {
+        tableData:[],
+        ReviseInfo: {
+            siteCode:'',//工单编码
+            statuseCode:'',//工单状态
+            productionOrderNum:"NO_0000000167"//工单编号
+          }
 
-        tableData:[]
       }
     },
     computed: {},
     created() {
       this.getData();
+      this.setReviseInfo();
     },
     methods: {
       getData: function () {
 
-        let loc=JSON.parse(window.localStorage.getItem('terminal'))
+        let loc=JSON.parse(window.localStorage.getItem('terminal'));
         let body = {
           siteCode: loc.siteCode,
           workCenterCode: loc.workCenterCode,
@@ -68,13 +76,37 @@
         })
           .then((response)=>{
            this.tableData= response.data.data;
+           console.log(response)
           })
+      },
+      //工单修改信息上传
+      setReviseInfo:function(){
+        let loc=JSON.parse(window.localStorage.getItem('terminal'));
+
+        this.ReviseInfo.siteCode ='1001';
+        this.ReviseInfo.statuseCode = '10';
+        console.log(this.ReviseInfo);
+        this.$http({
+            headers: {
+              'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            method: 'post',
+            url: 'http://10.200.144.238:8021/pcs/restful/pp/changeProductionOrder',
+            params:this.ReviseInfo
+          })
+          .then((response)=>{
+
+          })
+
       }
     }
 
   }
 
 </script>
-<style lang="less" scoped>
+<style lang="less" >
   @import "../../css/initialize.less";
+  .el-table th div, .el-table th>.cell{
+    color: #222;
+  }
 </style>
