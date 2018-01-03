@@ -93,7 +93,7 @@
                       message: '请联系管理员配置首页！',
                       type: 'warning'
                     })
-                    this.$router.push('/system');
+                    this.$router.push('/home');
                   } else {
 
                     this.$router.push(response.data.data.terminal.homePage);
