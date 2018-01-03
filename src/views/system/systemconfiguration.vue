@@ -142,9 +142,9 @@
                 message: '保存成功',
                 type: 'success'
               })
+              window.localStorage.setItem('serialPort',JSON.stringify(this.form));
               let loc=JSON.parse(window.localStorage.getItem('terminal'));
               if (loc.homePage == null || loc.homePage == undefined || loc.homePage == "") {
-                console.log(11);
                 this.$message({
                   message: '请联系管理员配置首页！',
                   type: 'warning'
