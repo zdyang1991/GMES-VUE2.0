@@ -1,6 +1,5 @@
 <template>
   <div class="initialize">
-    <el-button type="text" @click="dialogTableVisible = true">打开嵌套表格的 Dialog</el-button>
 
     <div class="topbox">
       <el-container>
@@ -33,7 +32,7 @@
       </el-table>
     </div>
     <div class="fixed-box">
-      <span @click="dialogTableVisible = true">历史记录</span>
+      <span @click="getHistoryInfo()">历史记录</span>
       <span>TGA初始化</span>
     </div>
     <el-dialog title="收货地址" :visible.sync="dialogTableVisible" width="80%">
@@ -114,7 +113,6 @@
           })
           .then((response) => {
             this.tableData = response.data.data;
-            console.log(response)
           })
       },
       //工单修改信息上传
@@ -123,7 +121,6 @@
 
         this.ReviseInfo.siteCode = '1001';
         this.ReviseInfo.statuseCode = '10';
-        console.log(this.ReviseInfo);
         this.$http({
             headers: {
               'Content-Type': 'application/x-www-form-urlencoded',
@@ -142,7 +139,26 @@
         this.$alert('', 'HTML 片段', {
           dangerouslyUseHTMLString: true
         });
+      },
+      getHistoryInfo(){
+        this.dialogTableVisible = true;
+        let loc = JSON.parse(window.localStorage.getItem('terminal'));
+        let body = {
+          workStationCode: loc.workStationCode,
+        };
+        this.$http({
+            headers: {
+              'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            method: 'get',
+            url: 'http://10.200.151.229:8021/pcs/restful/pp/getProductionStnRecords',
+            params: body
+          })
+          .then((response) => {
+          console.log(response)
+          })
       }
+
     }
 
   }
