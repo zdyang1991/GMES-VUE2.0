@@ -48,7 +48,8 @@
             <el-col :span="12">
               <el-form-item label="校验位" prop="checkBit" :rules=rule.checkBit>
                 <el-select v-model="form.checkBit" placeholder="请选择校验位">
-                  <el-option label="None" value="null"></el-option>
+                  <el-option label="None" value=""></el-option>
+                  <el-option label="1" value="1"></el-option>
                 </el-select>
               </el-form-item>
             </el-col>
@@ -95,7 +96,7 @@
           checkBit: '',
           stopBit: '',
           enable: '',
-          terminalCode: '222'
+          terminalCode:JSON.parse(window.localStorage.getItem('terminal')).terminalCode
         },
         rule: {
           port: [
@@ -107,9 +108,9 @@
           dataBit:[
             {required: true, message: '请输入数据位', trigger: 'blur'}
           ],
-          checkBit:[
-            {required: true, message: '请选择校验位', trigger: 'change'}
-          ],
+//          checkBit:[
+//            {required: true, message: '请选择校验位', trigger: 'change'}
+//          ],
           stopBit:[
             {required: true, message: '请选择停止位', trigger: 'change'}
           ],
@@ -136,10 +137,27 @@
           data: util.jsonToFormData(this.form)
         })
           .then((response) => {
-            if (response.data.returnCode == 0) {
+            if (response.data.returnCode == "0") {
               this.$message({
                 message: '保存成功',
                 type: 'success'
+              })
+              let loc=JSON.parse(window.localStorage.getItem('terminal'));
+              if (loc.homePage == null || loc.homePage == undefined || loc.homePage == "") {
+                console.log(11);
+                this.$message({
+                  message: '请联系管理员配置首页！',
+                  type: 'warning'
+                })
+                this.$router.push('/home');
+              } else {
+
+                this.$router.push(loc.homePage);
+              }
+            }else {
+              this.$message({
+                message: '保存失败',
+                type: 'error'
               })
             }
           })

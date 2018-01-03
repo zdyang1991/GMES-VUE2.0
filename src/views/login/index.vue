@@ -77,16 +77,23 @@
               data: util.jsonToFormData(_this.form)
             })
               .then((response) => {
+              console.log(response);
                 sessionStorage.setItem("userCode", _this.form.userCode);
                 sessionStorage.setItem("password", _this.form.password);
                 var menulist = JSON.stringify(response.data.data.menus);
-                window.localStorage.setItem('list', menulist)
-                window.localStorage.setItem('terminal',JSON.stringify(response.data.data.terminal))
+                window.localStorage.setItem('list', menulist);
+                window.localStorage.setItem('terminal',JSON.stringify(response.data.data.terminal));
+                window.localStorage.setItem('serialPort',JSON.stringify(response.data.data.serialPort));
                 if (response.data.returnCode == 0) {
                   this.$message({
                     message: '登录成功！',
                     type: 'success'
                   })
+                  let serialPort = response.data.data.serialPort;
+                  if (serialPort == null || serialPort == undefined || serialPort == "") {
+                    console.log(serialPort);
+                    this.$router.push('/system');
+                  }
                   let homepage = response.data.data.terminal.homePage;
                   if (homepage == null || homepage == undefined || homepage == "") {
                     this.$message({
