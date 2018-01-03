@@ -11,8 +11,8 @@
         <div class="img-container no-info engine"></div>
       </div>
     </div>
-    <div class="bottom">
-      <el-table :data="tableData" stripe="true" style="width: 100%;">
+    <div class="bottom-table">
+      <el-table :data="tableData"  style="width: 100%;">
         <el-table-column prop="productOrderNum" label="订单编号" width="">
         </el-table-column>
         <el-table-column prop="productionOrderNum" label="工单编号">
@@ -73,7 +73,7 @@
 
 
 <style lang="less" scoped>
-  .bottom {
+  .bottom-table {
     /*height: calc(100% - 26rem);*/
     height:30%;
     background-color: #fff;
