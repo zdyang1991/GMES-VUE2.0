@@ -96,7 +96,7 @@
               'Content-Type': 'application/x-www-form-urlencoded',
             },
             method: 'post',
-            url: 'http://10.200.144.238:8021/pcs/restful/pp/changeProductionOrder',//测试地址
+            url: 'http://10.200.151.229:8021/pcs/restful/pp/changeProductionOrder',//测试地址
             params:this.ReviseInfo
           })
           .then((response)=>{
