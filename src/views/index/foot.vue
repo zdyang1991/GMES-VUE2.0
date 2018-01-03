@@ -31,11 +31,40 @@
         week: '',
         systime: '',
         isMenuShow: false,
-        wifiStatus:''
+        wifiStatus: ''
       }
     },
+    computed: {},
     created() {
+      let body = document.querySelector('body');
+      body.addEventListener('click', (e) => {
+        if (e.target.id !== 'ment-list') {
+          this.isMenuShow = false;
+        }
+      }, false);
       const _this = this;
+//      this.getServerTime = setInterval(() => {
+//        _this.$http({
+//          headers: {
+//            'Content-Type': 'application/x-www-form-urlencoded',
+//          },
+//          method: 'get',
+//          url: config.apiBaseUrl + 'restful/cm/getServerTime',
+//        }).then((response) => {
+//          console.log(response.data.returnCode)
+//          this.wifiStatus = response.data.returnCode;
+//          let data = (new Date(response.data.data)).getTime();//转换为毫秒数
+//          const date = getTime.gettime(response.data.data);
+//          _this.sysdate = getTime.five(date);
+//          _this.systime = getTime.six(date)
+//          _this.week = date.week;
+//          timer.register('systime', () => {
+//            console.log(2222222222222);
+//            _this.systime = getTime.six(data)
+//            data = data + 1000
+//          }, 1000)
+//        });
+//      }, 2000)
       _this.$http({
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',
@@ -43,27 +72,18 @@
         method: 'get',
         url: config.apiBaseUrl + 'restful/cm/getServerTime',
       }).then((response) => {
-        console.log(response.data.returnCode)
-        this.wifiStatus = response.data.returnCode;
+        //this.wifiStatus = response.data.returnCode;
         let data = (new Date(response.data.data)).getTime();//转换为毫秒数
-        const date = getTime.gettime(response.data.data);
+        const date = getTime.gettime(data);
         _this.sysdate = getTime.five(date);
-        _this.systime = getTime.six(date)
         _this.week = date.week;
-        timer.register('systime', () => {
-          _this.systime = getTime.six(data)
+        window.setInterval(function () {
           data = data + 1000
+          _this.systime = getTime.six(data)
         }, 1000)
       });
-
-      let body = document.querySelector('body');
-      body.addEventListener('click',(e)=>{
-        if(e.target.id !== 'ment-list'){
-          this.isMenuShow = false;
-        }
-      },false)
-
     },
+
 
     methods: {
       menuClick() {
@@ -100,13 +120,13 @@
       margin-left: 2rem;
       margin-right: 2rem;
     }
-    .success{
+    .success {
       background: url("../../assets/WIFI-success.png");
-      background-size: 100%  100%;
+      background-size: 100% 100%;
     }
-    .fail{
+    .fail {
       background: url("../../assets/WIFI-faile.png");
-      background-size: 100%  100%;
+      background-size: 100% 100%;
     }
     .el-checkbox-group label {
       margin-left: 15px;
