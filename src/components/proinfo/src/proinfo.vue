@@ -5,11 +5,11 @@
       <div class="row f-df">
         <div class="row-container f-df">
           <div class="item-container f-f1">
-            <label class="label">物料编号</label>
+            <label class="label">{{formName.workNum}}</label>
             <div class="detail">222222112</div>
           </div>
           <div class="item-container f-f1">
-            <label class="label">物料描述</label>
+            <label class="label">{{formName.machineType}}</label>
             <div class="detail"></div>
           </div>
         </div>
@@ -18,11 +18,11 @@
       <div class="row f-df">
         <div class="row-container f-df">
           <div class="item-container f-f1">
-            <label class="label">物料编号</label>
+            <label class="label">{{formName.matterDNum}}</label>
             <div class="detail"></div>
           </div>
           <div class="item-container f-f1">
-            <label class="label">物料描述</label>
+            <label class="label">{{formName.matterDepict}}</label>
             <div class="detail"></div>
           </div>
         </div>
@@ -35,7 +35,7 @@
             <!--<div class="detail"></div>-->
           <!--</div>-->
           <div class="item-container f-f1">
-            <label class="label">产品序列号</label>
+            <label class="label">{{formName.properNum}}</label>
             <div class="detail">1111111111111111111111111</div>
           </div>
         </div>
@@ -43,11 +43,11 @@
       <div class="row f-df">
         <div class="row-container f-df">
           <div class="item-container f-f1">
-            <label class="label">发动机号</label>
+            <label class="label">{{formName.motorNum}}</label>
             <div class="detail"></div>
           </div>
           <div class="item-container f-f1">
-            <label class="label">订单编号</label>
+            <label class="label">{{formName.orderNum}}</label>
             <div class="detail"></div>
           </div>
         </div>
@@ -58,7 +58,8 @@
 
 <script type="text/babel">
   export default {
-    name: 'proinfo'
+    name: 'proinfo',
+    props:['formName']
   }
 </script>
 <style scoped>
