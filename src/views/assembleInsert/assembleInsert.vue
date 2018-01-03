@@ -11,7 +11,7 @@
     <div class="topbox">
       <el-container>
         <el-aside width="50%">
-          <proinfo></proinfo>
+          <proinfo :formName="formName"></proinfo>
         </el-aside>
         <el-main>
           <pro-gress></pro-gress>
@@ -30,7 +30,17 @@
     data() {
       return {
         code: '',
-        tableData: []
+        tableData: [],
+        formName: {
+          workNum: "工单编号",
+          machineType: '机型',
+          matterDepict: '物料描述',
+          matterDNum: "物料编号",
+          planNum: '计划数量',
+          properNum: "顺序号",
+          motorNum: '发动机号',
+          orderNum: "订单号"
+        }
 
       }
     },

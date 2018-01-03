@@ -2,7 +2,7 @@
   <div class="hottest">
     <convent></convent>
     <div class="pro-info">
-      <proinfo></proinfo>
+      <proinfo :formName="formName"></proinfo>
     </div>
     <convent></convent>
     <div class="bottom-form">
@@ -50,7 +50,22 @@
 </template>
 
 <script type="text/babel">
-
+  export default {
+    data(){
+      return{
+        formName: {
+          workNum: "工单编号",
+          machineType: '机型',
+          matterDepict: '物料描述',
+          matterDNum: "物料编号",
+          planNum: '计划数量',
+          properNum: "顺序号",
+          motorNum: '发动机号',
+          orderNum: "订单号"
+        }
+      }
+    }
+  }
 </script>
 <style lang="less" scoped>
   @import "../../css/hottest.less";
