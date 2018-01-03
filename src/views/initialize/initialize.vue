@@ -47,7 +47,12 @@
             siteCode:'',//工单编码
             statuseCode:'',//工单状态
             productionOrderNum:"NO_0000000167"//工单编号
-          }
+          },
+        formName:{
+          workNum:"工单编号",
+
+
+        }
 
       }
     },
@@ -91,7 +96,7 @@
               'Content-Type': 'application/x-www-form-urlencoded',
             },
             method: 'post',
-            url: 'http://10.200.144.238:8021/pcs/restful/pp/changeProductionOrder',
+            url: 'http://10.200.144.238:8021/pcs/restful/pp/changeProductionOrder',//测试地址
             params:this.ReviseInfo
           })
           .then((response)=>{

@@ -8,7 +8,7 @@
         <!--<div v-else class="img-container no-info"></div>-->
       </div>
       <div class="right">
-        <div class="img-container no-info"></div>
+        <div class="img-container no-info engine"></div>
       </div>
     </div>
     <div class="bottom">
@@ -109,6 +109,10 @@
 
   .bottom td {
     padding-left: 10px;
+  }
+
+  .engine {
+  background: url("../../assets/engie.png") no-repeat center;
   }
 
   /* @import ""; */

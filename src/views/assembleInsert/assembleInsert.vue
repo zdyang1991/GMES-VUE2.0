@@ -12,7 +12,6 @@
       <el-container>
         <el-aside width="50%">
           <proinfo></proinfo>
-
         </el-aside>
         <el-main>
           <pro-gress></pro-gress>
@@ -32,6 +31,7 @@
       return {
         code: '',
         tableData: []
+
       }
     },
     created() {

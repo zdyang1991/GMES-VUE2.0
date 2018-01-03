@@ -30,10 +30,10 @@
       <!-- 第三行 -->
       <div class="row f-df">
         <div class="row-container f-df">
-          <div class="item-container f-f1">
-            <label class="label">计划数量</label>
-            <div class="detail"></div>
-          </div>
+          <!--<div class="item-container f-f1">-->
+            <!--<label class="label">计划数量</label>-->
+            <!--<div class="detail"></div>-->
+          <!--</div>-->
           <div class="item-container f-f1">
             <label class="label">产品序列号</label>
             <div class="detail">1111111111111111111111111</div>
