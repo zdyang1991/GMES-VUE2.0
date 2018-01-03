@@ -37,9 +37,20 @@
     </div>
     <el-dialog title="收货地址" :visible.sync="dialogTableVisible" width="80%">
       <el-table :data="gridData">
-        <el-table-column property="date" label="日期" width="150"></el-table-column>
-        <el-table-column property="name" label="姓名" width="200"></el-table-column>
-        <el-table-column property="address" label="地址"></el-table-column>
+        <el-table-column prop="productOrderNum" label="订单编号" >
+        </el-table-column>
+        <el-table-column prop="productionOrderNum" label="工单编号">
+        </el-table-column>
+        <el-table-column prop="productModel" label="机型">
+        </el-table-column>
+        <el-table-column prop="materialCode" label="物料编码">
+        </el-table-column>
+        <el-table-column prop="materialText" label="物料描述">
+        </el-table-column>
+        <el-table-column prop="plannedQty" label="计划数量">
+        </el-table-column>
+        <el-table-column prop="orderNo" label="顺序号">
+        </el-table-column>
       </el-table>
     </el-dialog>
   </div>
@@ -53,23 +64,7 @@
         tableData: [],
         dialogTableVisible:false,
         dialogFormVisible: false,
-        gridData: [{
-          date: '2016-05-02',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1518 弄'
-        }, {
-          date: '2016-05-04',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1518 弄'
-        }, {
-          date: '2016-05-01',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1518 弄'
-        }, {
-          date: '2016-05-03',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1518 弄'
-        }],
+        gridData: [],
         ReviseInfo: {
           siteCode: '',//工单编码
           statuseCode: '',//工单状态
@@ -155,7 +150,8 @@
             params: body
           })
           .then((response) => {
-          console.log(response)
+          console.log(response.data)
+            this.gridData = response.data.data;
           })
       }
 
@@ -169,5 +165,8 @@
 
   .el-table th div, .el-table th > .cell {
     color: #222;
+  }
+  .el-dialog{
+    height: 30rem;
   }
 </style>
