@@ -35,11 +35,11 @@
       <span @click="getHistoryInfo()">历史记录</span>
       <span>TGA初始化</span>
     </div>
-    <el-dialog title="收货地址" :visible.sync="dialogTableVisible" width="80%">
+    <el-dialog  :visible.sync="dialogTableVisible" width="80%">
       <el-table :data="gridData">
         <el-table-column prop="productOrderNum" label="订单编号" >
         </el-table-column>
-        <el-table-column prop="productionOrderNum" label="工单编号">
+        <el-table-column prop="workOrderNum" label="工单编号">
         </el-table-column>
         <el-table-column prop="productModel" label="机型">
         </el-table-column>
@@ -47,7 +47,7 @@
         </el-table-column>
         <el-table-column prop="materialText" label="物料描述">
         </el-table-column>
-        <el-table-column prop="plannedQty" label="计划数量">
+        <el-table-column prop="quanlity" label="计划数量">
         </el-table-column>
         <el-table-column prop="orderNo" label="顺序号">
         </el-table-column>
