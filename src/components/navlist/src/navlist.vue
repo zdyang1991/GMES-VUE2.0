@@ -15,7 +15,7 @@
         </li>
       </ul>
       <button class="bottom-con" >
-        <div v-on:click="quit()">
+        <div v-on:click="quit()" style="display: flex">
           <span class="el-icon-pad-off"></span>
           退出登录
         </div>
@@ -70,6 +70,7 @@
       getTitle(index){
         let getMenuText = this.$refs.menuTitle[index].innerText;
         this.$store.state.title = getMenuText;
+          localStorage.setItem('title',getMenuText)
       }
 
     }
