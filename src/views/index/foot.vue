@@ -3,7 +3,7 @@
   <div id="app-foot">
     <div class="btn-list">
       <div class="foot-btn f-cp icon-pad-menu" id="ment-list" v-on:click="menuClick()" style="color:#fff;">
-        <!--<i class="icon-pad-menu" style="color:#6f7d9b;"></i>-->
+        <div class="menu-img"></div>
       </div>
     </div>
     <div class="system-info" sw-role="cell">
@@ -164,5 +164,19 @@
 
   .el-button {
     margin-left: 3rem;
+  }
+  .icon-pad-menu:before{
+    content:'';
+  }
+  #ment-list{
+    background-color: #fff;
+    /*background-color: red;*/
+    background-image:url("../../assets/menu.png") ;
+    background-size: 100% 100%;
+  }
+
+  #nav-menu-list .bottom-con span{
+    background-image: url("../../assets/layout.png");
+
   }
 </style>

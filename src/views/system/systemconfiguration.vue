@@ -176,17 +176,17 @@
 </script>
 <style lang="less">
   @import "../../css/systemConfiguration.less";
-   .el-input__inner{
+   .systemConfiguration .el-input__inner{
     border:2px solid #000;
      color:#111;
      font-size: 1.3rem;
   }
-  .el-input__inner::-webkit-input-placeholder{
+  .systemConfiguration .el-input__inner::-webkit-input-placeholder{
         color: #000;
         font-size: 1.2rem;
         line-height: 50px;
      }
-  .el-form-item__label{
+  .systemConfiguration .el-form-item__label{
     font-size: 1.4rem;
     color: #111;
     font-weight: 700;
