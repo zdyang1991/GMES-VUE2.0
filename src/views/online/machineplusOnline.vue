@@ -2,13 +2,6 @@
     <div class="machineplusOnline">
       <convent></convent>
       <div class="topbox">
-        <el-container>
-          <el-aside width="50%">
-            <proinfo :formName="formName"></proinfo>
-          </el-aside>
-          <el-main>
-          </el-main>
-        </el-container>
       </div>
       <div class="bottom-form">
         <el-table
