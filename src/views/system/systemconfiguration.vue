@@ -132,7 +132,7 @@
 //          },(error)=>{
 //            console.log(error);
 //          })
-        if(valid) {
+          if (valid) {
 
 //        let _this = this
 //        this.$http({
@@ -144,35 +144,35 @@
 //          url: config.apiBaseUrl + 'restful/cm/saveTerminalunit',
 //          data: util.jsonToFormData(this.form)
 //        })
-          httpserver(api.saveSystemCom, this.form)
-          .then((response) => {
-            if (response.data.returnCode == "0") {
-              this.$message({
-                message: '保存成功',
-                type: 'success'
-              })
-              window.localStorage.setItem('serialPort',JSON.stringify(this.form));
-              let loc=JSON.parse(window.localStorage.getItem('terminal'));
-              if (loc.homePage == null || loc.homePage == undefined || loc.homePage == "") {
-                this.$message({
-                  message: '请联系管理员配置首页！',
-                  type: 'warning'
-                })
-                this.$router.push('/home');
-              } else {
+            httpserver(api.saveSystemCom, this.form)
+              .then((response) => {
+                if (response.data.returnCode == "0") {
+                  this.$message({
+                    message: '保存成功',
+                    type: 'success'
+                  })
+                  window.localStorage.setItem('serialPort', JSON.stringify(this.form));
+                  let loc = JSON.parse(window.localStorage.getItem('terminal'));
+                  if (loc.homePage == null || loc.homePage == undefined || loc.homePage == "") {
+                    this.$message({
+                      message: '请联系管理员配置首页！',
+                      type: 'warning'
+                    })
+                    this.$router.push('/home');
+                  } else {
 
-                this.$router.push(loc.homePage);
-              }
-            }
-          })
-          .catch((error) => {
-          console.log(error.response);
-            this.$message({
-              message: error.response.data.errorMessage,
-              type: 'error'
-            })
-          })
-        }
+                    this.$router.push(loc.homePage);
+                  }
+                }
+              })
+              .catch((error) => {
+                console.log(error.response);
+                this.$message({
+                  message: error.response.data.errorMessage,
+                  type: 'error'
+                })
+              })
+          }
         })
       }
     }
@@ -181,19 +181,19 @@
 <style lang="less">
   @import "../../css/systemConfiguration.less";
 
-  .el-input__inner {
+  .systemConfiguration .el-input__inner {
     border: 2px solid #000;
     color: #111;
     font-size: 1.3rem;
   }
 
-  .el-input__inner::-webkit-input-placeholder {
+  .systemConfiguration .el-input__inner::-webkit-input-placeholder {
     color: #000;
     font-size: 1.2rem;
     line-height: 50px;
   }
 
-  .el-form-item__label {
+  .systemConfiguration .el-form-item__label {
     font-size: 1.4rem;
     color: #111;
     font-weight: 700;
