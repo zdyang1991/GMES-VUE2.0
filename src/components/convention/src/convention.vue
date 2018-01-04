@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="convent">
-      <span style="font-size: 1.5rem">零件号：</span>
+      <span style="font-size: 1.5rem;width: ">零件号：</span>
       <div class="convent-input">
         <el-input placeholder=""  :autosize="{ minRows: 4, maxRows: 4}" size="80">
           <template slot="append">确认</template>
@@ -25,7 +25,7 @@
     align-items: center;
     display: flex;
     /*justify-content: center;!*水平居中*!*/
-    padding-left:3rem;
+    padding-left:1.2rem;
     .convent-input{
       align-items: center;
       justify-content: center;/*水平居中*/
