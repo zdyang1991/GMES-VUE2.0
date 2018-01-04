@@ -32,14 +32,14 @@
         code: '',
         tableData: [],
         formName: {
-          workNum: "工单编号",
-          machineType: '机型',
-          matterDepict: '物料描述',
-          matterDNum: "物料编号",
-          planNum: '计划数量',
-          properNum: "顺序号",
-          motorNum: '发动机号',
-          orderNum: "订单号"
+          workNum: "订单编号",
+          machineType: '工单编号',
+          matterDepict: '机型',
+          matterDNum: "发动机号",
+          planNum: '',
+          properNum: "发动机号",
+          motorNum: '产品编号',
+          orderNum: "产品描述"
         }
 
       }
