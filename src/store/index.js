@@ -7,7 +7,7 @@ export default new Vuex.Store({
   state:{
     menulist: [],
     title:''
-    
+
   },
   mutations:{
     hideSearch(state){
@@ -15,9 +15,9 @@ export default new Vuex.Store({
     },
   },
   getters:{
-  
+
   },
   actions:{
-  
+
   }
 });

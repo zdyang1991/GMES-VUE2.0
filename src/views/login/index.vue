@@ -40,6 +40,8 @@
   import util from '../../utils/util.js';
   import particles from "@/js/vendors/particles/particles"
   import config from '../../js/config'
+  import httpserver from '../../utils/http.js';
+  import api from '../../utils/api.js';
 
   export default {
     data() {
@@ -67,33 +69,23 @@
         this.$refs[formName].validate(async (valid) => {
           if (valid) {
             let _this = this;
-            console.log(config.apiBaseUrl)
-            this.$http({
-              headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
-              },
-              method: 'post',
-              url: config.apiBaseUrl + 'restful/doLogin',
-              data: util.jsonToFormData(_this.form)
-            })
+            httpserver(api.logIn,_this.form)
               .then((response) => {
               console.log(response);
                 sessionStorage.setItem("userCode", _this.form.userCode);
                 sessionStorage.setItem("password", _this.form.password);
                 var menulist = JSON.stringify(response.data.data.menus);
                 window.localStorage.setItem('list', menulist);
+                window.localStorage.setItem('sessionId',response.data.data.sessionId);
                 window.localStorage.setItem('terminal',JSON.stringify(response.data.data.terminal));
                 window.localStorage.setItem('serialPort',JSON.stringify(response.data.data.serialPort));
                 if (response.data.returnCode == 0) {
-                  this.$message({
-                    message: '登录成功！',
-                    type: 'success'
-                  })
                   let serialPort = response.data.data.serialPort;
                   if (serialPort == null || serialPort == undefined || serialPort == "") {
                     console.log(serialPort);
                     this.$router.push('/system');
                   }
+                  console.log(response.data.data.terminal.homePage);
                   let homepage = response.data.data.terminal.homePage;
                   if (homepage == null || homepage == undefined || homepage == "") {
                     this.$message({
@@ -102,17 +94,9 @@
                     })
                     this.$router.push('/home');
                   } else {
-
                     this.$router.push(response.data.data.terminal.homePage);
                   }
                 }
-              })
-              .catch((error) => {
-                console.log(error.response);
-                this.$message({
-                  message: "登录失败",
-                  type: 'warning'
-                })
               })
           }
         })

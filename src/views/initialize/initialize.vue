@@ -57,7 +57,8 @@
 </template>
 <script>
   import util from '../../utils/util.js';
-
+  import httpserver from '../../utils/http.js';
+  import api from '../../utils/api.js';
   export default {
     data() {
       return {
@@ -66,7 +67,6 @@
         dialogFormVisible: false,
         gridData: [],
         ReviseInfo: {
-          siteCode: '',//工单编码
           statuseCode: '',//工单状态
           productionOrderNum: "NO_0000000167"//工单编号
         },
@@ -93,41 +93,22 @@
 
         let loc = JSON.parse(window.localStorage.getItem('terminal'));
         let body = {
-          siteCode: loc.siteCode,
           workCenterCode: loc.workCenterCode,
           statuseCode: '7',
           endRow: 2
         };
-        this.$http({
-            headers: {
-              'Content-Type': 'application/x-www-form-urlencoded',
-            },
-            method: 'get',
-            url: 'http://10.200.151.229:8021/pcs/restful/pp/getProcutionOrderQueue',
-            params: body
-          })
-          .then((response) => {
-            this.tableData = response.data.data;
+        httpserver(api.getinitializeTable,body)
+          .then((res) => {
+            this.tableData = res.data.data;
           })
       },
       //工单修改信息上传
       setReviseInfo: function () {
         let loc = JSON.parse(window.localStorage.getItem('terminal'));
-
-        this.ReviseInfo.siteCode = '1001';
         this.ReviseInfo.statuseCode = '10';
-        this.$http({
-            headers: {
-              'Content-Type': 'application/x-www-form-urlencoded',
-            },
-            method: 'post',
-            url: 'http://10.200.151.229:8021/pcs/restful/pp/changeProductionOrder',//测试地址
-            params: this.ReviseInfo
-          })
+        httpserver(api.setReviseInfo,this.ReviseInfo)
           .then((response) => {
-
           })
-
       },
       //弹窗
       open4() {
@@ -141,14 +122,7 @@
         let body = {
           workStationCode: loc.workStationCode,
         };
-        this.$http({
-            headers: {
-              'Content-Type': 'application/x-www-form-urlencoded',
-            },
-            method: 'get',
-            url: 'http://10.200.151.229:8021/pcs/restful/pp/getProductionStnRecords',
-            params: body
-          })
+        httpserver(api.getHistoryInfo,body)
           .then((response) => {
           console.log(response.data)
             this.gridData = response.data.data;

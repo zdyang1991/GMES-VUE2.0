@@ -9,7 +9,7 @@
           <el-row :gutter="20">
             <el-col :span="12">
               <el-form-item label="端口" prop="port" :rules=rule.port>
-                <el-select prop="port" v-model="form.port"  placeholder="请选择端口">
+                <el-select prop="port" v-model="form.port" placeholder="请选择端口">
                   <el-option label="COM1" value="COM1"></el-option>
                   <el-option label="COM2" value="COM2"></el-option>
                   <el-option label="COM3" value="COM3"></el-option>
@@ -21,7 +21,7 @@
             </el-col>
             <el-col :span="12">
               <el-form-item label="波特率" prop="baudRate" :rules=rule.baudRate>
-                <el-select v-model="form.baudRate"  placeholder="请选择波特率">
+                <el-select v-model="form.baudRate" placeholder="请选择波特率">
                   <el-option label="300" value="300"></el-option>
                   <el-option label="600" value="600"></el-option>
                   <el-option label="1200" value="1200"></el-option>
@@ -84,6 +84,8 @@
 
 <script type="text/babel">
   import util from '../../utils/util.js';
+  import httpserver from '../../utils/http.js';
+  import api from '../../utils/api.js';
   import config from '../../js/config'
 
   export default {
@@ -96,25 +98,25 @@
           checkBit: '',
           stopBit: '',
           enable: '',
-          terminalCode:JSON.parse(window.localStorage.getItem('terminal')).terminalCode
+          terminalCode: JSON.parse(window.localStorage.getItem('terminal')).terminalCode
         },
         rule: {
           port: [
             {required: true, message: '请选择端口号', trigger: 'change'}
           ],
-          baudRate:[
+          baudRate: [
             {required: true, message: '请选择波特率', trigger: 'change'}
           ],
-          dataBit:[
+          dataBit: [
             {required: true, message: '请输入数据位', trigger: 'blur'}
           ],
 //          checkBit:[
 //            {required: true, message: '请选择校验位', trigger: 'change'}
 //          ],
-          stopBit:[
+          stopBit: [
             {required: true, message: '请选择停止位', trigger: 'change'}
           ],
-          enable:[
+          enable: [
             {required: true, message: '请选择是否生效', trigger: 'change'}
           ]
         }
@@ -123,70 +125,79 @@
     },
     methods: {
       onSubmit(formName) {
-        this.$refs[formName].validate(async (valid) =>{
-        if(valid) {
+        this.$refs[formName].validate(async (valid) => {
 
-        let _this = this
-        this.$http({
-          headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-          },
-          method: 'post',
-
-          url: config.apiBaseUrl + 'restful/cm/saveTerminalunit',
-          data: util.jsonToFormData(this.form)
+          httpserver(api.saveSystemCom, this.form).then((res) => {
+            console.log(res)
+          },(error)=>{
+            console.log(error);
+          })
+//        if(valid) {
+//
+//        let _this = this
+//        this.$http({
+//          headers: {
+//            'Content-Type': 'application/x-www-form-urlencoded',
+//          },
+//          method: 'post',
+//
+//          url: config.apiBaseUrl + 'restful/cm/saveTerminalunit',
+//          data: util.jsonToFormData(this.form)
+//        })
+//          .then((response) => {
+//            if (response.data.returnCode == "0") {
+//              this.$message({
+//                message: '保存成功',
+//                type: 'success'
+//              })
+//              window.localStorage.setItem('serialPort',JSON.stringify(this.form));
+//              let loc=JSON.parse(window.localStorage.getItem('terminal'));
+//              if (loc.homePage == null || loc.homePage == undefined || loc.homePage == "") {
+//                this.$message({
+//                  message: '请联系管理员配置首页！',
+//                  type: 'warning'
+//                })
+//                this.$router.push('/home');
+//              } else {
+//
+//                this.$router.push(loc.homePage);
+//              }
+//            }else {
+//              this.$message({
+//                message: '保存失败',
+//                type: 'error'
+//              })
+//            }
+//          })
+//          .catch((error) => {
+//          console.log(error.response);
+//            this.$message({
+//              message: error.response.data.errorMessage,
+//              type: 'error'
+//            })
+//          })
+//        }
         })
-          .then((response) => {
-            if (response.data.returnCode == "0") {
-              this.$message({
-                message: '保存成功',
-                type: 'success'
-              })
-              window.localStorage.setItem('serialPort',JSON.stringify(this.form));
-              let loc=JSON.parse(window.localStorage.getItem('terminal'));
-              if (loc.homePage == null || loc.homePage == undefined || loc.homePage == "") {
-                this.$message({
-                  message: '请联系管理员配置首页！',
-                  type: 'warning'
-                })
-                this.$router.push('/home');
-              } else {
-
-                this.$router.push(loc.homePage);
-              }
-            }else {
-              this.$message({
-                message: '保存失败',
-                type: 'error'
-              })
-            }
-          })
-          .catch((error) => {
-          console.log(error.response);
-            this.$message({
-              message: error.response.data.errorMessage,
-              type: 'error'
-            })
-          })
-        }
-      })
       }
     }
   }
 </script>
 <style lang="less">
   @import "../../css/systemConfiguration.less";
-   .systemConfiguration .el-input__inner{
-    border:2px solid #000;
-     color:#111;
-     font-size: 1.3rem;
+
+  .el-input__inner {
+    border: 2px solid #000;
+    color: #111;
+    font-size: 1.3rem;
   }
-  .systemConfiguration .el-input__inner::-webkit-input-placeholder{
-        color: #000;
-        font-size: 1.2rem;
-        line-height: 50px;
-     }
-  .systemConfiguration .el-form-item__label{
+
+  .el-input__inner::-webkit-input-placeholder {
+    color: #000;
+    font-size: 1.2rem;
+    line-height: 50px;
+  }
+
+  .el-form-item__label {
     font-size: 1.4rem;
     color: #111;
     font-weight: 700;

@@ -13,5 +13,7 @@ util.sessionClean = function () {
   sessionStorage.removeItem('password');
   window.localStorage.removeItem('list');
   window.localStorage.removeItem('terminal');
+  window.localStorage.removeItem('serialPort');
+  window.localStorage.removeItem('sessionId');
 };
 export default util;
