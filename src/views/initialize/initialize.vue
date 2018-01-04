@@ -33,7 +33,7 @@
     </div>
     <div class="fixed-box">
       <span @click="getHistoryInfo()">历史记录</span>
-      <span>TGA初始化</span>
+      <span>TAG初始化</span>
     </div>
     <el-dialog  :visible.sync="dialogTableVisible" width="80%">
       <el-table :data="gridData">
@@ -75,9 +75,9 @@
           machineType: '机型',
           matterDepict: '物料描述',
           matterDNum: "物料编号",
-          planNum: '计划数量',
-          properNum: "顺序号",
-          motorNum: '发动机号',
+          planNum: '',
+          properNum: "发动机号",
+          motorNum: '计划数量',
           orderNum: "订单号"
         }
 
