@@ -5,7 +5,7 @@
       <el-table
         :data="tableData"
         border
-        style="width: 100%">
+        style="width: 100%;font-size: 1.2rem">
         <el-table-column
           prop="date"
           label="序号"
