@@ -1,7 +1,7 @@
 const serviceModule = {
   //保存串口配置
   saveSystemCom: {
-    url: 'http://10.200.188.232:8021/restful/cm/saveTerminalunit',
+    url: 'http://10.200.151.229:8041/restful/cm/saveTerminalunit',
     method: 'post'
   },
   //登录接口
@@ -24,6 +24,16 @@ const serviceModule = {
     url: 'http://10.200.151.229:8021/pcs/restful/pp/changeProductionOrder',
     method: 'post'
   },
+  //获取服务器时间
+  getServertime:{
+    url:'http://10.200.151.229:8041/restful/cm/getServerTime',
+    method:'get'
+  },
+  //装配上线获取当前工单信息
+  getAssemblyData:{
+    url:'http://10.200.151.229:8021/pcs/restful/pp/getProcutionOrderQueue',
+    method:'get'
+  }
 }
 const ApiSetting = {...serviceModule}
 

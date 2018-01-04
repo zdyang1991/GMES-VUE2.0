@@ -35,6 +35,8 @@
 <script>
   // import currentorder from './component/currentOrder.vue';
   import util from '../../utils/util.js';
+  import httpserver from '../../utils/http.js';
+  import api from '../../utils/api.js';
   export default{
   data() {
     return {
@@ -49,19 +51,11 @@
 
         let loc = JSON.parse(window.localStorage.getItem('terminal'));
         let body = {
-          siteCode: loc.siteCode,
           workCenterCode: loc.workCenterCode,
           statuseCode: '10',
           endRow: 5
         };
-        this.$http({
-          headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-          },
-          method: 'get',
-          url: 'http://10.200.151.229:8021/pcs/restful/pp/getProcutionOrderQueue',
-          params: body
-        })
+        httpserver(api.getAssemblyData,body)
           .then((response) => {
             this.tableData = response.data.data;
           })

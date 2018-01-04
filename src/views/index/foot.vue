@@ -23,6 +23,8 @@
   import config from '../../js/config'
   import getTime from '@/js/timeFormat'
   import timer from '@/js/timerManager'
+  import httpserver from '../../utils/http.js';
+  import api from '../../utils/api.js';
 
   export default {
     data() {
@@ -65,13 +67,15 @@
 //          }, 1000)
 //        });
 //      }, 2000)
-      _this.$http({
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-        },
-        method: 'get',
-        url: config.apiBaseUrl + 'restful/cm/getServerTime',
-      }).then((response) => {
+//      _this.$http({
+//        headers: {
+//          'Content-Type': 'application/x-www-form-urlencoded',
+//        },
+//        method: 'get',
+//        url: config.apiBaseUrl + 'restful/cm/getServerTime',
+//      })
+      httpserver(api.getServertime,'')
+        .then((response) => {
         //this.wifiStatus = response.data.returnCode;
         let data = (new Date(response.data.data)).getTime();//转换为毫秒数
         const date = getTime.gettime(data);
