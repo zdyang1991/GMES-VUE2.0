@@ -127,13 +127,13 @@
       onSubmit(formName) {
         this.$refs[formName].validate(async (valid) => {
 
-          httpserver(api.saveSystemCom, this.form).then((res) => {
-            console.log(res)
-          },(error)=>{
-            console.log(error);
-          })
-//        if(valid) {
-//
+//          httpserver(api.saveSystemCom, this.form).then((res) => {
+//            console.log(res)
+//          },(error)=>{
+//            console.log(error);
+//          })
+        if(valid) {
+
 //        let _this = this
 //        this.$http({
 //          headers: {
@@ -144,39 +144,35 @@
 //          url: config.apiBaseUrl + 'restful/cm/saveTerminalunit',
 //          data: util.jsonToFormData(this.form)
 //        })
-//          .then((response) => {
-//            if (response.data.returnCode == "0") {
-//              this.$message({
-//                message: '保存成功',
-//                type: 'success'
-//              })
-//              window.localStorage.setItem('serialPort',JSON.stringify(this.form));
-//              let loc=JSON.parse(window.localStorage.getItem('terminal'));
-//              if (loc.homePage == null || loc.homePage == undefined || loc.homePage == "") {
-//                this.$message({
-//                  message: '请联系管理员配置首页！',
-//                  type: 'warning'
-//                })
-//                this.$router.push('/home');
-//              } else {
-//
-//                this.$router.push(loc.homePage);
-//              }
-//            }else {
-//              this.$message({
-//                message: '保存失败',
-//                type: 'error'
-//              })
-//            }
-//          })
-//          .catch((error) => {
-//          console.log(error.response);
-//            this.$message({
-//              message: error.response.data.errorMessage,
-//              type: 'error'
-//            })
-//          })
-//        }
+          httpserver(api.saveSystemCom, this.form)
+          .then((response) => {
+            if (response.data.returnCode == "0") {
+              this.$message({
+                message: '保存成功',
+                type: 'success'
+              })
+              window.localStorage.setItem('serialPort',JSON.stringify(this.form));
+              let loc=JSON.parse(window.localStorage.getItem('terminal'));
+              if (loc.homePage == null || loc.homePage == undefined || loc.homePage == "") {
+                this.$message({
+                  message: '请联系管理员配置首页！',
+                  type: 'warning'
+                })
+                this.$router.push('/home');
+              } else {
+
+                this.$router.push(loc.homePage);
+              }
+            }
+          })
+          .catch((error) => {
+          console.log(error.response);
+            this.$message({
+              message: error.response.data.errorMessage,
+              type: 'error'
+            })
+          })
+        }
         })
       }
     }
