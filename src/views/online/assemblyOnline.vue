@@ -29,6 +29,39 @@
         </el-table-column>
       </el-table>
     </div>
+
+    <!--按钮-->
+    <div class="fixed-box">
+      <span @click="getHistoryInfo()">历史记录</span>
+      <span>TAG初始化</span>
+    </div>
+    <!--弹框-->
+    <el-dialog  :visible.sync="dialogTableVisible" width="80%">
+      <el-table :data="gridData">
+        <el-table-column prop="productOrderNum" label="订单编号" >
+        </el-table-column>
+        <el-table-column prop="workOrderNum" label="工单编号">
+        </el-table-column>
+        <el-table-column prop="productModel" label="机型">
+        </el-table-column>
+        <el-table-column prop="materialCode" label="物料编码">
+        </el-table-column>
+        <el-table-column prop="materialText" label="物料描述">
+        </el-table-column>
+        <el-table-column prop="quanlity" label="计划数量">
+        </el-table-column>
+        <el-table-column prop="orderNo" label="顺序号">
+        </el-table-column>
+      </el-table>
+      <el-pagination
+        @size-change="handleSizeChange"
+        @current-change="handleCurrentChange"
+        :current-page="currentPage4"
+        :page-size="1"
+        layout="total, sizes, prev, pager, next, jumper"
+        :total="400">
+      </el-pagination>
+    </el-dialog>
   </div>
 </template>
 
@@ -41,6 +74,11 @@
   data() {
     return {
       tableData: [],
+      dialogTableVisible:false,
+      dialogFormVisible: false,
+      gridData: [],
+      pageNo:'',
+      pageSize:""
     }
   },
     created() {
@@ -59,6 +97,29 @@
           .then((response) => {
             this.tableData = response.data.data;
           })
+      },
+      getHistoryInfo(){
+        this.dialogTableVisible = true;
+        let loc = JSON.parse(window.localStorage.getItem('terminal'));
+        let body = {
+          workStationCode: loc.workStationCode,
+          pageNo:"1",
+          pageSize:"1"
+        };
+        httpserver(api.getHistoryInfo,body)
+          .then((response) => {
+            console.log(response.data);
+            this.gridData = response.data.data;
+          })
+      },
+//      控制每页几条
+      handleSizeChange(val) {
+
+        console.log(`每页 ${val} 条`);
+      },
+//      当前的页数
+      handleCurrentChange(val) {
+
       }
     }
 
@@ -110,41 +171,45 @@
     background: white;
   }
 
-  /*.bottom thead {*/
-    /*background: #F9F9F9;*/
-  /*}*/
-
-  /*.bottom tbody {*/
-    /*background: #FFFFFF;*/
-  /*}*/
-
-  /*.bottom {*/
-    /*height: 170px;*/
-    /*!*margin-top: 10px;*!*/
-    /*background: white;*/
-  /*}*/
-
-  /*.bottom table {*/
-    /*width: 100%;*/
-    /*color: #222222;*/
-  /*}*/
-
-  /*.bottom table,*/
-  /*.bottom table tr,*/
-  /*.bottom table td {*/
-    /*border: 1px solid #F1F1F1;*/
-  /*}*/
-
-  /*.bottom tr {*/
-    /*height: 54px;*/
-  /*}*/
-
-  /*.bottom td {*/
-    /*padding-left: 10px;*/
-  /*}*/
 
   .engine {
   background: url("../../assets/engie.png") no-repeat center;
+  }
+  .fixed-box{
+
+    span:first-child{
+      margin-right: 2rem;
+      width: 7rem;
+      height: 7rem;
+      background-color: #009DD9;
+      position: fixed;
+      top: 6.3rem;
+      right: 0;
+      border-radius: 8rem ;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 1.4rem;
+      color: white;
+    }
+    span:last-child{
+      margin-right: 2rem;
+      width: 7rem;
+      height: 7rem;
+      background-color: #009DD9;
+      position: fixed;
+      top: 15rem;
+      right: 0;
+      border-radius: 8rem ;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 1.2rem;
+      color: white;
+    }
+  }
+  .el-pagination{
+    margin-top: 1rem;
   }
 
   /* @import ""; */

@@ -16,7 +16,7 @@ const serviceModule = {
     url: apiPcsUrl + 'restful/pp/getProcutionOrderQueue',
     method: 'get'
   },
-  //初始化获取历史记录信息
+  //初始化,装配上线获取历史记录信息,
   getHistoryInfo: {
     url: apiPcsUrl + 'restful/pp/getProductionStnRecords',
     method: 'get'
