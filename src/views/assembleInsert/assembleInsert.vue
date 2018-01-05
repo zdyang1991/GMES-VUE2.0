@@ -53,6 +53,7 @@
   export default {
     data() {
       return {
+        serialPort:new SerialPort('COM3',false),
         code: '',
         dialogTableVisible:false,
         tableData: [],
@@ -71,6 +72,7 @@
       }
     },
     created() {
+      console.log("打开串口");
       this.openCom();
     },
     beforeDestroy: function() {
@@ -94,15 +96,10 @@
       },
       openCom() {
         let _this = this;
-        let serialPort = new SerialPort('COM3', function (err) {
-          if (err) {
-            return console.log('Error: ', err.message);
-          }
-        });
         let Readline = SerialPort.parsers.Readline;
         let parser = new Readline();
-        serialPort.pipe(parser);
-        serialPort.open(function (error){
+        _this.serialPort.pipe(parser);
+        _this.serialPort.open(function (error){
           console.log("打开" + error);
         })
         parser.on('data', function (data) {
@@ -112,15 +109,8 @@
         })
       },
       closeCom() {
-//        let port = new SerialPort('COM3', function (err) {
-//          if (err) {
-//            console.log("hahahahahahha");
-//            return console.log('Error: ', err.message);
-//          }
-//        });
-
-//        port.close();
-//        console.log("guanbi chenggong");
+        let _this = this;
+        _this.serialPort.close();
       }
 
 
