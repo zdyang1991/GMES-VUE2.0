@@ -2,8 +2,8 @@
   <div class="assembleInsert">
     <div class="convent">
       <div class="convent-input">
-        <span style="idth: 8rem;font-size: 1.2rem;">发动机号</span>
-        <el-input v-model="code" :autosize="{ minRows: 4, maxRows: 4}" size="80">
+        <span style="width: 8rem;font-size: 1.2rem;">发动机号</span>
+        <el-input  :autosize="{ minRows: 4, maxRows: 4}" size="80" @keyup.enter.native="show($event)" v-model="code">
 
         </el-input>
         <el-button type="primary" @click="getSerialNoInformation()">确定</el-button>
@@ -120,6 +120,7 @@
         let body={
           serialNo:this.code
         }
+
         httpserver(api.getSerialNoInformation,body)
           .then((res) => {
           //6947463266069
@@ -127,8 +128,27 @@
             console.log(res)
             console.log(this.gridData)
           })
+      },
+      show:function (ev) {
+        let _this = this;
+        console.log(this.code)
+        if(ev.keyCode==13){
+          let body={
+            serialNo:_this.code
+          }
+
+          httpserver(api.getSerialNoInformation,body)
+            .then((res) => {
+              //6947463266069
+              this.gridData = res.data.data
+              console.log(res)
+              console.log(this.gridData)
+            })
+        }
       }
-    }
+
+      }
+
   }
 </script>
 <style lang="less" scoped>
