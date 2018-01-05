@@ -35,8 +35,13 @@ const serviceModule = {
   getAssemblyData: {
     url: apiPcsUrl + 'restful/pp/getProcutionOrderQueue',
     method: 'get'
+  },
+  getSerialNoInformation: {
+    url: apiPcsUrl + 'restful/pp/getSerialNoInformation',
+    method: 'get'
   }
+  
 }
-const ApiSetting = {...serviceModule}
+const ApiSetting = {...serviceModule};
 
 export default ApiSetting

@@ -5,12 +5,16 @@
       <div class="row f-df">
         <div class="row-container f-df">
           <div class="item-container f-f1">
+            <!--订单编号-->
+
             <label class="label">{{formName.workNum}}</label>
-            <div class="detail">222222112</div>
+            <div class="detail">{{gridData.productionOrderNum}}</div>
+
           </div>
           <div class="item-container f-f1">
+            <!--工单编号-->
             <label class="label">{{formName.machineType}}</label>
-            <div class="detail"></div>
+            <div class="detail">{{gridData.productOrderNum}}</div>
           </div>
         </div>
       </div>
@@ -18,12 +22,14 @@
       <div class="row f-df">
         <div class="row-container f-df">
           <div class="item-container f-f1">
+            <!--发动机号-->
             <label class="label">{{formName.matterDNum}}</label>
-            <div class="detail"></div>
+            <div class="detail">{{gridData.serialNo}}</div>
           </div>
           <div class="item-container f-f1">
+            <!--机型-->
             <label class="label">{{formName.matterDepict}}</label>
-            <div class="detail"></div>
+            <div class="detail">{{gridData.productModel}}</div>
           </div>
         </div>
       </div>
@@ -36,7 +42,7 @@
           <!--</div>-->
           <div class="item-container f-f1">
             <label class="label">{{formName.properNum}}</label>
-            <div class="detail">1111111111111111111111111</div>
+            <div class="detail">{{gridData.serialNo}}</div>
           </div>
         </div>
       </div>
@@ -59,7 +65,7 @@
 <script type="text/babel">
   export default {
     name: 'proinfo',
-    props:['formName']
+    props:['formName','gridData']
   }
 </script>
 <style scoped>

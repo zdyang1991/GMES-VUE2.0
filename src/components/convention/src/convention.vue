@@ -3,7 +3,7 @@
     <div class="convent">
       <span style="font-size: 1.5rem;width: ">零件号：</span>
       <div class="convent-input">
-        <el-input placeholder=""  :autosize="{ minRows: 4, maxRows: 4}" size="80">
+        <el-input placeholder=""  :autosize="{ minRows: 4, maxRows: 4}" size="80" v-model="serialNo">
           <template slot="append">确认</template>
         </el-input>
       </div>
@@ -14,7 +14,15 @@
 
 <script type="text/babel">
   export default {
-    name: 'convent'
+    name: 'convent',
+    data(){
+      return{
+        serialNo:''
+      }
+    },
+    methods:{
+
+    }
   }
 
 </script>
