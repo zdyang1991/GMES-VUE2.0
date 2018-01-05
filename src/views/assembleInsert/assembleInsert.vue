@@ -55,7 +55,7 @@
   export default {
     data() {
       return {
-//        serialPort:new SerialPort('COM3',false),
+        //serialPort:new SerialPort('COM3',false),
         code: '',
         dialogTableVisible:false,
         tableData: [],
@@ -113,15 +113,8 @@
         })
       },
       closeCom() {
-//        let port = new SerialPort('COM3', function (err) {
-//          if (err) {
-//            console.log("hahahahahahha");
-//            return console.log('Error: ', err.message);
-//          }
-//        });
-
-//        port.close();
-//        console.log("guanbi chenggong");
+        let _this = this;
+        _this.serialPort.close();
       },
       getSerialNoInformation(){
         let body={
