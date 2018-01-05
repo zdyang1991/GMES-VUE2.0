@@ -1,4 +1,4 @@
-const apiBaseUrl = 'http://10.200.188.232:8021/'
+const apiBaseUrl = 'http://10.200.151.229:8041/'
 const apiPcsUrl = 'http://10.200.151.229:8021/pcs/'
 const serviceModule = {
   //保存串口配置

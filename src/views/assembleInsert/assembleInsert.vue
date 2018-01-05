@@ -45,10 +45,16 @@
       }
     },
     created() {
-      this.getData();
+      this.openCom();
+    },
+    beforeDestroy: function() {
+      console.log("销毁前关闭串口");
+      this.closeCom();
+
     },
     methods: {
-      getData() {
+
+      openCom() {
         let _this = this;
         let serialPort = new SerialPort('COM3', function (err) {
           if (err) {
@@ -66,7 +72,19 @@
           _this.code = data;
           console.log(_this.code);
         })
+      },
+      closeCom() {
+//        let port = new SerialPort('COM3', function (err) {
+//          if (err) {
+//            console.log("hahahahahahha");
+//            return console.log('Error: ', err.message);
+//          }
+//        });
+
+        port.close();
+        console.log("guanbi chenggong");
       }
+
 
     }
   }
