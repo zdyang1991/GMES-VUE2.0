@@ -18,6 +18,28 @@
         </el-main>
       </el-container>
     </div>
+    <div class="fixed-box">
+      <span @click="getHistoryInfo()">历史记录</span>
+      <span>TAG初始化</span>
+    </div>
+    <el-dialog  :visible.sync="dialogTableVisible" width="80%">
+      <el-table :data="gridData">
+        <el-table-column prop="productOrderNum" label="订单编号" >
+        </el-table-column>
+        <el-table-column prop="workOrderNum" label="工单编号">
+        </el-table-column>
+        <el-table-column prop="productModel" label="机型">
+        </el-table-column>
+        <el-table-column prop="materialCode" label="物料编码">
+        </el-table-column>
+        <el-table-column prop="materialText" label="物料描述">
+        </el-table-column>
+        <el-table-column prop="quanlity" label="计划数量">
+        </el-table-column>
+        <el-table-column prop="orderNo" label="顺序号">
+        </el-table-column>
+      </el-table>
+    </el-dialog>
     <div class="bottom-box">
       <el-button type="danger">需要热试</el-button>
       <el-button type="primary">保存</el-button>
@@ -26,11 +48,15 @@
 </template>
 
 <script type="text/babel">
+  import httpserver from '../../utils/http.js';
+  import api from '../../utils/api.js';
   export default {
     data() {
       return {
         code: '',
+        dialogTableVisible:false,
         tableData: [],
+        gridData:[],
         formName: {
           workNum: "订单编号",
           machineType: '工单编号',
@@ -53,7 +79,19 @@
 
     },
     methods: {
-
+      getHistoryInfo() {
+        this.dialogTableVisible = true;
+        let loc = JSON.parse(window.localStorage.getItem('terminal'));
+        let body = {
+          workStationCode: loc.workStationCode,
+          pageNo:"1",
+          pageSize:"1"
+        };
+       httpserver(api.getHistoryInfo,body)
+         .then((res) => {
+         this.tableData = res.data.data;
+       })
+      },
       openCom() {
         let _this = this;
         let serialPort = new SerialPort('COM3', function (err) {
@@ -81,8 +119,8 @@
 //          }
 //        });
 
-        port.close();
-        console.log("guanbi chenggong");
+//        port.close();
+//        console.log("guanbi chenggong");
       }
 
 
@@ -113,6 +151,37 @@
     }
     .el-button {
       margin-left: 2rem;
+    }
+  }
+
+  .fixed-box{
+    span:first-child{
+      width: 7rem;
+      height: 7rem;
+      background-color: #009DD9;
+      position: fixed;
+      top: 21rem;
+      right: 0;
+      border-radius: 8rem ;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 1.4rem;
+      color: white;
+    }
+    span:last-child{
+      width: 7rem;
+      height: 7rem;
+      background-color: #009DD9;
+      position: fixed;
+      top: 29rem;
+      right: 0;
+      border-radius: 8rem ;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 1.2rem;
+      color: white;
     }
   }
 </style>
