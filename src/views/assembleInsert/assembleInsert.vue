@@ -2,16 +2,18 @@
   <div class="assembleInsert">
     <div class="convent">
       <div class="convent-input">
+        <span style="idth: 8rem;font-size: 1.2rem;">发动机号</span>
         <el-input v-model="code" :autosize="{ minRows: 4, maxRows: 4}" size="80">
-          <template slot="append">确认</template>
+
         </el-input>
+        <el-button type="primary" @click="getSerialNoInformation()">确定</el-button>
       </div>
       <el-button type="success">已扫数量：22222222</el-button>
     </div>
     <div class="topbox">
       <el-container>
         <el-aside width="50%">
-          <proinfo :formName="formName"></proinfo>
+          <proinfo :formName="formName" :gridData="gridData"></proinfo>
         </el-aside>
         <el-main>
           <pro-gress></pro-gress>
@@ -53,11 +55,13 @@
   export default {
     data() {
       return {
-        serialPort:new SerialPort('COM3',false),
+//        serialPort:new SerialPort('COM3',false),
         code: '',
         dialogTableVisible:false,
         tableData: [],
-        gridData:[],
+        gridData:{
+
+        },
         formName: {
           workNum: "订单编号",
           machineType: '工单编号',
@@ -109,11 +113,28 @@
         })
       },
       closeCom() {
-        let _this = this;
-        _this.serialPort.close();
+//        let port = new SerialPort('COM3', function (err) {
+//          if (err) {
+//            console.log("hahahahahahha");
+//            return console.log('Error: ', err.message);
+//          }
+//        });
+
+//        port.close();
+//        console.log("guanbi chenggong");
+      },
+      getSerialNoInformation(){
+        let body={
+          serialNo:this.code
+        }
+        httpserver(api.getSerialNoInformation,body)
+          .then((res) => {
+          //6947463266069
+            this.gridData = res.data.data
+            console.log(res)
+            console.log(this.gridData)
+          })
       }
-
-
     }
   }
 </script>
