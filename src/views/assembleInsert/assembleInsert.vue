@@ -40,7 +40,7 @@
                 <div class="item-container f-f1">
                   <!--机型-->
                   <label class="label">机型</label>
-                  <div class="detail">{{gridData.productModel}}</div>
+                  <div class="detail"></div>
                 </div>
               </div>
             </div>
