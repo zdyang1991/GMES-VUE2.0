@@ -1,5 +1,5 @@
 const apiBaseUrl = 'http://10.200.151.229:8021/'
-const apiPcsUrl = 'http://10.200.151.229:8011/pcs/'
+const apiPcsUrl = 'http://10.200.151.229:8041/pcs/'
 const serviceModule = {
   //保存串口配置
   saveSystemCom: {
