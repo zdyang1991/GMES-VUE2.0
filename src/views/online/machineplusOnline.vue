@@ -79,6 +79,27 @@
         </el-table-column>
       </el-table>
     </div>
+    <el-dialog  :visible.sync="dialogTableVisible" width="80%">
+      <el-table :data="gridData">
+        <el-table-column prop="productOrderNum" label="订单编号" >
+        </el-table-column>
+        <el-table-column prop="workOrderNum" label="工单编号">
+        </el-table-column>
+        <el-table-column prop="productModel" label="机型">
+        </el-table-column>
+        <el-table-column prop="materialCode" label="物料编码">
+        </el-table-column>
+        <el-table-column prop="materialText" label="物料描述">
+        </el-table-column>
+        <el-table-column prop="quanlity" label="计划数量">
+        </el-table-column>
+        <el-table-column prop="orderNo" label="顺序号">
+        </el-table-column>
+      </el-table>
+    </el-dialog>
+    <div class="fixed-box">
+      <span @click="getHistoryInfo()">历史记录</span>
+    </div>
   </div>
 </template>
 
@@ -87,6 +108,7 @@
     data() {
       return {
         tableData: [],
+        gridData:[],
         formName: {
           workNum: "工单编号",
           machineType: '机型',
@@ -98,6 +120,9 @@
           orderNum: "订单号"
         }
       }
+    },
+    methods:{
+      getHistoryInfo(){}
     }
   }
 </script>
@@ -283,5 +308,21 @@
 
   .bottom td {
     padding-left: 10px;
+  }
+  .fixed-box{
+  span:first-child{
+    width: 7rem;
+    height: 7rem;
+    background-color: #009DD9;
+    position: fixed;
+    top: 11rem;
+    right: 0;
+    border-radius: 8rem ;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.4rem;
+    color: white;
+  }
   }
 </style>
