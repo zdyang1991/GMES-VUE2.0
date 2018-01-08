@@ -1,7 +1,7 @@
 import {Users} from '../components/users';
 import {AssemblyOrder} from '../components/assemblyorder'
 import {Convention} from '../components/convention'
-import {Proinfo} from '../components/proinfo'
+// import {Proinfo} from '../components/proinfo'
 import {Progress} from '../components/progress'
 import {NavList} from '../components/navlist'
 
@@ -13,7 +13,7 @@ const install = function (Vue) {
   Vue.component(Users.name, Users);
   Vue.component(AssemblyOrder.name, AssemblyOrder);
   Vue.component(Convention.name, Convention);
-  Vue.component(Proinfo.name, Proinfo);
+  // Vue.component(Proinfo.name, Proinfo);
   Vue.component(Progress.name, Progress);
   Vue.component(NavList.name, NavList);
 

@@ -133,7 +133,6 @@
       return {
         tableData: [],
         dialogTableVisible: false,
-        dialogFormVisible: false,
         gridData: [],
         pageNo: '',
         pageSize: ""

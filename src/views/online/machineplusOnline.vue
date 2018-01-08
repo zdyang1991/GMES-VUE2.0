@@ -109,6 +109,7 @@
       return {
         tableData: [],
         gridData:[],
+        dialogTableVisible: false,
         formName: {
           workNum: "工单编号",
           machineType: '机型',
@@ -122,7 +123,20 @@
       }
     },
     methods:{
-      getHistoryInfo(){}
+      getHistoryInfo() {
+        this.dialogTableVisible = true;
+        let loc = JSON.parse(window.localStorage.getItem('terminal'));
+        let body = {
+          workStationCode: loc.workStationCode,
+          pageNo: "1",
+          pageSize: "1"
+        };
+        httpserver(api.getHistoryInfo, body)
+          .then((response) => {
+            console.log(response.data);
+            this.gridData = response.data.data;
+          })
+      },
     }
   }
 </script>
