@@ -112,6 +112,14 @@
         <el-table-column prop="orderNo" label="顺序号">
         </el-table-column>
       </el-table>
+      <el-pagination
+        @size-change="handleSizeChange"
+        @current-change="handleCurrentChange"
+        :page-sizes="[1]"
+        :page-size="1"
+        layout="total, sizes, prev, pager, next, jumper"
+        :total="total">
+      </el-pagination>
     </el-dialog>
   </div>
 </template>
@@ -126,6 +134,7 @@
         dialogTableVisible:false,
         dialogFormVisible: false,
         gridData: [],
+        total:0,
         ReviseInfo: {
           statuseCode: '',//工单状态
           productionOrderNum: "NO_0000000167"//工单编号
@@ -166,16 +175,44 @@
           dangerouslyUseHTMLString: true
         });
       },
-      getHistoryInfo(){
+      getHistoryInfo() {
         this.dialogTableVisible = true;
         let loc = JSON.parse(window.localStorage.getItem('terminal'));
         let body = {
           workStationCode: loc.workStationCode,
+          pageNo: "1",
+          pageSize: "1"
         };
-        httpserver(api.getHistoryInfo,body)
+        httpserver(api.getHistoryInfo, body)
           .then((response) => {
-          console.log(response.data)
-            this.gridData = response.data.data;
+            let resData = response.data.data;
+            this.gridData = resData.productionStnRecords;
+            this.total = resData.toalCount;
+
+          })
+      },
+//      控制每页几条
+      handleSizeChange(val) {
+
+        console.log(`每页 ${val} 条`);
+      },
+//      当前的页数
+      handleCurrentChange(val) {
+        console.log(val)
+        this.dialogTableVisible = true;
+        let loc = JSON.parse(window.localStorage.getItem('terminal'));
+        let body = {
+          workStationCode: loc.workStationCode,
+          pageNo:val ,
+          pageSize: "1"
+        };
+        httpserver(api.getHistoryInfo, body)
+          .then((response) => {
+            console.log(333)
+            let resData = response.data.data;
+            this.gridData = resData.productionStnRecords;
+            this.total = resData.toalCount;
+
           })
       }
 
@@ -190,8 +227,14 @@
   .el-table th div, .el-table th > .cell {
     color: #222;
   }
-  .el-dialog{
+  .initialize .el-dialog{
     height: 30rem;
+    position: relative;
+  }
+  .initialize .el-pagination{
+    position: absolute;
+    bottom: 18px;
+    right: 33px;
   }
   .unequal {
     height: 20%;

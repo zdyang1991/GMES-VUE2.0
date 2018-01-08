@@ -80,9 +80,9 @@
       <span @click="getHistoryInfo()">历史记录</span>
       <span>TAG初始化</span>
     </div>
-    <el-dialog  :visible.sync="dialogTableVisible" width="80%">
+    <el-dialog :visible.sync="dialogTableVisible" width="80%">
       <el-table :data="gridData">
-        <el-table-column prop="productOrderNum" label="订单编号" >
+        <el-table-column prop="productOrderNum" label="订单编号">
         </el-table-column>
         <el-table-column prop="workOrderNum" label="工单编号">
         </el-table-column>
@@ -97,6 +97,14 @@
         <el-table-column prop="orderNo" label="顺序号">
         </el-table-column>
       </el-table>
+      <el-pagination
+        @size-change="handleSizeChange"
+        @current-change="handleCurrentChange"
+        :page-sizes="[1]"
+        :page-size="1"
+        layout="total, sizes, prev, pager, next, jumper"
+        :total="total">
+      </el-pagination>
     </el-dialog>
     <div class="bottom-box">
       <el-button type="danger">需要热试</el-button>
@@ -115,9 +123,8 @@
         code: '',
         dialogTableVisible:false,
         tableData: [],
-        gridData:{
-
-        },
+        total:0,
+        gridData:[],
 
 
       }
@@ -137,13 +144,40 @@
         let loc = JSON.parse(window.localStorage.getItem('terminal'));
         let body = {
           workStationCode: loc.workStationCode,
-          pageNo:"1",
-          pageSize:"1"
+          pageNo: "1",
+          pageSize: "1"
         };
-       httpserver(api.getHistoryInfo,body)
-         .then((res) => {
-         this.tableData = res.data.data;
-       })
+        httpserver(api.getHistoryInfo, body)
+          .then((response) => {
+            let resData = response.data.data;
+            this.gridData = resData.productionStnRecords;
+            this.total = resData.toalCount;
+
+          })
+      },
+//      控制每页几条
+      handleSizeChange(val) {
+
+        console.log(`每页 ${val} 条`);
+      },
+//      当前的页数
+      handleCurrentChange(val) {
+        console.log(val)
+        this.dialogTableVisible = true;
+        let loc = JSON.parse(window.localStorage.getItem('terminal'));
+        let body = {
+          workStationCode: loc.workStationCode,
+          pageNo:val ,
+          pageSize: "1"
+        };
+        httpserver(api.getHistoryInfo, body)
+          .then((response) => {
+            console.log(333)
+            let resData = response.data.data;
+            this.gridData = resData.productionStnRecords;
+            this.total = resData.toalCount;
+
+          })
       },
       openCom() {
         let _this = this;
