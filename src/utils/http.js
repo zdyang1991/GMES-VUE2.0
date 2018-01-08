@@ -1,8 +1,8 @@
 import axios from 'axios';
 import qs from 'qs';
-import store from '../store'
+import store from '../store';
 import Vue from 'vue';
-import {Message} from 'element-ui'
+import {Message} from 'element-ui';
 
 
 function errorState(response) {
@@ -36,7 +36,6 @@ function successState(res) {
 }
 
 const httpServer = (opts, data) => {
-  console.log(data)
   let sitecode
   if (window.localStorage.getItem('terminal')) {
     sitecode = JSON.parse(window.localStorage.getItem('terminal')).siteCode
@@ -47,23 +46,30 @@ const httpServer = (opts, data) => {
     siteCode: sitecode,
     sessionId: window.localStorage.getItem('sessionId')
   }
-  data = Object.assign(Public, data)
+
+  data = Object.assign(Public, data);
+
   let httpDefaultOpts = { //http默认配置
     method: opts.method,
-    // baseURL,
     url: opts.url,
     timeout: 10000,
+    data: JSON.stringify(data),
     params: data,
-    headers: {
+    headers: opts.method == 'get' ? {
       'Content-Type': 'application/x-www-form-urlencoded',
-    },
+      // 'X-Requested-With': 'XMLHttpRequest',
+      // "Accept": "application/json",
+      // "Content-Type": "application/json; charset=UTF-8"
+    } : {
+      "Content-Type": "application/json; charset=UTF-8"
+    }
+  };
+  if (opts.method == 'get') {
+    delete httpDefaultOpts.data;
+  } else {
+    delete httpDefaultOpts.params;
   }
   console.log(httpDefaultOpts);
-  // if (opts.method == 'get') {
-  //   delete httpDefaultOpts.data
-  // } else {
-  //   delete httpDefaultOpts.params
-  // }
   let promise = new Promise(function (resolve, reject) {
     axios(httpDefaultOpts).then(
       (res) => {

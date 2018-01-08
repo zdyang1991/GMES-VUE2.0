@@ -129,16 +129,6 @@
         ReviseInfo: {
           statuseCode: '',//工单状态
           productionOrderNum: "NO_0000000167"//工单编号
-        },
-        formName: {
-          workNum: "工单编号",
-          machineType: '机型',
-          matterDepict: '物料描述',
-          matterDNum: "物料编号",
-          planNum: '',
-          properNum: "发动机号",
-          motorNum: '计划数量',
-          orderNum: "订单号"
         }
 
       }

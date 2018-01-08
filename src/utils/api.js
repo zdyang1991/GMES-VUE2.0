@@ -1,5 +1,5 @@
-const apiBaseUrl = 'http://10.200.151.229:8041/'
-const apiPcsUrl = 'http://10.200.151.229:8021/pcs/'
+const apiBaseUrl = 'http://10.200.151.229:8021/'
+const apiPcsUrl = 'http://10.200.151.229:8011/pcs/'
 const serviceModule = {
   //保存串口配置
   saveSystemCom: {
@@ -9,7 +9,7 @@ const serviceModule = {
   //登录接口
   logIn: {
     url: apiBaseUrl + 'restful/doLogin',
-    method: 'post'
+    method: 'get'
   },
   //初始化获取当前工单信息
   getinitializeTable: {
@@ -40,7 +40,7 @@ const serviceModule = {
     url: apiPcsUrl + 'restful/pp/getSerialNoInformation',
     method: 'get'
   }
-  
+
 }
 const ApiSetting = {...serviceModule};
 
