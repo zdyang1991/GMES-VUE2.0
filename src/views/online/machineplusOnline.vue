@@ -8,7 +8,7 @@
           <div class="row-container f-df">
             <div class="item-container f-f1">
               <label class="label">工单编号</label>
-              <div class="detail">222222112</div>
+              <div class="detail"></div>
             </div>
             <div class="item-container f-f1">
               <label class="label">物料编号</label>
@@ -24,7 +24,7 @@
           <div class="row-container f-df">
             <div class="item-container f-f1">
               <label class="label">产品机型</label>
-              <div class="detail">222222112</div>
+              <div class="detail"></div>
             </div>
             <div class="item-container f-f1">
               <label class="label">顺序号</label>
@@ -104,6 +104,8 @@
 </template>
 
 <script type="text/babel">
+  import httpserver from '../../utils/http.js';
+  import api from '../../utils/api.js';
   export default {
     data() {
       return {
@@ -133,8 +135,9 @@
         };
         httpserver(api.getHistoryInfo, body)
           .then((response) => {
-            console.log(response.data);
-            this.gridData = response.data.data;
+            console.log(response.data.data);
+            let resData = response.data.data;
+            this.gridData = resData.productionStnRecords;
           })
       },
     }
