@@ -142,7 +142,7 @@
         };
        httpserver(api.getHistoryInfo,body)
          .then((res) => {
-         this.tableData = res.data.data;
+//         this.tableData = res.data.data;
        })
       },
       openCom() {

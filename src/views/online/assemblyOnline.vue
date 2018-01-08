@@ -113,10 +113,10 @@
       <el-pagination
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
-        :current-page="currentPage4"
+        :page-sizes="[1]"
         :page-size="1"
         layout="total, sizes, prev, pager, next, jumper"
-        :total="400">
+        :total="total">
       </el-pagination>
     </el-dialog>
   </div>
@@ -124,7 +124,6 @@
 
 <script>
   // import currentorder from './component/currentOrder.vue';
-  import util from '../../utils/util.js';
   import httpserver from '../../utils/http.js';
   import api from '../../utils/api.js';
 
@@ -135,7 +134,8 @@
         dialogTableVisible: false,
         gridData: [],
         pageNo: '',
-        pageSize: ""
+        total:0,
+
       }
     },
     created() {
@@ -165,8 +165,10 @@
         };
         httpserver(api.getHistoryInfo, body)
           .then((response) => {
-            console.log(response.data);
-            this.gridData = response.data.data;
+            let resData = response.data.data;
+            this.gridData = resData.productionStnRecords;
+            this.total = resData.toalCount;
+
           })
       },
 //      控制每页几条
@@ -176,7 +178,22 @@
       },
 //      当前的页数
       handleCurrentChange(val) {
+        console.log(val)
+        this.dialogTableVisible = true;
+        let loc = JSON.parse(window.localStorage.getItem('terminal'));
+        let body = {
+          workStationCode: loc.workStationCode,
+          pageNo:val ,
+          pageSize: "1"
+        };
+        httpserver(api.getHistoryInfo, body)
+          .then((response) => {
+            console.log(333)
+            let resData = response.data.data;
+            this.gridData = resData.productionStnRecords;
+            this.total = resData.toalCount;
 
+          })
       }
     }
 
