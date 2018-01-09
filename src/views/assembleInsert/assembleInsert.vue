@@ -210,8 +210,8 @@
 
 
             if(res.returnCode==0){
-              localStorage.setItem('count',this.productCount)
-              this.productCount=localStorage.getItem('count');
+              localStorage.setItem('Procount',this.productCount)
+              this.productCount=localStorage.getItem('Procount');
               this.productCount++
             }
           })

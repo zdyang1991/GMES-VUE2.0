@@ -2,12 +2,12 @@
   <div class="machineplusOnline">
     <div class="convent">
       <div class="convent-input">
-        <span style="width: 8rem;font-size: 1.2rem;">发动机号</span>
+        <span style="width: 8rem;font-size: 1.2rem;">零件条码</span>
         <el-input  :autosize="{ minRows: 4, maxRows: 4}" size="80" @keyup.enter.native="show($event)" v-model="code">
         </el-input>
         <el-button type="primary" @click="getSerialNoInformation()">确定</el-button>
       </div>
-      <el-button type="success">已扫数量：22222</el-button>
+      <el-button type="success">已扫数量：{{productCount}}</el-button>
     </div>
     <div class="topbox">
       <div id="currentorder" class="right-container">
@@ -120,6 +120,7 @@
         tableData: [],
         gridData:[],
         code: '',
+        productCount:1,
         dialogTableVisible: false,
         formName: {
           workNum: "工单编号",
@@ -158,6 +159,11 @@
           .then((res) => {
             //6947463266069
             this.gridData = res.data.data;
+            if(res.returnCode==0){
+              localStorage.setItem('Partcount',this.productCount)
+              this.productCount=localStorage.getItem('Partcount');
+              this.productCount++
+            }
           })
       },
     }
