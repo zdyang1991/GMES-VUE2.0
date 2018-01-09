@@ -15,9 +15,16 @@
         </li>
       </ul>
       <button class="bottom-con">
-        <div style="display: flex" @click="requestFullScreen()">
-          <span class="el-icon-pad-off"></span>
-          全屏
+
+        <div v-on:click="quit()" style="display: flex">
+        <span class="el-icon-pad-off"></span>
+        退出登录
+        </div>
+      </button>
+      <button class="bottom-full">
+        <div style="display: flex;width: 6rem" @click="requestFullScreen()">
+          <span></span>
+          {{screentitle}}
         </div>
       </button>
       <!--<button class="bottom-con" >-->
@@ -39,6 +46,7 @@
     props: ['isMenuShow'],
     fullscreen:false,
     userName: '',
+    screentitle:'进入全屏',
     computed: {
       MenuListData() {
         let obj = JSON.parse(localStorage.getItem("list"));
@@ -47,6 +55,7 @@
     },
     created() {
       this.userinfo();
+      this.requestFullScreen()
     },
     data() {
       return {
@@ -69,7 +78,6 @@
           .catch((error) => {
 
           })
-
       },
       userinfo() {
         this.userName = sessionStorage.getItem("userCode");
@@ -83,7 +91,7 @@
       //进入全屏
       requestFullScreen() {
         var element = document.documentElement;
-        this.fullscreen=!this.fullscreen;
+
         console.log(this.fullscreen)
         if(this.fullscreen==true){
           if(element.requestFullscreen) {
@@ -95,6 +103,8 @@
           } else if(element.msRequestFullscreen) {
             element.msRequestFullscreen();
           }
+          this.screentitle="退出全屏"
+          this.fullscreen=!this.fullscreen;
 
         }else{
           if(document.exitFullscreen) {
@@ -104,11 +114,10 @@
           } else if(document.webkitExitFullscreen) {
             document.webkitExitFullscreen();
           }
+          this.screentitle="进入全屏"
+          this.fullscreen=!this.fullscreen;
         }
-
       },
-
-
     }
   }
 </script>

@@ -1,6 +1,5 @@
 <template>
   <div class="initialize">
-
     <div class="topbox">
       <el-container>
         <el-aside width="60%">
