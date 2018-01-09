@@ -1,6 +1,14 @@
 <template>
   <div class="machineplusOnline">
-    <convent></convent>
+    <div class="convent">
+      <div class="convent-input">
+        <span style="width: 8rem;font-size: 1.2rem;">发动机号</span>
+        <el-input  :autosize="{ minRows: 4, maxRows: 4}" size="80" @keyup.enter.native="show($event)" v-model="code">
+        </el-input>
+        <el-button type="primary" @click="getSerialNoInformation()">确定</el-button>
+      </div>
+      <el-button type="success">已扫数量：22222</el-button>
+    </div>
     <div class="topbox">
       <div id="currentorder" class="right-container">
         <!-- 第一行 -->
@@ -111,6 +119,7 @@
       return {
         tableData: [],
         gridData:[],
+        code: '',
         dialogTableVisible: false,
         formName: {
           workNum: "工单编号",
@@ -140,13 +149,49 @@
             this.gridData = resData.productionStnRecords;
           })
       },
+      getSerialNoInformation(){
+        let body={
+          serialNo:this.code
+        };
+
+        httpserver(api.getSerialNoInformation,body)
+          .then((res) => {
+            //6947463266069
+            this.gridData = res.data.data;
+          })
+      },
     }
   }
+
 </script>
 
 
 <style lang="less" scoped>
   @import "../../css/machineplusOnline.less";
+  .convent {
+    background-color: #fff;
+    height: 7rem;
+    align-items: center;
+    display: flex;
+    /*justify-content: center;!*水平居中*!*/
+    padding-left: 4rem;
+  .convent-input {
+    align-items: center;
+    justify-content: center; /*水平居中*/
+    display: flex;
+  .el-input-group {
+  .el-input__inner {
+    border: 1px solid #1dbf64;
+    width: 39rem;
+    height: 5rem;
+  }
+  }
+
+  }
+  .el-button {
+    margin-left: 2rem;
+  }
+  }
   .unequal {
     height: 20%;
     padding: 20px;
