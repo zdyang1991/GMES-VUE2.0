@@ -8,7 +8,7 @@
         </el-input>
         <el-button type="primary" @click="getSerialNoInformation()">确定</el-button>
       </div>
-      <el-button type="success">已扫数量：22222222</el-button>
+      <el-button type="success">已扫数量：{{productCount}}</el-button>
     </div>
     <div class="topbox">
       <el-container>
@@ -125,6 +125,7 @@
         tableData: [],
         total:0,
         gridData:[],
+        productCount:1
 
 
       }
@@ -206,6 +207,13 @@
           .then((res) => {
           //6947463266069
             this.gridData = res.data.data;
+
+
+            if(res.returnCode==0){
+              localStorage.setItem('count',this.productCount)
+              this.productCount=localStorage.getItem('count');
+              this.productCount++
+            }
           })
       },
       show:function (ev) {
