@@ -3,8 +3,17 @@
   <div id="app-foot">
     <div class="btn-list">
       <div class="foot-btn f-cp icon-pad-menu" id="ment-list" v-on:click="menuClick()" style="color:#fff;">
-        <div class="menu-img"></div>
+
       </div>
+      <div class="foot-btn f-cp" style="color:#fff;" v-on:click="getMessage()">
+      </div>
+      <el-dialog title="提示" :visible.sync="messageDialogVisible" width="80%" center>
+        <span></span>
+        <span slot="footer" class="dialog-footer"></span>
+        <el-button  type="primary" @click="subscribe()">订阅消息</el-button>
+        <el-button type="primary" @click="unsubscribe()">取消订阅</el-button>
+
+      </el-dialog>
     </div>
     <div class="system-info" sw-role="cell">
       <div class="time" sw-role="cell" sw-mode="y" sw-valign="center">
@@ -25,10 +34,12 @@
   import timer from '@/js/timerManager'
   import httpserver from '../../utils/http.js';
   import api from '../../utils/api.js';
+  import mqttLib from '../../utils/mqtt.js';
 
   export default {
     data() {
       return {
+        messageDialogVisible: false,
         sysdate: '',
         week: '',
         systime: '',
@@ -45,47 +56,18 @@
         }
       }, false);
       const _this = this;
-//      this.getServerTime = setInterval(() => {
-//        _this.$http({
-//          headers: {
-//            'Content-Type': 'application/x-www-form-urlencoded',
-//          },
-//          method: 'get',
-//          url: config.apiBaseUrl + 'restful/cm/getServerTime',
-//        }).then((response) => {
-//          console.log(response.data.returnCode)
-//          this.wifiStatus = response.data.returnCode;
-//          let data = (new Date(response.data.data)).getTime();//转换为毫秒数
-//          const date = getTime.gettime(response.data.data);
-//          _this.sysdate = getTime.five(date);
-//          _this.systime = getTime.six(date)
-//          _this.week = date.week;
-//          timer.register('systime', () => {
-//            console.log(2222222222222);
-//            _this.systime = getTime.six(data)
-//            data = data + 1000
-//          }, 1000)
-//        });
-//      }, 2000)
-//      _this.$http({
-//        headers: {
-//          'Content-Type': 'application/x-www-form-urlencoded',
-//        },
-//        method: 'get',
-//        url: config.apiBaseUrl + 'restful/cm/getServerTime',
-//      })
-      httpserver(api.getServertime,'')
+      httpserver(api.getServertime, '')
         .then((response) => {
-        //this.wifiStatus = response.data.returnCode;
-        let data = (new Date(response.data.data)).getTime();//转换为毫秒数
-        const date = getTime.gettime(data);
-        _this.sysdate = getTime.five(date);
-        _this.week = date.week;
-        window.setInterval(function () {
-          data = data + 1000
-          _this.systime = getTime.six(data)
-        }, 1000)
-      });
+          //this.wifiStatus = response.data.returnCode;
+          let data = (new Date(response.data.data)).getTime();//转换为毫秒数
+          const date = getTime.gettime(data);
+          _this.sysdate = getTime.five(date);
+          _this.week = date.week;
+          window.setInterval(function () {
+            data = data + 1000
+            _this.systime = getTime.six(data)
+          }, 1000)
+        });
     },
 
 
@@ -93,6 +75,16 @@
       menuClick() {
         this.isMenuShow = !this.isMenuShow
       },
+      getMessage() {
+        this.messageDialogVisible = true
+      },
+      subscribe() {
+        let topic = "/message";
+        mqttLib.subscribe(topic);
+      },
+      unsubscribe() {
+        mqttLib.unsubscribeAll();
+      }
     }
   }
 </script>
@@ -169,17 +161,19 @@
   .el-button {
     margin-left: 3rem;
   }
-  .icon-pad-menu:before{
-    content:'';
+
+  .icon-pad-menu:before {
+    content: '';
   }
-  #ment-list{
+
+  #ment-list {
     background-color: #fff;
     /*background-color: red;*/
-    background-image:url("../../assets/menu.png") ;
+    background-image: url("../../assets/menu.png");
     background-size: 100% 100%;
   }
 
-  #nav-menu-list .bottom-con span{
+  #nav-menu-list .bottom-con span {
     background-image: url("../../assets/layout.png");
 
   }
