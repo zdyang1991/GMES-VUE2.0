@@ -34,20 +34,23 @@ var mqttCtrl = function () {
      * 连接Websocket
      **/
     connect : function(options){
+      console.log(options);
       const _this = this;
       return new Promise(async (resolve,reject)=>{
         if(initStatus == 0 || !client || !client.isConnected){
           clientId =  "GMES-1001"+"-"+ (new Date().getTime());
+          //建立客户端实例
           client = new Paho.MQTT.Client(wsbroker, wsport, "/ws", clientId);
+          //注册连接断开处理事件
           client.onConnectionLost = function (responseObject) {
             console.log("Websocket disconnect : "+responseObject.errorMessage);
             console.log("连接丢失，重新连接")
             client = null;
             _this.connect(options);
           };
-
+          //注册消息接收处理事件
           client.onMessageArrived = function (message) {
-            console.log(message.payloadString);
+            // console.log(message.payloadString);
             var matched = undefined;
             $.each(messageHandlers,function(regDestinationName,handlers){
               matched = message.destinationName.match(regDestinationName);
@@ -65,16 +68,19 @@ var mqttCtrl = function () {
 
           };
           options = {...defaultOptions,...options};
+          //连接成功
           options["onSuccess"] = function(){
             console.log(clientId + ": CONNECTED");
             resolve();
             initStatus = 2;
           };
+          //连接失败
           options["onFailure"] = function(message){
             console.log(clientId + ": CONNECTION FAILURE - " + message.errorMessage);
             reject();
             initStatus = 0;
           }
+          //连接服务器并注册连接成功处理事件
           client.connect(options);
         }else{
           resolve();
@@ -102,7 +108,6 @@ var mqttCtrl = function () {
     subscribe : function(topic,topicGroup,subscribeOptions = {}){
       subscribeOptions = {...defaultSubscribeOptions,...subscribeOptions};
       topicGroup = topicGroup || "default";
-
       if(this.existSubscribe(topic,topicGroup)){
         return;
       }
@@ -126,7 +131,7 @@ var mqttCtrl = function () {
       removeMessageHandler = removeMessageHandler || true;
       topicGroup = topicGroup || "default";
 
-      if(!existSubscribe(topic,topicGroup)){
+      if(!this.existSubscribe(topic,topicGroup)){
         return;
       }
       client.unsubscribe(topic);
@@ -183,6 +188,7 @@ var mqttCtrl = function () {
      * 注册消息处理器
      **/
     registerMessageHandler : function(topic,handlerName,messageHandler){
+      console.log(handlerName);
       topic = topic.replace(/\+/g,"[^/@REX@]*").replace(/\#/g,"[^@REX@]*").replace(/@REX@/g,"+#");
       handlerName = handlerName.indexOf('.') == -1 ? "default."+handlerName : handlerName;
       if(!messageHandlers[topic]){

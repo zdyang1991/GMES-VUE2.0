@@ -7,11 +7,14 @@
       </div>
       <div class="foot-btn f-cp" style="color:#fff;" v-on:click="getMessage()">
       </div>
-      <el-dialog title="提示" :visible.sync="messageDialogVisible" width="80%" center>
-        <span></span>
-        <span slot="footer" class="dialog-footer"></span>
-        <el-button  type="primary" @click="subscribe()">订阅消息</el-button>
+      <el-dialog title="测试消息" :visible.sync="messageDialogVisible" width="80%" center>
+
+        <span class="message">{{messages}}</span>
+
+        <span slot="footer" class="dialog-footer">
+        <el-button type="primary" @click="subscribe()">订阅消息</el-button>
         <el-button type="primary" @click="unsubscribe()">取消订阅</el-button>
+        </span>
 
       </el-dialog>
     </div>
@@ -39,6 +42,7 @@
   export default {
     data() {
       return {
+        messages: '',
         messageDialogVisible: false,
         sysdate: '',
         week: '',
@@ -79,16 +83,25 @@
         this.messageDialogVisible = true
       },
       subscribe() {
+        let _this = this;
         let topic = "/message";
-        mqttLib.subscribe(topic);
+        console.log("begin----------");
+        mqttLib.subscribe(topic, "message");
+        mqttLib.registerMessageHandler(topic, "message", function (message) {
+          _this.messages = message.payloadString;
+          console.log(_this.messages);
+
+        });
+
       },
       unsubscribe() {
-        mqttLib.unsubscribeAll();
+        console.log("close----------");
+        mqttLib.unsubscribe("/message", "message");
       }
     }
   }
 </script>
-<style lang="less" scoped>
+<style lang="less">
   #app-foot {
     position: relative;
     height: 70px;
@@ -176,5 +189,31 @@
   #nav-menu-list .bottom-con span {
     background-image: url("../../assets/layout.png");
 
+  }
+
+  #app-foot .el-dialog {
+    height: 30rem;
+    .el-dialog__header {
+      .el-dialog__title{
+        font-family: "Bell MT";
+        font-size: 2rem;
+        color: blue;
+      }
+      height: 4rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .el-dialog__body {
+      height: 10rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .message{
+     font-family: "Bell MT";
+      font-size: 2rem;
+      color: darkred;
+    }
   }
 </style>
