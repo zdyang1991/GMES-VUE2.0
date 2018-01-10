@@ -16,15 +16,15 @@
           <div class="row-container f-df">
             <div class="item-container f-f1">
               <label class="label">工单编号</label>
-              <div class="detail"></div>
+              <div class="detail">{{proinfo.productionOrderNum}}</div>
             </div>
             <div class="item-container f-f1">
               <label class="label">物料编号</label>
-              <div class="detail"></div>
+              <div class="detail">{{proinfo.materialCode}}</div>
             </div>
             <div class="item-container f-f1">
               <label class="label">物料描述</label>
-              <div class="detail"></div>
+              <div class="detail">{{proinfo.materialText}}</div>
             </div>
           </div>
         </div>
@@ -32,58 +32,37 @@
           <div class="row-container f-df">
             <div class="item-container f-f1">
               <label class="label">产品机型</label>
-              <div class="detail"></div>
+              <div class="detail">{{proinfo.productModel}}</div>
             </div>
             <div class="item-container f-f1">
               <label class="label">顺序号</label>
-              <div class="detail"></div>
+              <div class="detail">{{proinfo.orderNo}}</div>
             </div>
             <div class="item-container f-f1">
               <label class="label">计划数量</label>
-              <div class="detail"></div>
+              <div class="detail">{{proinfo.plannedQty}}</div>
             </div>
           </div>
         </div>
       </div>
     </div>
     <div class="bottom-form">
-      <el-table
-        :data="tableData"
-        border
-        style="width: 100%">
-        <el-table-column
-          prop="date"
-          label="序号"
-          width="60">
+      <el-table :data="tableData" border style="width: 100%;"  highlight-current-row  @current-change="handleCurrentChange">
+        <el-table-column type="index" label="顺序号" width="70">
         </el-table-column>
-        <el-table-column
-          prop="name"
-          label="订单编号"
-          width="180">
+        <el-table-column prop="productOrderNum" label="订单编号" width="180">
         </el-table-column>
-        <el-table-column
-          prop="address"
-          label="工单编号">
+        <el-table-column prop="productionOrderNum" label="工单编号">
         </el-table-column>
-        <el-table-column
-          prop="address"
-          label="机型">
+        <el-table-column prop="productModel" label="机型">
         </el-table-column>
-        <el-table-column
-          prop="address"
-          label="物料编码">
+        <el-table-column prop="materialCode" label="物料编码">
         </el-table-column>
-        <el-table-column
-          prop="address"
-          label="物料描述">
+        <el-table-column prop="materialText" label="物料描述">
         </el-table-column>
-        <el-table-column
-          prop="address"
-          label="计划数量">
+        <el-table-column prop="plannedQty" label="计划数量">
         </el-table-column>
-        <el-table-column
-          prop="address"
-          label="顺序号">
+        <el-table-column prop="orderNo" label="顺序号">
         </el-table-column>
       </el-table>
     </div>
@@ -119,6 +98,7 @@
       return {
         tableData: [],
         gridData:[],
+        proinfo:{},
         code: '',
         productCount:1,
         dialogTableVisible: false,
@@ -134,6 +114,9 @@
         }
       }
     },
+    created(){
+      this.getData();
+    },
     methods:{
       getHistoryInfo() {
         this.dialogTableVisible = true;
@@ -145,7 +128,6 @@
         };
         httpserver(api.getHistoryInfo, body)
           .then((response) => {
-            console.log(response.data.data);
             let resData = response.data.data;
             this.gridData = resData.productionStnRecords;
           })
@@ -172,12 +154,25 @@
               }
 
           })
-
-
-//        物料唯一性校验
-
-
       },
+      getData: function () {
+        console.log(2)
+        let loc = JSON.parse(window.localStorage.getItem('terminal'));
+        let body = {
+          workCenterCode: loc.workCenterCode,
+          statuseCode: '7',
+          endRow: 2
+        };
+        httpserver(api.getinitializeTable,body)
+          .then((res) => {
+            this.tableData = res.data.data;
+          })
+      },
+      handleCurrentChange(val) {
+        this.currentRow = val;
+        this.proinfo = val;
+        console.log(this.proinfo.productModel)
+      }
     }
   }
 
@@ -215,7 +210,6 @@
     padding: 20px;
     box-sizing: border-box;
   }
-
   .row {
     flex: 1;
     padding: 1rem;
@@ -223,7 +217,6 @@
     box-sizing: border-box;
     margin-top: 0.5rem;
   }
-
   .row:first-child {
     margin-top: 1rem;
   }

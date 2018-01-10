@@ -5,7 +5,7 @@
       <div class="foot-btn f-cp icon-pad-menu" id="ment-list" v-on:click="menuClick()" style="color:#fff;">
 
       </div>
-      <div class="foot-btn f-cp" style="color:#fff;" v-on:click="getMessage()">
+      <div class="foot-btn f-cp icon-pad-message" style="color:#fff;" v-on:click="getMessage()">
       </div>
       <el-dialog title="测试消息" :visible.sync="messageDialogVisible" width="80%" center>
 
@@ -216,4 +216,9 @@
       color: darkred;
     }
   }
+  .icon-pad-message{
+    background: url("../../assets/message.png");
+    background-size: 100% 100%;
+  }
+
 </style>
