@@ -44,8 +44,13 @@ const serviceModule = {
   getSerialNoInformation: {
     url: apiPcsUrl + 'restful/pp/getSerialNoInformation',
     method: 'get'
+  },
+//  物料唯一性校验
+  materialSole:{
+    url:apiPcsUrl+ 'restful/pp/assemblyUniqueCheck',
+    method:'get'
   }
-
+  
 }
 const ApiSetting = {...serviceModule};
 

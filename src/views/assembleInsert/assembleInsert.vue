@@ -159,7 +159,7 @@
 //      控制每页几条
       handleSizeChange(val) {
 
-        console.log(`每页 ${val} 条`);
+
       },
 //      当前的页数
       handleCurrentChange(val) {

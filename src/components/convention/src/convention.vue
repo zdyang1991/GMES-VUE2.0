@@ -1,13 +1,13 @@
 <template>
   <div>
     <div class="convent">
-      <span style="font-size: 1.5rem;width: ">零件号：</span>
+      <span style="font-size: 1.5rem;width: ">产品序列号</span>
       <div class="convent-input">
         <el-input placeholder=""  :autosize="{ minRows: 4, maxRows: 4}" size="80" v-model="serialNo">
           <template slot="append">确认</template>
         </el-input>
       </div>
-      <el-button type="success">已扫数量：22222222</el-button>
+      <!--<el-button type="success">已扫数量：22222222</el-button>-->
     </div>
   </div>
 </template>

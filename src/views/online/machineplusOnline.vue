@@ -154,17 +154,29 @@
         let body={
           serialNo:this.code
         };
+        httpserver(api.materialSole,body)
+          .then((res)=>{
+              if(res.returnCode==0){
+                httpserver(api.getSerialNoInformation,body)
+                  .then((res) => {
+                    //6947463266069
+                    this.gridData = res.data.data;
+                    if(res.returnCode==0){
+                      localStorage.setItem('Partcount',this.productCount)
+                      this.productCount=localStorage.getItem('Partcount');
+                      this.productCount++
+                    }
+                  })
+              }else{
+                  console.log('信息重复')
+              }
 
-        httpserver(api.getSerialNoInformation,body)
-          .then((res) => {
-            //6947463266069
-            this.gridData = res.data.data;
-            if(res.returnCode==0){
-              localStorage.setItem('Partcount',this.productCount)
-              this.productCount=localStorage.getItem('Partcount');
-              this.productCount++
-            }
           })
+
+
+//        物料唯一性校验
+
+
       },
     }
   }
