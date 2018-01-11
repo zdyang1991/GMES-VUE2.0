@@ -1,6 +1,6 @@
 <template>
   <div id="app-head">
-      <a href="#" class="f-df"><img src="../../assets/logo.png"/></a>
+      <a class="f-df"><img src="../../assets/logo.png"/></a>
       <div class="title" v-if="titles!=''">{{titles}}</div>
       <div class="title" v-if="titles==''">{{titless}}</div>
       <img src="../../assets/evun_logo.png"/>
