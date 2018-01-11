@@ -61,21 +61,23 @@
           this.isMenuShow = false;
         }
       }, false);
-      let _this = this;
-      window.setInterval(function () {
+
+      this.getServertime();
+     window.setInterval(function () {
         httpserver(api.getServertime)
           .then((response) => {
             //this.wifiStatus = response.data.returnCode;
             let data = (new Date(response.data.data)).getTime();//转换为毫秒数
             const date = getTime.gettime(data);
-            _this.sysdate = getTime.five(date);
-            _this.week = date.week;
+            this.sysdate = getTime.five(date);
+            this.week = date.week;
             window.setInterval(function () {
               data = data + 1000
-              _this.systime = getTime.six(data)
+              this.systime = getTime.six(data)
             }, 1000)
           });
-      },10000)
+
+      },20000)
     },
 
 
@@ -114,7 +116,6 @@
         let _this = this;
         httpserver(api.getServertime)
           .then((response) => {
-            console.log(2222222222222);
             //this.wifiStatus = response.data.returnCode;
             let data = (new Date(response.data.data)).getTime();//转换为毫秒数
             const date = getTime.gettime(data);
