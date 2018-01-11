@@ -197,7 +197,7 @@
     font-size: 20px;
   }
 
-  .el-button {
+  #app-foot .el-button {
     margin-left: 3rem;
   }
 
