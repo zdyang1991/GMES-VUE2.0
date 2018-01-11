@@ -184,9 +184,13 @@
         };
         httpserver(api.getHistoryInfo, body)
           .then((response) => {
-            let resData = response.data.data;
-            this.gridData = resData.productionStnRecords;
-            this.total = resData.toalCount;
+          console.log(response);
+
+            if(response.data.returnCode =="0") {
+              let resData = response.data.data;
+              this.gridData = resData.productionStnRecords;
+              this.total = resData.toalCount;
+            }
 
           })
       },
