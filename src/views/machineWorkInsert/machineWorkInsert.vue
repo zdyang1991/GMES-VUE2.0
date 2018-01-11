@@ -130,62 +130,7 @@
     }
   }
 </script>
-<style lang="less" scoped>
-  .convent {
-    background-color: #fff;
-    height: 7rem;
-    align-items: center;
-    display: flex;
-    /*justify-content: center;!*水平居中*!*/
-    padding-left: 4rem;
-  .convent-input {
-    align-items: center;
-    justify-content: center; /*水平居中*/
-    display: flex;
-  .el-input-group {
-  .el-input__inner {
-    border: 1px solid #1dbf64;
-    width: 39rem;
-    height: 5rem;
-  }
-  }
 
-  }
-  .el-button {
-    margin-left: 2rem;
-  }
-  }
-  .fixed-box{
-  span:first-child{
-    width: 7rem;
-    height: 7rem;
-    background-color: #009DD9;
-    position: fixed;
-    top: 11rem;
-    right: 0;
-    border-radius: 8rem ;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 1.4rem;
-    color: white;
-    margin-right: 2rem;
-    opacity: .5;
-  }
-  span:last-child {
-    margin-right: 2rem;
-    width: 7rem;
-    height: 7rem;
-    background-color: #009DD9;
-    position: fixed;
-    top: 20rem;
-    right: 0;
-    border-radius: 8rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 1.2rem;
-    color: white;
-  }
-  }
+<style lang="less" scoped>
+  @import "../../css/machineWorkInsert/machineWorkInsert.less";
 </style>
