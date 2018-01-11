@@ -42,8 +42,8 @@
               <div class="row f-df">
                 <div class="row-container f-df">
                   <div class="item-container f-f1">
-                  <label class="label">计划数量</label>
-                  <div class="detail"></div>
+                    <label class="label">计划数量</label>
+                    <div class="detail"></div>
                   </div>
                   <div class="item-container f-f1">
                     <label class="label">顺序号</label>
@@ -94,9 +94,9 @@
       <span @click="getHistoryInfo()">历史记录</span>
       <span>TAG初始化</span>
     </div>
-    <el-dialog  :visible.sync="dialogTableVisible" width="80%">
+    <el-dialog :visible.sync="dialogTableVisible" width="80%">
       <el-table :data="gridData">
-        <el-table-column prop="productOrderNum" label="订单编号" >
+        <el-table-column prop="productOrderNum" label="订单编号">
         </el-table-column>
         <el-table-column prop="workOrderNum" label="工单编号">
         </el-table-column>
@@ -126,14 +126,15 @@
   import util from '../../utils/util.js';
   import httpserver from '../../utils/http.js';
   import api from '../../utils/api.js';
+
   export default {
     data() {
       return {
         tableData: [],
-        dialogTableVisible:false,
+        dialogTableVisible: false,
         dialogFormVisible: false,
         gridData: [],
-        total:0,
+        total: 0,
         ReviseInfo: {
           statuseCode: '',//工单状态
           productionOrderNum: "NO_0000000167"//工单编号
@@ -155,7 +156,7 @@
           statuseCode: '7',
           endRow: 2
         };
-        httpserver(api.getinitializeTable,body)
+        httpserver(api.getinitializeTable, body)
           .then((res) => {
             this.tableData = res.data.data;
           })
@@ -164,7 +165,7 @@
       setReviseInfo: function () {
         let loc = JSON.parse(window.localStorage.getItem('terminal'));
         this.ReviseInfo.statuseCode = '10';
-        httpserver(api.setReviseInfo,this.ReviseInfo)
+        httpserver(api.setReviseInfo, this.ReviseInfo)
           .then((response) => {
           })
       },
@@ -184,9 +185,9 @@
         };
         httpserver(api.getHistoryInfo, body)
           .then((response) => {
-          console.log(response);
+            console.log(response);
 
-            if(response.data.returnCode =="0") {
+            if (response.data.returnCode == "0") {
               let resData = response.data.data;
               this.gridData = resData.productionStnRecords;
               this.total = resData.toalCount;
@@ -206,7 +207,7 @@
         let loc = JSON.parse(window.localStorage.getItem('terminal'));
         let body = {
           workStationCode: loc.workStationCode,
-          pageNo:val ,
+          pageNo: val,
           pageSize: "1"
         };
         httpserver(api.getHistoryInfo, body)
@@ -225,196 +226,5 @@
 
 </script>
 <style lang="less">
-  @import "../../css/initialize.less";
-
-  .el-table th div, .el-table th > .cell {
-    color: #222;
-  }
-  .initialize .el-dialog{
-    height: 30rem;
-    position: relative;
-  }
-  .initialize .el-pagination{
-    position: absolute;
-    bottom: 18px;
-    right: 33px;
-  }
-  .unequal {
-    height: 20%;
-    padding: 20px;
-    box-sizing: border-box;
-  }
-
-  .row {
-    flex: 1;
-    padding: 1rem;
-    padding-top: 0;
-    box-sizing: border-box;
-    margin-top: 0.5rem;
-  }
-
-  .row:first-child {
-    margin-top: 1rem;
-  }
-
-  .pictureRow {
-    flex: 2;
-    padding: 20px;
-    box-sizing: border-box;
-  }
-
-  .upperTable {
-    min-width: 1020px;
-  }
-
-  .right-container {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-  }
-
-  .row-container {
-    height: 65px;
-    width: 100%;
-  }
-
-  .pictureRow-container {
-    height: 100%;
-    width: 100%;
-  }
-
-  /* 从第二个子元素开始生效 */
-  /*.item-container{*/
-  /*margin-top: 0.2rem;*/
-  /*}*/
-
-  .item-container:nth-child(n+2) {
-    margin-left: 20px;
-  }
-
-  .label {
-    color: #595959;
-    font-size: 1.4rem;
-    line-height: 2rem;
-  }
-
-  .detail {
-    color: #222222;
-    font-weight: bolder;
-    font-size: 1.8rem;
-    border-bottom: 1px solid #CDCDCD;
-    line-height: 36px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    min-height: 36px;
-    margin-top: 0.8rem;
-  }
-
-  .remain-amount-box {
-    margin-left: 20px;
-  }
-
-  .remain-amount-container {
-    border: 1px dashed #EB6F83;
-    height: 98%;
-    display: flex;
-    /* line-height: 63px;  */
-  }
-
-  .remain-amount {
-    color: #E43246;
-    font-size: 48px;
-    font-weight: bold;
-    align-items: center;
-    display: flex;
-    max-width: 50%;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    margin-left: 10px;
-  }
-
-  .remain-amount-label {
-    color: #222222;
-    display: flex;
-    padding-left: 20px;
-    font-weight: bold;
-    align-items: center;
-  }
-
-  .confirmOnline {
-    height: 100%;
-    width: 100%;
-    /* background: #00AFEB; */
-    /* border-radius: 0px; */
-    font-size: 20px;
-  }
-
-  .remark {
-    min-height: 36px;
-    line-height: 36px;
-    /* line-height: 21px; */
-    color: #222222;
-    font-weight: bolder;
-    font-size: 18px;
-    border-bottom: 1px solid #CDCDCD;
-    text-overflow: ellipsis;
-    word-wrap: break-word;
-    -webkit-line-clamp: 2;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-  }
-
-  .bottom thead {
-    height: 50px;
-    background: #F9F9F9;
-  }
-
-  .bottom tbody {
-    background: #FFFFFF;
-  }
-
-  .bottom {
-    height: 161px;
-    margin-top: 10px;
-    background: white;
-  }
-
-  .blink {
-    -webkit-animation: blink 1.5s 0s infinite;
-    animation: blink 1.5s 0s infinite;
-  }
-
-  @keyframes blink {
-    0% {
-      box-shadow: 0 0 10px #EB6F83 inset;
-    }
-    50% {
-      box-shadow: 0 0 40px #EB6F83 inset;
-    }
-    100% {
-      box-shadow: 0 0 10px #EB6F83 inset;
-    }
-  }
-
-  .bottom table {
-    width: 100%;
-    color: #222222;
-  }
-
-  .bottom table,
-  .bottom table tr,
-  .bottom table td {
-    border: 1px solid #F1F1F1;
-  }
-
-  .bottom tr {
-    height: 50px;
-  }
-
-  .bottom td {
-    padding-left: 10px;
-  }
+  @import "../../css/initialize/initialize.less";
 </style>

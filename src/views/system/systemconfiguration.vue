@@ -179,24 +179,5 @@
   }
 </script>
 <style lang="less">
-  @import "../../css/systemConfiguration.less";
-
-  .systemConfiguration .el-input__inner {
-    border: 2px solid #000;
-    color: #111;
-    font-size: 1.3rem;
-  }
-
-  .systemConfiguration .el-input__inner::-webkit-input-placeholder {
-    color: #000;
-    font-size: 1.2rem;
-    line-height: 50px;
-  }
-
-  .systemConfiguration .el-form-item__label {
-    font-size: 1.4rem;
-    color: #111;
-    font-weight: 700;
-  }
-
+  @import "../../css/system/systemConfiguration.less";
 </style>

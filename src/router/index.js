@@ -1,5 +1,5 @@
 // 外壳
-import Login from '@/views/login/index.vue';
+import Login from '@/views/login/login.vue';
 import Index from '@/views/index/index.vue';
 
 // 页面
@@ -9,7 +9,7 @@ import AssemblyOnline from '@/views/online/assemblyOnline.vue';
 import MachineplusOnline from '@/views/online/machineplusOnline.vue';
 import AssembleInsert from '@/views/assembleInsert/assembleInsert.vue';
 import HostTest from '@/views/hottest/hottest.vue';
-import MachineInsert from '@/views/machineWorkInsert/index.vue';
+import MachineInsert from '@/views/machineWorkInsert/machineWorkInsert.vue';
 import Home from '@/views/home/home.vue';
 const routes = [
   {
