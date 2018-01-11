@@ -67,10 +67,19 @@
           </div>
         </el-aside>
         <el-main>
-          <pro-gress></pro-gress>
+          <div class="progress">
+            <div class="container">
+              <el-steps direction="vertical" :active="1">
+                <el-step title="步骤 1"></el-step>
+                <el-step title="步骤 2"></el-step>
+                <el-step title="步骤 3" description="这是一段很长很长很长的描述性文字"></el-step>
+                <el-step title="步骤 4" description="这是一段很长很长很长的描述性文字"></el-step>
+                <el-step title="步骤 5" description="这是一段很长很长很长的描述性文字"></el-step>
+              </el-steps>
+            </div>
+          </div>
         </el-main>
       </el-container>
-      <!--<button @click="setReviseInfo()">2222222</button>-->
     </div>
     <div class="bottom-form">
       <el-table :data="tableData" border style="width: 100%;">
@@ -130,6 +139,7 @@
   export default {
     data() {
       return {
+        name: 'pro-gress',
         tableData: [],
         dialogTableVisible: false,
         dialogFormVisible: false,
@@ -144,6 +154,7 @@
     },
     computed: {},
     created() {
+      this.init();
       this.getData();
       this.setReviseInfo();
     },
@@ -169,12 +180,6 @@
           .then((response) => {
           })
       },
-      //弹窗
-      open4() {
-        this.$alert('', 'HTML 片段', {
-          dangerouslyUseHTMLString: true
-        });
-      },
       getHistoryInfo() {
         this.dialogTableVisible = true;
         let loc = JSON.parse(window.localStorage.getItem('terminal'));
@@ -197,7 +202,6 @@
       },
 //      控制每页几条
       handleSizeChange(val) {
-
         console.log(`每页 ${val} 条`);
       },
 //      当前的页数
@@ -218,6 +222,12 @@
             this.total = resData.toalCount;
 
           })
+      },
+      init: function () {
+        this.bsStep(2)
+      },
+      bsStep: function (i) {
+
       }
 
     }

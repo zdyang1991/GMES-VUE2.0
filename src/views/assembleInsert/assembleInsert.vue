@@ -3,7 +3,7 @@
     <div class="convent">
       <div class="convent-input">
         <span style="width: 8rem;font-size: 1.2rem;">发动机号</span>
-        <el-input  :autosize="{ minRows: 4, maxRows: 4}" size="80" @keyup.enter.native="show($event)" v-model="code">
+        <el-input :autosize="{ minRows: 4, maxRows: 4}" size="80" @keyup.enter.native="show($event)" v-model="code">
 
         </el-input>
         <el-button type="primary" @click="getSerialNoInformation()">确定</el-button>
@@ -48,8 +48,8 @@
             <div class="row f-df">
               <div class="row-container f-df">
                 <div class="item-container f-f1">
-                <label class="label">产品描述</label>
-                <div class="detail"></div>
+                  <label class="label">产品描述</label>
+                  <div class="detail"></div>
                 </div>
                 <div class="item-container f-f1">
                   <label class="label">产品编号</label>
@@ -57,22 +57,20 @@
                 </div>
               </div>
             </div>
-            <!--<div class="row f-df">-->
-              <!--<div class="row-container f-df">-->
-                <!--<div class="item-container f-f1">-->
-                  <!--<label class="label"></label>-->
-                  <!--<div class="detail"></div>-->
-                <!--</div>-->
-                <!--<div class="item-container f-f1">-->
-                  <!--<label class="label"></label>-->
-                  <!--<div class="detail"></div>-->
-                <!--</div>-->
-              <!--</div>-->
-            <!--</div>-->
           </div>
         </el-aside>
         <el-main>
-          <pro-gress></pro-gress>
+          <div class="progress">
+            <div class="container">
+              <el-steps direction="vertical" :active="1">
+                <el-step title="步骤 1"></el-step>
+                <el-step title="步骤 2"></el-step>
+                <el-step title="步骤 3" description="这是一段很长很长很长的描述性文字"></el-step>
+                <el-step title="步骤 4" description="这是一段很长很长很长的描述性文字"></el-step>
+                <el-step title="步骤 5" description="这是一段很长很长很长的描述性文字"></el-step>
+              </el-steps>
+            </div>
+          </div>
         </el-main>
       </el-container>
     </div>
@@ -116,16 +114,18 @@
 <script type="text/babel">
   import httpserver from '../../utils/http.js';
   import api from '../../utils/api.js';
+
   export default {
     data() {
       return {
         //serialPort:new SerialPort('COM3',false),
+        name: 'pro-gress',
         code: '',
-        dialogTableVisible:false,
+        dialogTableVisible: false,
         tableData: [],
-        total:0,
-        gridData:[],
-        productCount:1
+        total: 0,
+        gridData: [],
+        productCount: 1
 
 
       }
@@ -133,8 +133,9 @@
     created() {
       console.log("打开串口");
       this.openCom();
+      this.init();
     },
-    beforeDestroy: function() {
+    beforeDestroy: function () {
       console.log("销毁前关闭串口");
       this.closeCom();
 
@@ -168,7 +169,7 @@
         let loc = JSON.parse(window.localStorage.getItem('terminal'));
         let body = {
           workStationCode: loc.workStationCode,
-          pageNo:val ,
+          pageNo: val,
           pageSize: "1"
         };
         httpserver(api.getHistoryInfo, body)
@@ -185,7 +186,7 @@
         let Readline = SerialPort.parsers.Readline;
         let parser = new Readline();
         _this.serialPort.pipe(parser);
-        _this.serialPort.open(function (error){
+        _this.serialPort.open(function (error) {
           console.log("打开" + error);
         })
         parser.on('data', function (data) {
@@ -198,41 +199,47 @@
         let _this = this;
         _this.serialPort.close();
       },
-      getSerialNoInformation(){
-        let body={
-          serialNo:this.code
+      getSerialNoInformation() {
+        let body = {
+          serialNo: this.code
         };
 
-        httpserver(api.getSerialNoInformation,body)
+        httpserver(api.getSerialNoInformation, body)
           .then((res) => {
-          //6947463266069
+            //6947463266069
             this.gridData = res.data.data;
 
 
-            if(res.returnCode==0){
-              localStorage.setItem('Procount',this.productCount)
-              this.productCount=localStorage.getItem('Procount');
+            if (res.returnCode == 0) {
+              localStorage.setItem('Procount', this.productCount)
+              this.productCount = localStorage.getItem('Procount');
               this.productCount++
             }
           })
       },
-      show:function (ev) {
+      show: function (ev) {
         let _this = this;
         console.log(this.code);
-        if(ev.keyCode==13){
-          let body={
-            serialNo:_this.code
+        if (ev.keyCode == 13) {
+          let body = {
+            serialNo: _this.code
           };
 
-          httpserver(api.getSerialNoInformation,body)
+          httpserver(api.getSerialNoInformation, body)
             .then((res) => {
               //6947463266069
               this.gridData = res.data.data;
             })
         }
-      }
+      },
+      init: function () {
+        this.bsStep(2)
+      },
+      bsStep: function (i) {
 
       }
+
+    }
 
   }
 </script>
