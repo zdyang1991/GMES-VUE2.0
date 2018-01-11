@@ -105,14 +105,14 @@ var mqttCtrl = function () {
      * 订阅主题
      **/
     subscribe : function(topic,topicGroup,subscribeOptions = {}){
+      console.log("开始订阅------------");
       subscribeOptions = {...defaultSubscribeOptions,...subscribeOptions};
       topicGroup = topicGroup || "default";
       if(this.existSubscribe(topic,topicGroup)){
         return;
       }
-
-
       this.connect().then(function(){
+       console.log("开始连接");
         client.subscribe(topic, subscribeOptions);
         if(!topicGroups[topicGroup]){
           topicGroups[topicGroup] = [];
