@@ -5,7 +5,9 @@
       <div class="foot-btn f-cp icon-pad-menu" id="ment-list" v-on:click="menuClick()" style="color:#fff;">
 
       </div>
-      <div class="foot-btn f-cp icon-pad-message" style="color:#fff;" v-on:click="getMessage()">
+      <div class="foot-btn f-cp icon-pad-message" v-on:click="getMessage()">
+      </div>
+      <div class="foot-btn f-cp icon-pad-fullscreen" v-on:click="requestFullScreen()">
       </div>
       <el-dialog title="测试消息" :visible.sync="messageDialogVisible" width="80%" center>
 
@@ -42,6 +44,7 @@
   export default {
     data() {
       return {
+        fullscreen: true,
         messages: '',
         messageDialogVisible: false,
         sysdate: '',
@@ -76,6 +79,30 @@
 
 
     methods: {
+      requestFullScreen() {
+        var element = document.documentElement;
+        if (this.fullscreen == true) {
+          if (element.requestFullscreen) {
+            element.requestFullscreen();
+          } else if (element.mozRequestFullScreen) {
+            element.mozRequestFullScreen();
+          } else if (element.webkitRequestFullscreen) {
+            element.webkitRequestFullscreen();
+          } else if (element.msRequestFullscreen) {
+            element.msRequestFullscreen();
+          }
+          this.fullscreen = !this.fullscreen;
+        } else {
+          if (document.exitFullscreen) {
+            document.exitFullscreen();
+          } else if (document.mozCancelFullScreen) {
+            document.mozCancelFullScreen();
+          } else if (document.webkitExitFullscreen) {
+            document.webkitExitFullscreen();
+          }
+          this.fullscreen = !this.fullscreen;
+        }
+      },
       menuClick() {
         this.isMenuShow = !this.isMenuShow
       },
@@ -218,6 +245,11 @@
   }
   .icon-pad-message{
     background: url("../../assets/message.png");
+    background-size: 100% 100%;
+  }
+
+  .icon-pad-fullscreen{
+    background: url("../../assets/fullscreen.png");
     background-size: 100% 100%;
   }
 
