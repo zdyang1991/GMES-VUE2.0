@@ -50,7 +50,6 @@ var mqttCtrl = function () {
           };
           //注册消息接收处理事件
           client.onMessageArrived = function (message) {
-            // console.log(message.payloadString);
             var matched = undefined;
             $.each(messageHandlers,function(regDestinationName,handlers){
               matched = message.destinationName.match(regDestinationName);
@@ -188,13 +187,11 @@ var mqttCtrl = function () {
      * 注册消息处理器
      **/
     registerMessageHandler : function(topic,handlerName,messageHandler){
-      console.log(handlerName);
       topic = topic.replace(/\+/g,"[^/@REX@]*").replace(/\#/g,"[^@REX@]*").replace(/@REX@/g,"+#");
       handlerName = handlerName.indexOf('.') == -1 ? "default."+handlerName : handlerName;
       if(!messageHandlers[topic]){
         messageHandlers[topic] = {};
       }
-
       messageHandlers[topic][handlerName] = messageHandler;
     },
     /**

@@ -69,12 +69,11 @@
         <el-main>
           <div class="progress">
             <div class="container">
-              <el-steps direction="vertical" :active="1">
-                <el-step title="步骤 1"></el-step>
-                <el-step title="步骤 2"></el-step>
-                <el-step title="步骤 3" description="这是一段很长很长很长的描述性文字"></el-step>
-                <el-step title="步骤 4" description="这是一段很长很长很长的描述性文字"></el-step>
-                <el-step title="步骤 5" description="这是一段很长很长很长的描述性文字"></el-step>
+              <el-steps direction="vertical" :active=index>
+                <el-step title="步骤 1" description="托盘已到位,准备初始化！"></el-step>
+                <el-step title="步骤 2" description="正在请求订单数据"></el-step>
+                <el-step title="步骤 3" description="正在下发TAG数据"></el-step>
+                <el-step title="步骤 4" description="初始化成功"></el-step>
               </el-steps>
             </div>
           </div>
@@ -135,11 +134,11 @@
   import util from '../../utils/util.js';
   import httpserver from '../../utils/http.js';
   import api from '../../utils/api.js';
-
+  import mqttLib from '../../utils/mqtt.js';
   export default {
     data() {
       return {
-        name: 'pro-gress',
+        index:0,
         tableData: [],
         dialogTableVisible: false,
         dialogFormVisible: false,
@@ -154,9 +153,13 @@
     },
     computed: {},
     created() {
-      this.init();
       this.getData();
       this.setReviseInfo();
+      this.subscribe();
+    },
+    beforeDestroy: function () {
+     this.unsubscribe();
+
     },
     methods: {
       getData: function () {
@@ -223,13 +226,39 @@
 
           })
       },
-      init: function () {
-        this.bsStep(2)
+      subscribe() {
+        let _this = this;
+        let topic = "/logs/STN3010";
+        let record
+        console.log("begin----------");
+        mqttLib.subscribe(topic, "message");
+        mqttLib.registerMessageHandler(topic, "message", function (message) {
+          console.log("111111111111111111111");
+          record = JSON.parse(message.payloadString).Content.Step;
+          console.log(record);
+          switch (record)
+          {
+            case "Init":
+              _this.index = 1;
+              break;
+            case "Ready":
+              _this.index = 2;
+              break;
+            case "Download":
+              _this.index = 3;
+              break;
+            case "Complete":
+              _this.index = 4;
+              break;
+          }
+          }
+        );
       },
-      bsStep: function (i) {
-
+      unsubscribe() {
+        let topic = "/logs";
+        console.log("close----------");
+        mqttLib.unsubscribe(topic, "message");
       }
-
     }
 
   }

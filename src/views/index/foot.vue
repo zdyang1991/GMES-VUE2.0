@@ -110,15 +110,13 @@
       },
       subscribe() {
         let _this = this;
-        let topic = "/message";
+        let topic = "/logs";
         console.log("begin----------");
         mqttLib.subscribe(topic, "message");
         mqttLib.registerMessageHandler(topic, "message", function (message) {
           _this.messages = message.payloadString;
           console.log(_this.messages);
-
         });
-
       },
       unsubscribe() {
         console.log("close----------");
