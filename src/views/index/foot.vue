@@ -26,7 +26,6 @@
         <div>{{sysdate}}/{{week}}</div>
       </div>
       <div class="signal" :class="this.wifiStatus==0?'success':'fail'">
-
       </div>
     </div>
     <navlist :isMenuShow='isMenuShow'></navlist>
