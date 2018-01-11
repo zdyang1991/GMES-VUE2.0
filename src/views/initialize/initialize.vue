@@ -71,9 +71,9 @@
             <div class="container">
               <el-steps direction="vertical" :active=index>
                 <el-step title="步骤 1" description="托盘已到位,准备初始化！"></el-step>
-                <el-step title="步骤 2" description="正在请求订单数据"></el-step>
-                <el-step title="步骤 3" description="正在下发TAG数据"></el-step>
-                <el-step title="步骤 4" description="初始化成功"></el-step>
+                <el-step title="步骤 2" description="正在请求订单数据！"></el-step>
+                <el-step title="步骤 3" description="正在下发TAG数据！"></el-step>
+                <el-step title="步骤 4" description="初始化成功！"></el-step>
               </el-steps>
             </div>
           </div>

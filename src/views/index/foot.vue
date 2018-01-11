@@ -61,19 +61,21 @@
           this.isMenuShow = false;
         }
       }, false);
-      const _this = this;
-      httpserver(api.getServertime, '')
-        .then((response) => {
-          //this.wifiStatus = response.data.returnCode;
-          let data = (new Date(response.data.data)).getTime();//转换为毫秒数
-          const date = getTime.gettime(data);
-          _this.sysdate = getTime.five(date);
-          _this.week = date.week;
-          window.setInterval(function () {
-            data = data + 1000
-            _this.systime = getTime.six(data)
-          }, 1000)
-        });
+      let _this = this;
+      window.setInterval(function () {
+        httpserver(api.getServertime)
+          .then((response) => {
+            //this.wifiStatus = response.data.returnCode;
+            let data = (new Date(response.data.data)).getTime();//转换为毫秒数
+            const date = getTime.gettime(data);
+            _this.sysdate = getTime.five(date);
+            _this.week = date.week;
+            window.setInterval(function () {
+              data = data + 1000
+              _this.systime = getTime.six(data)
+            }, 1000)
+          });
+      },10000)
     },
 
 
@@ -107,6 +109,22 @@
       },
       getMessage() {
         this.messageDialogVisible = true
+      },
+      getServertime() {
+        let _this = this;
+        httpserver(api.getServertime)
+          .then((response) => {
+            console.log(2222222222222);
+            //this.wifiStatus = response.data.returnCode;
+            let data = (new Date(response.data.data)).getTime();//转换为毫秒数
+            const date = getTime.gettime(data);
+            _this.sysdate = getTime.five(date);
+            _this.week = date.week;
+            window.setInterval(function () {
+              data = data + 1000
+              _this.systime = getTime.six(data)
+            }, 1000)
+          })
       },
       subscribe() {
         let _this = this;
@@ -218,7 +236,7 @@
   #app-foot .el-dialog {
     height: 30rem;
     .el-dialog__header {
-      .el-dialog__title{
+      .el-dialog__title {
         font-family: "Bell MT";
         font-size: 2rem;
         color: blue;
@@ -234,18 +252,19 @@
       align-items: center;
       justify-content: center;
     }
-    .message{
-     font-family: "Bell MT";
+    .message {
+      font-family: "Bell MT";
       font-size: 2rem;
       color: darkred;
     }
   }
-  .icon-pad-message{
+
+  .icon-pad-message {
     background: url("../../assets/message.png");
     background-size: 100% 100%;
   }
 
-  .icon-pad-fullscreen{
+  .icon-pad-fullscreen {
     background: url("../../assets/fullscreen.png");
     background-size: 100% 100%;
   }
