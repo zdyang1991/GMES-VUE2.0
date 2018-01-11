@@ -397,5 +397,6 @@
     font-size: 1.4rem;
     color: white;
   }
+
   }
 </style>
