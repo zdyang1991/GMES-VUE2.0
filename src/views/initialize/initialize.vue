@@ -154,7 +154,7 @@
     computed: {},
     created() {
       this.getData();
-      this.setReviseInfo();
+//      this.setReviseInfo();
       this.subscribe();
     },
     beforeDestroy: function () {
@@ -176,13 +176,13 @@
           })
       },
       //工单修改信息上传
-      setReviseInfo: function () {
-        let loc = JSON.parse(window.localStorage.getItem('terminal'));
-        this.ReviseInfo.statuseCode = '10';
-        httpserver(api.setReviseInfo, this.ReviseInfo)
-          .then((response) => {
-          })
-      },
+//      setReviseInfo: function () {
+//        let loc = JSON.parse(window.localStorage.getItem('terminal'));
+//        this.ReviseInfo.statuseCode = '10';
+//        httpserver(api.setReviseInfo, this.ReviseInfo)
+//          .then((response) => {
+//          })
+//      },
       getHistoryInfo() {
         this.dialogTableVisible = true;
         let loc = JSON.parse(window.localStorage.getItem('terminal'));

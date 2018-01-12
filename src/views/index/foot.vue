@@ -25,7 +25,7 @@
         <div>{{systime}}</div>
         <div>{{sysdate}}/{{week}}</div>
       </div>
-      <div class="signal" :class="this.wifiStatus==0?'success':'fail'">
+      <div class="signal" :class="this.wifiStatus=='0'?'success':'fail'">
       </div>
     </div>
     <navlist :isMenuShow='isMenuShow'></navlist>
@@ -50,7 +50,7 @@
         week: '',
         systime: '',
         isMenuShow: false,
-        wifiStatus: ''
+        wifiStatus: '0'
       }
     },
     computed: {},
@@ -66,7 +66,9 @@
      window.setInterval(function () {
         httpserver(api.getServertime)
           .then((response) => {
-            //this.wifiStatus = response.data.returnCode;
+          console.log(response);
+            this.wifiStatus = response.data.returnCode;
+            this.wifiStatus ="1";
             let data = (new Date(response.data.data)).getTime();//转换为毫秒数
             const date = getTime.gettime(data);
             this.sysdate = getTime.five(date);
