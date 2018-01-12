@@ -3,7 +3,7 @@
     <div class="convent">
       <div class="convent-input">
         <span style="width: 8rem;font-size: 1.2rem;">零件条码</span>
-        <el-input  :autosize="{ minRows: 4, maxRows: 4}" size="80" @keyup.enter.native="show($event)" v-model="code">
+        <el-input :autosize="{ minRows: 4, maxRows: 4}" size="80" @keyup.enter.native="show($event)" v-model="code">
         </el-input>
         <el-button type="primary" @click="getSerialNoInformation()">确定</el-button>
       </div>
@@ -47,10 +47,9 @@
       </div>
     </div>
     <div class="bottom-form">
-      <el-table :data="tableData" border style="width: 100%;"  highlight-current-row  @current-change="handleCurrentChange">
-        <el-table-column type="index" label="顺序号" width="70">
-        </el-table-column>
-        <el-table-column prop="productOrderNum" label="订单编号" width="180">
+      <el-table :data="tableData" border style="width: 100%;" highlight-current-row
+                @current-change="handleCurrentChange">
+        <el-table-column type="orderNo" label="顺序号" width="70">
         </el-table-column>
         <el-table-column prop="productionOrderNum" label="工单编号">
         </el-table-column>
@@ -62,13 +61,13 @@
         </el-table-column>
         <el-table-column prop="plannedQty" label="计划数量">
         </el-table-column>
-        <el-table-column prop="orderNo" label="顺序号">
+        <el-table-column prop="" label="已扫数量">
         </el-table-column>
       </el-table>
     </div>
-    <el-dialog  :visible.sync="dialogTableVisible" width="80%">
+    <el-dialog :visible.sync="dialogTableVisible" width="80%">
       <el-table :data="gridData">
-        <el-table-column prop="productOrderNum" label="订单编号" >
+        <el-table-column prop="productOrderNum" label="订单编号">
         </el-table-column>
         <el-table-column prop="workOrderNum" label="工单编号">
         </el-table-column>
@@ -93,14 +92,15 @@
 <script type="text/babel">
   import httpserver from '../../utils/http.js';
   import api from '../../utils/api.js';
+
   export default {
     data() {
       return {
         tableData: [],
-        gridData:[],
-        proinfo:{},
+        gridData: [],
+        proinfo: {},
         code: '',
-        productCount:1,
+        productCount: 1,
         dialogTableVisible: false,
         formName: {
           workNum: "工单编号",
@@ -114,10 +114,10 @@
         }
       }
     },
-    created(){
-      this.getData();
+    created() {
+      this.getMachiningProductionQueue();
     },
-    methods:{
+    methods: {
       getHistoryInfo() {
         this.dialogTableVisible = true;
         let loc = JSON.parse(window.localStorage.getItem('terminal'));
@@ -132,38 +132,37 @@
             this.gridData = resData.productionStnRecords;
           })
       },
-      getSerialNoInformation(){
-        let body={
-          serialNo:this.code
+      getSerialNoInformation() {
+        let body = {
+          serialNo: this.code
         };
-        httpserver(api.materialSole,body)
-          .then((res)=>{
-              if(res.returnCode==0){
-                httpserver(api.getSerialNoInformation,body)
-                  .then((res) => {
-                    //6947463266069
-                    this.gridData = res.data.data;
-                    if(res.returnCode==0){
-                      localStorage.setItem('Partcount',this.productCount)
-                      this.productCount=localStorage.getItem('Partcount');
-                      this.productCount++
-                    }
-                  })
-              }else{
-                  console.log('信息重复')
-              }
+        httpserver(api.materialSole, body)
+          .then((res) => {
+            if (res.returnCode == 0) {
+              httpserver(api.getSerialNoInformation, body)
+                .then((res) => {
+                  //6947463266069
+                  this.gridData = res.data.data;
+                  if (res.returnCode == 0) {
+                    localStorage.setItem('Partcount', this.productCount)
+                    this.productCount = localStorage.getItem('Partcount');
+                    this.productCount++
+                  }
+                })
+            } else {
+              console.log('信息重复')
+            }
 
           })
       },
-      getData: function () {
+      getMachiningProductionQueue: function () {
         console.log(2)
         let loc = JSON.parse(window.localStorage.getItem('terminal'));
         let body = {
           workCenterCode: loc.workCenterCode,
-          statuseCode: '7',
-          endRow: 2
+          endRow: 3
         };
-        httpserver(api.getinitializeTable,body)
+        httpserver(api.getMachiningProductionQueue, body)
           .then((res) => {
             this.tableData = res.data.data;
           })
