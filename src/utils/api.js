@@ -1,5 +1,5 @@
 const apiBaseUrl = 'http://10.200.188.232:8021/';
-const apiPcsUrl = 'http://10.200.151.229:8041/pcs/';
+const apiPcsUrl = 'http://10.200.188.232:8041/pcs/';
 const serviceModule = {
   //保存串口配置:#系统配置
   saveSystemCom: {
@@ -41,7 +41,7 @@ const serviceModule = {
     url: apiPcsUrl + 'restful/pp/getProcutionOrderQueue',
     method: 'get'
   },
-  //
+  //根据产品序列号获取工单信息：#机加下线
   getSerialNoInformation: {
     url: apiPcsUrl + 'restful/pp/getSerialNoInformation',
     method: 'get'

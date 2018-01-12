@@ -21,7 +21,7 @@
           </el-table-column>
           <el-table-column
             prop="name"
-            label="订单编号"
+            label="工单编号"
             width="180">
           </el-table-column>
           <el-table-column
@@ -80,8 +80,18 @@
         tableData: [],
         code:"",
         gridData:[],
-        dialogTableVisible:false
+        dialogTableVisible:false,
+        //serialPort:new SerialPort('COM3',false),//扫描器端口
       }
+    },
+    created() {
+      console.log("打开串口");
+      this.openCom();
+    },
+    beforeDestroy: function () {
+      console.log("销毁前关闭串口");
+      this.closeCom();
+
     },
     methods:{
       getHistoryInfo() {
@@ -108,8 +118,8 @@
             //6947463266069
             this.gridData = res.data.data;
             if(res.returnCode==0){
-              localStorage.setItem('Partcount',this.productCount)
-              this.productCount=localStorage.getItem('Partcount');
+//              localStorage.setItem('Partcount',this.productCount)
+//              this.productCount=localStorage.getItem('Partcount');
               this.productCount++
             }
           })
@@ -126,6 +136,37 @@
         window.location.reload();
         document.body.innerHTML = oldContent;
         return false;
+      },
+      openCom() {
+        let _this = this;
+        let Readline = SerialPort.parsers.Readline;
+        let parser = new Readline();
+        _this.serialPort.pipe(parser);
+        _this.serialPort.open(function (error) {
+          console.log("打开" + error);
+        })
+        parser.on('data', function (data) {
+          _this.code = data;
+          console.log(_this.code);
+        })
+      },
+      closeCom() {
+        let _this = this;
+        _this.serialPort.close();
+      },
+//      键盘事件
+      show: function (ev) {
+        let _this = this;
+        if (ev.keyCode == 13) {
+          let body = {
+            serialNo: _this.code
+          };
+
+          httpserver(api.getSerialNoInformation, body)
+            .then((res) => {
+              this.gridData = res.data.data;
+            })
+        }
       },
     }
   }
