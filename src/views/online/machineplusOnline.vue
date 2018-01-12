@@ -102,16 +102,6 @@
         code: '',
         productCount: 0,
         dialogTableVisible: false,
-        formName: {
-          workNum: "工单编号",
-          machineType: '机型',
-          matterDepict: '物料描述',
-          matterDNum: "物料编号",
-          planNum: '计划数量',
-          properNum: "顺序号",
-          motorNum: '发动机号',
-          orderNum: "订单号"
-        }
       }
     },
     created() {

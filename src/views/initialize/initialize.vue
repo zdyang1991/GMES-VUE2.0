@@ -13,13 +13,13 @@
                     <!--订单编号-->
 
                     <label class="label">工单编号</label>
-                    <div class="detail"></div>
+                    <div class="detail">{{proinfo.productionOrderNum}}</div>
 
                   </div>
                   <div class="item-container f-f1">
                     <!--工单编号-->
                     <label class="label">机型</label>
-                    <div class="detail"></div>
+                    <div class="detail">{{proinfo.productModel}}</div>
                   </div>
                 </div>
               </div>
@@ -29,12 +29,12 @@
                   <div class="item-container f-f1">
                     <!--发动机号-->
                     <label class="label">物料编号</label>
-                    <div class="detail"></div>
+                    <div class="detail">{{proinfo.materialCode}}</div>
                   </div>
                   <div class="item-container f-f1">
                     <!--机型-->
                     <label class="label">物料描述</label>
-                    <div class="detail"></div>
+                    <div class="detail">{{proinfo.materialText}}</div>
                   </div>
                 </div>
               </div>
@@ -43,11 +43,11 @@
                 <div class="row-container f-df">
                   <div class="item-container f-f1">
                     <label class="label">计划数量</label>
-                    <div class="detail"></div>
+                    <div class="detail">{{proinfo.plannedQuantity}}</div>
                   </div>
                   <div class="item-container f-f1">
                     <label class="label">顺序号</label>
-                    <div class="detail"></div>
+                    <div class="detail">{{proinfo.orderNo}}</div>
                   </div>
                 </div>
               </div>
@@ -59,7 +59,7 @@
                   </div>
                   <div class="item-container f-f1">
                     <label class="label">订单编号</label>
-                    <div class="detail"></div>
+                    <div class="detail">{{proinfo.productOrderNum}}</div>
                   </div>
                 </div>
               </div>
@@ -135,10 +135,12 @@
   import httpserver from '../../utils/http.js';
   import api from '../../utils/api.js';
   import mqttLib from '../../utils/mqtt.js';
+
   export default {
     data() {
       return {
-        index:0,
+        proinfo: {},
+        index: 0,
         tableData: [],
         dialogTableVisible: false,
         dialogFormVisible: false,
@@ -158,7 +160,7 @@
       this.subscribe();
     },
     beforeDestroy: function () {
-     this.unsubscribe();
+      this.unsubscribe();
 
     },
     methods: {
@@ -230,27 +232,34 @@
         let _this = this;
         let topic = "/logs/STN3010";
         let record
+        let data
         console.log("begin----------");
         mqttLib.subscribe(topic, "message");
         mqttLib.registerMessageHandler(topic, "message", function (message) {
-          console.log("111111111111111111111");
-          record = JSON.parse(message.payloadString).Content.Step;
-          console.log(record);
-          switch (record)
-          {
-            case "Init":
-              _this.index = 1;
-              break;
-            case "Ready":
-              _this.index = 2;
-              break;
-            case "Download":
-              _this.index = 3;
-              break;
-            case "Complete":
-              _this.index = 4;
-              break;
-          }
+            record = JSON.parse(message.payloadString).Content.Step;
+            data = JSON.parse(message.payloadString).Content.Data;
+            console.log(data);
+            switch (record) {
+              case "Init":
+                _this.index = 1;
+                break;
+              case "Ready":
+                _this.index = 2;
+                break;
+              case "Download":
+                _this.index = 3;
+                let body = {
+                  workOrderNum: data
+                };
+                httpserver(api.getCurrentProductionOrder, body)
+                  .then((response) => {
+                   _this.proinfo=response.data.data;
+                  });
+                break;
+              case "Complete":
+                _this.index = 4;
+                break;
+            }
           }
         );
       },

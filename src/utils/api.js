@@ -46,6 +46,11 @@ const serviceModule = {
     url: apiPcsUrl + 'restful/pp/getSerialNoInformation',
     method: 'get'
   },
+  //根据工厂编号获取工单信息
+  getCurrentProductionOrder:{
+    url: apiPcsUrl + 'restful/pp/getCurrentProductionOrder',
+    method: 'get'
+  },
   // 物料唯一性校验
   materialSole: {
     url: apiPcsUrl + 'restful/pp/assemblyUniqueCheck',
