@@ -15,30 +15,30 @@
           border
           style="width: 100%;font-size: 1.2rem">
           <el-table-column
-            prop="date"
             label="序号"
+            type="index"
             width="60">
           </el-table-column>
           <el-table-column
-            prop="name"
+            prop="productionOrderNum"
             label="工单编号"
             width="180">
           </el-table-column>
           <el-table-column
-            prop="address"
+            prop="materialCode"
             label="物料编号">
           </el-table-column>
           <el-table-column
-            prop="address"
+            prop="serialNo"
             width="240"
             label="产品序列号">
           </el-table-column>
           <el-table-column
-            prop="address"
+            prop=""
             label="数量">
           </el-table-column>
           <el-table-column
-            prop="address"
+            prop=""
             label="备注">
           </el-table-column>
 
@@ -77,9 +77,10 @@
   export default {
     data() {
       return {
-        tableData: [],
+        tableData:[],
         code:"",
         gridData:[],
+        productCount:0,
         dialogTableVisible:false,
         //serialPort:new SerialPort('COM3',false),//扫描器端口
       }
@@ -108,6 +109,7 @@
             this.gridData = resData.productionStnRecords;
           })
       },
+//      根据序列号工单信息查询
       getOrderInfo(){
         let body={
           serialNo:this.code
@@ -116,7 +118,8 @@
         httpserver(api.getSerialNoInformation,body)
           .then((res) => {
             //6947463266069
-            this.gridData = res.data.data;
+            this.tableData.push(res.data.data);
+          console.log(this.tableData)
             if(res.returnCode==0){
 //              localStorage.setItem('Partcount',this.productCount)
 //              this.productCount=localStorage.getItem('Partcount');
