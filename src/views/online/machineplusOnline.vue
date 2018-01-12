@@ -49,7 +49,7 @@
     <div class="bottom-form">
       <el-table :data="tableData" border style="width: 100%;" highlight-current-row
                 @current-change="handleCurrentChange">
-        <el-table-column type="orderNo" label="顺序号" width="70">
+        <el-table-column prop="orderNo" label="顺序号">
         </el-table-column>
         <el-table-column prop="productionOrderNum" label="工单编号">
         </el-table-column>
@@ -61,7 +61,7 @@
         </el-table-column>
         <el-table-column prop="plannedQty" label="计划数量">
         </el-table-column>
-        <el-table-column prop="" label="已扫数量">
+        <el-table-column prop="scanQty" label="已扫数量">
         </el-table-column>
       </el-table>
     </div>
@@ -100,7 +100,7 @@
         gridData: [],
         proinfo: {},
         code: '',
-        productCount: 1,
+        productCount: 0,
         dialogTableVisible: false,
         formName: {
           workNum: "工单编号",
@@ -132,35 +132,35 @@
             this.gridData = resData.productionStnRecords;
           })
       },
-      getSerialNoInformation() {
-        let body = {
-          serialNo: this.code
-        };
-        httpserver(api.materialSole, body)
-          .then((res) => {
-            if (res.returnCode == 0) {
-              httpserver(api.getSerialNoInformation, body)
-                .then((res) => {
-                  //6947463266069
-                  this.gridData = res.data.data;
-                  if (res.returnCode == 0) {
-                    localStorage.setItem('Partcount', this.productCount)
-                    this.productCount = localStorage.getItem('Partcount');
-                    this.productCount++
-                  }
-                })
-            } else {
-              console.log('信息重复')
-            }
-
-          })
-      },
+//      getSerialNoInformation() {
+//        let body = {
+//          serialNo: this.code
+//        };
+//        httpserver(api.materialSole, body)
+//          .then((res) => {
+//            if (res.returnCode == 0) {
+//              httpserver(api.getSerialNoInformation, body)
+//                .then((res) => {
+//                  //6947463266069
+//                  this.gridData = res.data.data;
+//                  if (res.returnCode == 0) {
+//                    localStorage.setItem('Partcount', this.productCount)
+//                    this.productCount = localStorage.getItem('Partcount');
+//                    this.productCount++
+//                  }
+//                })
+//            } else {
+//              console.log('信息重复')
+//            }
+//
+//          })
+//      },
       getMachiningProductionQueue: function () {
         console.log(2)
         let loc = JSON.parse(window.localStorage.getItem('terminal'));
         let body = {
           workCenterCode: loc.workCenterCode,
-          endRow: 3
+          endRow: 4
         };
         httpserver(api.getMachiningProductionQueue, body)
           .then((res) => {
@@ -170,11 +170,10 @@
       handleCurrentChange(val) {
         this.currentRow = val;
         this.proinfo = val;
-        console.log(this.proinfo.productModel)
+        this.productCount = val.scanQty;
       }
     }
   }
-
 </script>
 
 
