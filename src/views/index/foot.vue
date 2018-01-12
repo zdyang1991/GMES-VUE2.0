@@ -66,7 +66,6 @@
      window.setInterval(function () {
         httpserver(api.getServertime)
           .then((response) => {
-          console.log(response);
             this.wifiStatus = response.data.returnCode;
             this.wifiStatus ="1";
             let data = (new Date(response.data.data)).getTime();//转换为毫秒数

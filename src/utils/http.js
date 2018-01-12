@@ -83,7 +83,7 @@ const httpServer = (opts, data) => {
   } else {
     delete httpDefaultOpts.params;
   }
-  console.log(httpDefaultOpts);
+  
   let promise = new Promise(function (resolve, reject) {
     axios(httpDefaultOpts).then(
       (res) => {
