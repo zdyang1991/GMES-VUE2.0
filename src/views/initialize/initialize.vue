@@ -145,11 +145,7 @@
         dialogTableVisible: false,
         dialogFormVisible: false,
         gridData: [],
-        total: 0,
-        ReviseInfo: {
-          statuseCode: '',//工单状态
-          productionOrderNum: "NO_0000000167"//工单编号
-        }
+        total: 0
 
       }
     },

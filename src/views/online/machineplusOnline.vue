@@ -5,7 +5,7 @@
         <span style="width: 8rem;font-size: 1.2rem;">零件条码</span>
         <el-input :autosize="{ minRows: 4, maxRows: 4}" size="80" @keyup.enter.native="show($event)" v-model="code">
         </el-input>
-        <el-button type="primary" @click="getSerialNoInformation()">确定</el-button>
+        <el-button type="primary" @click="validMachiningProductRecord()">确定</el-button>
       </div>
       <el-button type="success">已扫数量：{{productCount}}</el-button>
     </div>
@@ -96,6 +96,7 @@
   export default {
     data() {
       return {
+        productionOrderNum:'',
         tableData: [],
         gridData: [],
         proinfo: {},
@@ -108,6 +109,24 @@
       this.getMachiningProductionQueue();
     },
     methods: {
+      validMachiningProductRecord() {
+        let loc = JSON.parse(window.localStorage.getItem('terminal'));
+        let body = {
+          workStationCode: loc.workStationCode,
+          scanCode:this.code,
+          productionOrderNum:this.productionOrderNum
+        };
+        console.log(body);
+        httpserver(api.validMachiningProductRecord,body)
+          .then((response) =>{
+            console.log(response);
+            if (response.data.returnCode=='0'){
+              this.productCount++;
+              this.getMachiningProductionQueue();
+            }
+//          this.productCount++;
+          })
+      },
       getHistoryInfo() {
         this.dialogTableVisible = true;
         let loc = JSON.parse(window.localStorage.getItem('terminal'));
@@ -122,31 +141,7 @@
             this.gridData = resData.productionStnRecords;
           })
       },
-//      getSerialNoInformation() {
-//        let body = {
-//          serialNo: this.code
-//        };
-//        httpserver(api.materialSole, body)
-//          .then((res) => {
-//            if (res.returnCode == 0) {
-//              httpserver(api.getSerialNoInformation, body)
-//                .then((res) => {
-//                  //6947463266069
-//                  this.gridData = res.data.data;
-//                  if (res.returnCode == 0) {
-//                    localStorage.setItem('Partcount', this.productCount)
-//                    this.productCount = localStorage.getItem('Partcount');
-//                    this.productCount++
-//                  }
-//                })
-//            } else {
-//              console.log('信息重复')
-//            }
-//
-//          })
-//      },
       getMachiningProductionQueue: function () {
-        console.log(2)
         let loc = JSON.parse(window.localStorage.getItem('terminal'));
         let body = {
           workCenterCode: loc.workCenterCode,
@@ -158,9 +153,13 @@
           })
       },
       handleCurrentChange(val) {
+        console.log(current-row-key);
+        console.log(val);
         this.currentRow = val;
+        console.log(this.currentRow);
         this.proinfo = val;
         this.productCount = val.scanQty;
+        this.productionOrderNum = val.productionOrderNum;
       }
     }
   }
