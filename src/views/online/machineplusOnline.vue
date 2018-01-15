@@ -47,7 +47,7 @@
       </div>
     </div>
     <div class="bottom-form">
-      <el-table :data="tableData" border style="width: 100%;" highlight-current-row
+      <el-table :data="tableData" border ref="table" style="width: 100%;" highlight-current-row
                 @current-change="handleCurrentChange">
         <el-table-column prop="orderNo" label="顺序号">
         </el-table-column>
@@ -96,35 +96,38 @@
   export default {
     data() {
       return {
-        productionOrderNum:'',
+        currentRow: '',
+        productionOrderNum: '',
         tableData: [],
         gridData: [],
         proinfo: {},
         code: '',
         productCount: 0,
         dialogTableVisible: false,
+        currentRow:null,
       }
     },
     created() {
       this.getMachiningProductionQueue();
     },
     methods: {
+      setCurrent(row) {
+        this.$refs.table.setCurrentRow(row)
+      },
       validMachiningProductRecord() {
         let loc = JSON.parse(window.localStorage.getItem('terminal'));
         let body = {
           workStationCode: loc.workStationCode,
-          scanCode:this.code,
-          productionOrderNum:this.productionOrderNum
+          scanCode: this.code,
+          productionOrderNum: this.productionOrderNum
         };
-        console.log(body);
-        httpserver(api.validMachiningProductRecord,body)
-          .then((response) =>{
+        httpserver(api.validMachiningProductRecord, body)
+          .then((response) => {
             console.log(response);
-            if (response.data.returnCode=='0'){
+            if (response.data.returnCode == '0') {
               this.productCount++;
               this.getMachiningProductionQueue();
             }
-//          this.productCount++;
           })
       },
       getHistoryInfo() {
@@ -145,28 +148,35 @@
         let loc = JSON.parse(window.localStorage.getItem('terminal'));
         let body = {
           workCenterCode: loc.workCenterCode,
-          endRow: 4
+          endRow: 3
         };
         httpserver(api.getMachiningProductionQueue, body)
           .then((res) => {
             this.tableData = res.data.data;
           })
       },
-      handleCurrentChange(val) {
-        console.log(current-row-key);
-        console.log(val);
-        this.currentRow = val;
-        console.log(this.currentRow);
-        this.proinfo = val;
-        this.productCount = val.scanQty;
-        this.productionOrderNum = val.productionOrderNum;
+      handleCurrentChange(val,old) {
+        if(val!=null){
+          this.currentRow = val;
+          this.proinfo = val;
+          this.productCount = this.currentRow.scanQty;
+          this.productionOrderNum = this.currentRow.productionOrderNum;
+        }else{
+         this.tableData.forEach((value,index,table) =>{
+           if(table[index].productionOrderNum==old.productionOrderNum){
+               this.setCurrent(this.tableData[index])
+           }
+         })
+        }
+
+
       }
     }
   }
 </script>
 
 
-<style lang="less" scoped>
+<style lang="less">
   @import "../../css/online/machineplusOnline.less";
 
 </style>

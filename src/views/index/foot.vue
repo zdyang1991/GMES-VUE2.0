@@ -63,22 +63,22 @@
       }, false);
 
       this.getServertime();
-     window.setInterval(function () {
-        httpserver(api.getServertime)
-          .then((response) => {
-            this.wifiStatus = response.data.returnCode;
-            this.wifiStatus ="1";
-            let data = (new Date(response.data.data)).getTime();//转换为毫秒数
-            const date = getTime.gettime(data);
-            this.sysdate = getTime.five(date);
-            this.week = date.week;
-            window.setInterval(function () {
-              data = data + 1000
-              this.systime = getTime.six(data)
-            }, 1000)
-          });
-
-      },60000)
+//     window.setInterval(function () {
+//        httpserver(api.getServertime)
+//          .then((response) => {
+//            this.wifiStatus = response.data.returnCode;
+//            this.wifiStatus ="1";
+//            let data = (new Date(response.data.data)).getTime();//转换为毫秒数
+//            const date = getTime.gettime(data);
+//            this.sysdate = getTime.five(date);
+//            this.week = date.week;
+//            window.setInterval(function () {
+//              data = data + 1000
+//              this.systime = getTime.six(data)
+//            }, 1000)
+//          });
+//
+//      },60000)
     },
 
 

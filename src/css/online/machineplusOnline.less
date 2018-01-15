@@ -1,5 +1,14 @@
 .machineplusOnline{
   height: 100%;
+  .el-table th div, .el-table th > .cell {
+    color: #222;
+  }
+  .current-row {
+    color:	#800080;
+    background-color: #dd6161;
+    font-size: 1.4rem;
+    font-weight: bold;
+  }
   .topbox{
     height: 15rem;
     display: flex;
@@ -33,6 +42,15 @@
     margin-top: 1rem;
     height: calc(100% - 26rem);
     background-color: #fff;
+    .el-table {
+      font-size: 1.2rem;
+
+      .el-table__header-wrapper {
+        color: #d3d4d6;
+
+      }
+
+    }
   }
   .convent {
     background-color: #fff;
