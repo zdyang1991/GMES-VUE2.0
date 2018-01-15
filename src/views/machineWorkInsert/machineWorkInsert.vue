@@ -83,7 +83,7 @@
         sequenceCount:0,
         dialogTableVisible:false,
         palletCount:3,
-        //serialPort:new SerialPort('COM3',false),//扫描器端口
+        //serialPort:new SerialPort(JSON.parse(window.localStorage.getItem('serialPort')).port,false),//扫描器端口
       }
     },
     created() {

@@ -118,7 +118,7 @@
   export default {
     data() {
       return {
-        //serialPort:new SerialPort('COM3',false),
+        //serialPort:new SerialPort(JSON.parse(window.localStorage.getItem('serialPort')).port,false),
         name: 'pro-gress',
         code: '',
         dialogTableVisible: false,
