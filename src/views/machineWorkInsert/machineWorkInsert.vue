@@ -80,8 +80,9 @@
         tableData:[],
         code:"",
         gridData:[],
-        productCount:0,
+        sequenceCount:0,
         dialogTableVisible:false,
+        palletCount:3,
         //serialPort:new SerialPort('COM3',false),//扫描器端口
       }
     },
@@ -118,18 +119,26 @@
         httpserver(api.getSerialNoInformation,body)
           .then((res) => {
             //6947463266069
-            this.tableData.push(res.data.data);
-          console.log(this.tableData)
-            if(res.returnCode==0){
-//              localStorage.setItem('Partcount',this.productCount)
-//              this.productCount=localStorage.getItem('Partcount');
-              this.productCount++
+            let resData = res.data.data;
+            console.log(res);
+            if(res.data.returnCode=='0'){
+              this.tableData.push(res.data.data);
+                console.log(this.sequenceCount);
+              //打印条件 数量达到||这个订单号和上一个不一样了，打印
+                if(this.sequenceCount==this.palletCount){
+                  this.printContent();
+                  this.tableData=[];
+                }
+              localStorage.setItem('sequenceCount',this.sequenceCount)
+              this.sequenceCount=localStorage.getItem('sequenceCount');
+              this.sequenceCount++;
+
             }
+
           })
 
       },
       printContent(e){
-        console.log(e)
         let subOutputRankPrint = document.getElementById('subOutputRank-print');
         console.log(subOutputRankPrint.innerHTML);
         let newContent =subOutputRankPrint.innerHTML;
