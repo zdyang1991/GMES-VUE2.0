@@ -66,6 +66,11 @@ const serviceModule = {
     url: apiPcsUrl + 'restful/pp/getMachiningProductionQueue',
     method: 'get'
   },
+  //  托条码查询
+  getPalletizedRecords:{
+    url: apiPcsUrl +'restful/pp/getPalletizedRecords',
+    method: 'get'
+  }
 
 }
 const ApiSetting = {...serviceModule};

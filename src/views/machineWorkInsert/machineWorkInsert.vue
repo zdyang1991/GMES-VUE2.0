@@ -47,26 +47,53 @@
 
     </div>
     <el-dialog  :visible.sync="dialogTableVisible" width="80%">
-      <el-table :data="gridData">
-        <el-table-column prop="productOrderNum" label="订单编号" >
+      <el-table :data="gridData" style="width: 100%">
+        <el-table-column type="index" label="序号" >
         </el-table-column>
-        <el-table-column prop="workOrderNum" label="工单编号">
-        </el-table-column>
-        <el-table-column prop="productModel" label="机型">
-        </el-table-column>
-        <el-table-column prop="materialCode" label="物料编码">
+        <el-table-column prop="materialCode" label="物料编号">
         </el-table-column>
         <el-table-column prop="materialText" label="物料描述">
         </el-table-column>
-        <el-table-column prop="quanlity" label="计划数量">
+        <el-table-column prop="quanlity" label="产品序列号">
         </el-table-column>
-        <el-table-column prop="orderNo" label="顺序号">
+        <el-table-column prop="orderNo" label="下线时间">
         </el-table-column>
       </el-table>
     </el-dialog>
+    <!--托条码打印弹出窗口-->
+    <el-dialog  :visible.sync="dialogVisible" width="80%" title="托条码补打印">
+      <div class="linear-input">
+        <span>托条码</span>
+        <el-input v-model="input" placeholder="请输入内容" width="300"></el-input>
+        <el-button type="primary">确认</el-button>
+      </div>
+      <el-table :data="gridData">
+        <el-table-column
+          type="selection"
+          width="55">
+        </el-table-column>
+        <el-table-column type="index" label="托条码" width="100">
+        </el-table-column>
+        <el-table-column prop="materialCode" label="物料编号">
+        </el-table-column>
+        <el-table-column prop="materialText" label="物料描述">
+        </el-table-column>
+        <el-table-column prop="orderNo" label="装托时间">
+        </el-table-column>
+      </el-table>
+      <el-button type="primary">主要按钮</el-button>
+      <el-pagination
+        @size-change="handleSizeChange"
+        @current-change="handleCurrentChange"
+        :page-sizes="[1]"
+        :page-size="1"
+        layout="total, sizes, prev, pager, next, jumper"
+        :total="total">
+      </el-pagination>
+    </el-dialog>
     <div class="fixed-box">
       <span @click="getHistoryInfo()">历史记录</span>
-      <span @click="printContent()">补打印</span>
+      <span @click="replenishPrint()">补打印</span>
     </div>
   </div>
 </template>
@@ -79,11 +106,17 @@
       return {
         tableData:[],
         code:"",
+        input:'',
         gridData:[],
         sequenceCount:0,
         dialogTableVisible:false,
+        dialogVisible:false,
+        isHistory:false,
+        isPrint:false,
         palletCount:3,
-        //serialPort:new SerialPort(JSON.parse(window.localStorage.getItem('serialPort')).port,false),//扫描器端口
+        total:100,
+
+        //serialPort:new SerialPort('COM3',false),//扫描器端口
       }
     },
     created() {
@@ -97,7 +130,10 @@
     },
     methods:{
       getHistoryInfo() {
-        this.dialogTableVisible = true;
+        this.isHistory = true;
+        if(this.isHistory == true){
+          this.dialogTableVisible = true;
+        }
         let loc = JSON.parse(window.localStorage.getItem('terminal'));
         let body = {
           workStationCode: loc.workStationCode,
@@ -106,6 +142,7 @@
         };
         httpserver(api.getHistoryInfo, body)
           .then((response) => {
+          console.log(response)
             let resData = response.data.data;
             this.gridData = resData.productionStnRecords;
           })
@@ -118,13 +155,14 @@
 //        接口暂时使用查询发动机的接口
         httpserver(api.getSerialNoInformation,body)
           .then((res) => {
+          console.log(res)
             //6947463266069
             let resData = res.data.data;
-            console.log(res);
             if(res.data.returnCode=='0'){
               this.tableData.push(res.data.data);
                 console.log(this.sequenceCount);
               //打印条件 数量达到||这个订单号和上一个不一样了，打印
+              this.palletCount==res.data.data.trayNumber;
                 if(this.sequenceCount==this.palletCount){
                   this.printContent();
                   this.tableData=[];
@@ -138,6 +176,21 @@
           })
 
       },
+//      补打印
+      replenishPrint(){
+        this.dialogVisible = true;
+//        查询托条码
+        let body={
+          palletBarCode:'evn1',
+          pageNo:1,
+          pageSize:3
+        }
+        httpserver(api.getPalletizedRecords, body)
+          .then((response) => {
+           console.log(22)
+          })
+      },
+//      调用打印机接口
       printContent(e){
         let subOutputRankPrint = document.getElementById('subOutputRank-print');
         console.log(subOutputRankPrint.innerHTML);
@@ -180,10 +233,17 @@
             })
         }
       },
+//      分页
+      handleSizeChange(val) {
+        console.log(`每页 ${val} 条`);
+      },
+      handleCurrentChange(val) {
+        console.log(`当前页: ${val}`);
+      }
     }
   }
 </script>
 
-<style lang="less" scoped>
+<style lang="less">
   @import "../../css/machineWorkInsert/machineWorkInsert.less";
 </style>
