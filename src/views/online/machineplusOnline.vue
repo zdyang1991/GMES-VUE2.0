@@ -5,7 +5,7 @@
         <span style="width: 8rem;font-size: 1.2rem;">零件条码</span>
         <el-input :autosize="{ minRows: 4, maxRows: 4}" size="80" @keyup.enter.native="show($event)" v-model="code">
         </el-input>
-        <el-button type="primary" @click="validMachiningProductRecord()">确定</el-button>
+        <el-button type="primary" @click="validplannedQty()">确定</el-button>
       </div>
       <el-button type="success">已扫数量：{{productCount}}</el-button>
     </div>
@@ -83,6 +83,18 @@
         </el-table-column>
       </el-table>
     </el-dialog>
+    <el-dialog
+      title="注意"
+      :visible.sync="centerDialogVisible"
+      width="30%"
+      center>
+      <span>已扫数量超出计划数量</span>
+      <span slot="footer" class="dialog-footer">
+    <el-button @click=continueON()>继续</el-button>
+    <el-button type="primary" @click="onFinish()">完成</el-button>
+  </span>
+    </el-dialog>
+
     <div class="fixed-box">
       <span @click="getHistoryInfo()">历史记录</span>
     </div>
@@ -96,15 +108,16 @@
   export default {
     data() {
       return {
-        currentRow: '',
+        centerDialogVisible:false,
         productionOrderNum: '',
         tableData: [],
         gridData: [],
         proinfo: {},
+        plannedQty: 0,
         code: '',
         productCount: 0,
         dialogTableVisible: false,
-        currentRow:null,
+        currentRow: null,
       }
     },
     created() {
@@ -113,6 +126,20 @@
     methods: {
       setCurrent(row) {
         this.$refs.table.setCurrentRow(row)
+      },
+      validplannedQty(){
+         if(this.productCount<=this.plannedQty){
+           this.validMachiningProductRecord();
+         }else{
+            this.centerDialogVisible=true;
+         }
+      },
+      continueON(){
+        this.centerDialogVisible = false;
+        this.validMachiningProductRecord();
+      },
+      onFinish(){
+        this.centerDialogVisible = false;
       },
       validMachiningProductRecord() {
         let loc = JSON.parse(window.localStorage.getItem('terminal'));
@@ -152,21 +179,23 @@
         };
         httpserver(api.getMachiningProductionQueue, body)
           .then((res) => {
+            console.log(res);
             this.tableData = res.data.data;
           })
       },
-      handleCurrentChange(val,old) {
-        if(val!=null){
+      handleCurrentChange(val, old) {
+        if (val != null) {
           this.currentRow = val;
           this.proinfo = val;
           this.productCount = this.currentRow.scanQty;
+          this.plannedQty = this.currentRow.plannedQty
           this.productionOrderNum = this.currentRow.productionOrderNum;
-        }else{
-         this.tableData.forEach((value,index,table) =>{
-           if(table[index].productionOrderNum==old.productionOrderNum){
-               this.setCurrent(this.tableData[index])
-           }
-         })
+        } else {
+          this.tableData.forEach((value, index, table) => {
+            if (table[index].productionOrderNum == old.productionOrderNum) {
+              this.setCurrent(this.tableData[index])
+            }
+          })
         }
 
 
