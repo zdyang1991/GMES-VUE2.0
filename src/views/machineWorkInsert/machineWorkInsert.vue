@@ -81,7 +81,8 @@
         <el-table-column prop="orderNo" label="装托时间">
         </el-table-column>
       </el-table>
-      <el-button type="primary">主要按钮</el-button>
+      <!--<el-button type="primary">主要按钮</el-button>-->
+      <button class="print">补打印</button>
       <el-pagination
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
@@ -113,9 +114,7 @@
         dialogVisible:false,
         isHistory:false,
         isPrint:false,
-        palletCount:3,
         total:100,
-
         //serialPort:new SerialPort('COM3',false),//扫描器端口
       }
     },
@@ -157,17 +156,29 @@
           .then((res) => {
           console.log(res)
             //6947463266069
+//            6944437047143
             let resData = res.data.data;
+            let productOrderNums = '';
             if(res.data.returnCode=='0'){
               this.tableData.push(res.data.data);
                 console.log(this.sequenceCount);
               //打印条件 数量达到||这个订单号和上一个不一样了，打印
-              this.palletCount==res.data.data.trayNumber;
-                if(this.sequenceCount==this.palletCount){
+              let palletCount=res.data.data.trayNumber;
+              console.log(res.data.data)
+                if(this.sequenceCount==palletCount){
                   this.printContent();
                   this.tableData=[];
                 }
-              localStorage.setItem('sequenceCount',this.sequenceCount)
+
+              productOrderNums=localStorage.getItem('productOrderNums');
+                console.log(productOrderNums)
+              if(res.data.data.productOrderNum!=productOrderNums&&productOrderNums!==null){
+                this.printContent();
+                localStorage.removeItem('productOrderNums');
+              }
+
+              localStorage.setItem('productOrderNums',res.data.data.productOrderNum);
+              localStorage.setItem('sequenceCount',this.sequenceCount);
               this.sequenceCount=localStorage.getItem('sequenceCount');
               this.sequenceCount++;
 
