@@ -10,9 +10,7 @@
       <div class="foot-btn f-cp icon-pad-fullscreen" v-on:click="requestFullScreen()">
       </div>
       <el-dialog title="测试消息" :visible.sync="messageDialogVisible" width="80%" center>
-
         <span class="message">{{messages}}</span>
-
         <span slot="footer" class="dialog-footer">
         <el-button type="primary" @click="subscribe()">订阅消息</el-button>
         <el-button type="primary" @click="unsubscribe()">取消订阅</el-button>

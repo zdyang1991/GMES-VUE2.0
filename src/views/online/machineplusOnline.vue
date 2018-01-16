@@ -97,8 +97,7 @@
   </span>
     </el-dialog>
 
-    <div class="fixed-box">
-      <span @click="getHistoryInfo()">历史记录</span>
+    <div class="icon-pad-history" @click="getHistoryInfo()">
     </div>
   </div>
 </template>
