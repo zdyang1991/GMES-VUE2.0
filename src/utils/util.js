@@ -15,5 +15,6 @@ util.sessionClean = function () {
   window.localStorage.removeItem('terminal');
   window.localStorage.removeItem('serialPort');
   window.localStorage.removeItem('sessionId');
+  window.localStorage.removeItem('title');
 };
 export default util;
