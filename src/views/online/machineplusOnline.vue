@@ -86,7 +86,9 @@
     <el-dialog
       title="注意"
       :visible.sync="centerDialogVisible"
-      width="30%"
+      width="50%"
+      top="30vh"
+      :show-close="false"
       center>
       <span>已扫数量超出计划数量</span>
       <span slot="footer" class="dialog-footer">
@@ -140,6 +142,11 @@
       },
       onFinish(){
         this.centerDialogVisible = false;
+        this.$confirm('确认完成该工单？')
+          .then(_ => {
+
+          })
+          .catch(_ => {});
       },
       validMachiningProductRecord() {
         let loc = JSON.parse(window.localStorage.getItem('terminal'));
@@ -203,7 +210,6 @@
     }
   }
 </script>
-
 
 <style lang="less">
   @import "../../css/online/machineplusOnline.less";
