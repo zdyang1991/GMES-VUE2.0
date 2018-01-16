@@ -198,7 +198,6 @@
         }
         httpserver(api.getPalletizedRecords, body)
           .then((response) => {
-           console.log(22)
           })
       },
 //      调用打印机接口
@@ -223,7 +222,6 @@
         })
         parser.on('data', function (data) {
           _this.code = data;
-          console.log(_this.code);
         })
       },
       closeCom() {

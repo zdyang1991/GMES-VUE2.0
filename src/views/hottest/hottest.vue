@@ -1,10 +1,13 @@
 <template>
   <div class="hottest">
-    <convent></convent>
-    <div class="pro-info">
-      <proinfo :formName="formName"></proinfo>
+    <div class="convent">
+      <div class="convent-input">
+        <span style="width: 8rem;font-size: 1.2rem;">产品序列号</span>
+        <el-input  :autosize="{ minRows: 4, maxRows: 4}" size="80" @keyup.enter.native="show($event)" v-model="code">
+        </el-input>
+        <el-button type="primary" @click="getOrderInfo()">确定</el-button>
+      </div>
     </div>
-    <convent></convent>
     <div class="bottom-form">
       <el-table
         :data="tableData"
@@ -64,6 +67,33 @@
           orderNum: "订单号"
         }
       }
+    },
+    methods:{
+      show: function (ev) {
+        let _this = this;
+        if (ev.keyCode == 13) {
+          let body = {
+            serialNo: _this.code
+          };
+
+          httpserver(api.getSerialNoInformation, body)
+            .then((res) => {
+              this.gridData = res.data.data;
+            })
+        }
+      },
+      getOrderInfo(){
+        let body={
+          serialNo:this.code
+        };
+//        接口暂时使用查询发动机的接口
+        httpserver(api.getSerialNoInformation,body)
+          .then((res) => {
+
+
+          })
+
+      },
     }
   }
 </script>
