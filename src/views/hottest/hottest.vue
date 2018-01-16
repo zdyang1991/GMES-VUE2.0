@@ -8,6 +8,51 @@
         <el-button type="primary" @click="getOrderInfo()">确定</el-button>
       </div>
     </div>
+    <div class="topbox">
+      <div id="currentorder" class="right-container">
+        <!-- 第一行 -->
+        <div class="row f-df">
+          <div class="row-container f-df">
+            <div class="item-container f-f1">
+              <label class="label">工单编号</label>
+              <div class="detail">{{proinfo.productionOrderNum}}</div>
+            </div>
+            <div class="item-container f-f1">
+              <label class="label">物料编号</label>
+              <div class="detail">{{proinfo.materialCode}}</div>
+            </div>
+            <div class="item-container f-f1">
+              <label class="label">物料描述</label>
+              <div class="detail">{{proinfo.materialText}}</div>
+            </div>
+          </div>
+        </div>
+        <div class="row f-df">
+          <div class="row-container f-df">
+            <div class="item-container f-f1">
+              <label class="label">产品机型</label>
+              <div class="detail">{{proinfo.productModel}}</div>
+            </div>
+            <div class="item-container f-f1">
+              <label class="label">顺序号</label>
+              <div class="detail">{{proinfo.orderNo}}</div>
+            </div>
+            <div class="item-container f-f1">
+              <label class="label">计划数量</label>
+              <div class="detail">{{proinfo.plannedQty}}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="convent">
+      <div class="convent-input">
+        <span style="width: 8rem;font-size: 1.2rem;">物料条码</span>
+        <el-input  :autosize="{ minRows: 4, maxRows: 4}" size="80" @keyup.enter.native="show($event)">
+        </el-input>
+        <el-button type="primary" @click="getOrderInfo()">确定</el-button>
+      </div>
+    </div>
     <div class="bottom-form">
       <el-table
         :data="tableData"
@@ -53,19 +98,20 @@
 </template>
 
 <script type="text/babel">
+  import httpserver from '../../utils/http.js';
+  import api from '../../utils/api.js';
   export default {
     data(){
       return{
-        formName: {
-          workNum: "工单编号",
-          machineType: '机型',
-          matterDepict: '物料描述',
-          matterDNum: "物料编号",
-          planNum: '计划数量',
-          properNum: "顺序号",
-          motorNum: '发动机号',
-          orderNum: "订单号"
-        }
+        currentRow: '',
+        productionOrderNum: '',
+        tableData: [],
+        gridData: [],
+        code: '',
+        productCount: 0,
+        dialogTableVisible: false,
+        currentRow:null,
+        proinfo:{}
       }
     },
     methods:{
@@ -86,11 +132,12 @@
         let body={
           serialNo:this.code
         };
-//        接口暂时使用查询发动机的接口
+        //6947463266069
+//            6944437047143
         httpserver(api.getSerialNoInformation,body)
           .then((res) => {
-
-
+            console.log(res);
+            this.proinfo = res.data.data;
           })
 
       },
