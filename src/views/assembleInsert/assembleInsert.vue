@@ -20,12 +20,12 @@
                 <div class="item-container f-f1">
                   <!--订单编号-->
                   <label class="label">订单编号</label>
-                  <div class="detail"></div>
+                  <div class="detail">{{gridData.productOrderNum}}</div>
                 </div>
                 <div class="item-container f-f1">
                   <!--工单编号-->
                   <label class="label">工单编号</label>
-                  <div class="detail"></div>
+                  <div class="detail">{{gridData.productionOrderNum}}</div>
                 </div>
               </div>
             </div>
@@ -35,12 +35,12 @@
                 <div class="item-container f-f1">
                   <!--发动机号-->
                   <label class="label">发动机号</label>
-                  <div class="detail"></div>
+                  <div class="detail">{{gridData.serialNo}}</div>
                 </div>
                 <div class="item-container f-f1">
                   <!--机型-->
                   <label class="label">机型</label>
-                  <div class="detail"></div>
+                  <div class="detail">{{gridData.productModel}}</div>
                 </div>
               </div>
             </div>
@@ -49,11 +49,11 @@
               <div class="row-container f-df">
                 <div class="item-container f-f1">
                   <label class="label">产品描述</label>
-                  <div class="detail"></div>
+                  <div class="detail">{{gridData.materialText}}</div>
                 </div>
                 <div class="item-container f-f1">
                   <label class="label">产品编号</label>
-                  <div class="detail"></div>
+                  <div class="detail">{{gridData.materialCode}}</div>
                 </div>
               </div>
             </div>
@@ -105,8 +105,7 @@
       </el-pagination>
     </el-dialog>
     <div class="bottom-box">
-      <el-button type="danger">需要热试</el-button>
-      <el-button type="primary">保存</el-button>
+      <div id="ishotTest">需要热试</div>
     </div>
   </div>
 </template>
@@ -125,19 +124,17 @@
         tableData: [],
         total: 0,
         gridData: [],
-        productCount: 1
-
-
+        productCount: 0
       }
     },
     created() {
       console.log("打开串口");
-      this.openCom();
+//      this.openCom();
       this.init();
     },
     beforeDestroy: function () {
       console.log("销毁前关闭串口");
-      this.closeCom();
+//      this.closeCom();
 
     },
     methods: {
@@ -206,31 +203,16 @@
 
         httpserver(api.getSerialNoInformation, body)
           .then((res) => {
+            console.log(res);
             //6947463266069
             this.gridData = res.data.data;
-
-
-            if (res.returnCode == 0) {
-              localStorage.setItem('Procount', this.productCount)
-              this.productCount = localStorage.getItem('Procount');
-              this.productCount++
+            if (res.data.returnCode == "0") {
+              this.productCount++;
+             if(res.data.data.hotTest=="0") {
+               console.log(document.getElementById("ishotTest").style.display="flex");
+             }
             }
           })
-      },
-      show: function (ev) {
-        let _this = this;
-        console.log(this.code);
-        if (ev.keyCode == 13) {
-          let body = {
-            serialNo: _this.code
-          };
-
-          httpserver(api.getSerialNoInformation, body)
-            .then((res) => {
-              //6947463266069
-              this.gridData = res.data.data;
-            })
-        }
       },
       init: function () {
         this.bsStep(2)
