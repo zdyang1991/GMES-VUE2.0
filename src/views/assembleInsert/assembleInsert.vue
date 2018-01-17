@@ -75,8 +75,9 @@
       </el-container>
     </div>
     <div class="fixed-box">
-      <span @click="getHistoryInfo()">历史记录</span>
       <span>TAG初始化</span>
+    </div>
+    <div class="icon-pad-history" @click="getHistoryInfo()">
     </div>
     <el-dialog :visible.sync="dialogTableVisible" width="80%">
       <el-table :data="gridData">

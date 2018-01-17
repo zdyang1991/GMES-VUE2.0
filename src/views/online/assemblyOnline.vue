@@ -89,9 +89,7 @@
       </div>
 
       <!--按钮-->
-      <div class="fixed-box">
-        <span @click="getHistoryInfo()">历史记录</span>
-        <span>TAG初始化</span>
+      <div class="icon-pad-history" @click="getHistoryInfo()">
       </div>
       <!--弹框-->
       <el-dialog :visible.sync="dialogTableVisible" width="80%">
