@@ -92,9 +92,9 @@
         </el-table-column>
         <el-table-column prop="materialText" label="物料描述">
         </el-table-column>
-        <el-table-column prop="plannedQty" label="计划数量">
-        </el-table-column>
         <el-table-column prop="orderNo" label="顺序号">
+        </el-table-column>
+        <el-table-column prop="plannedQty" label="计划数量">
         </el-table-column>
       </el-table>
     </div>
@@ -167,7 +167,7 @@
         let body = {
           workCenterCode: loc.workCenterCode,
           statuseCode: '7',
-          endRow: 2
+          endRow: 3
         };
         httpserver(api.getinitializeTable, body)
           .then((res) => {

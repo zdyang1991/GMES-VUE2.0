@@ -146,7 +146,7 @@
 <style lang="less">
   #app-foot {
     position: relative;
-    height: 70px;
+    height: 60px;
     width: 100%;
     box-shadow: 0px -2px 5px #cdcdcd;
     display: flex;
