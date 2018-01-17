@@ -70,10 +70,10 @@
           <div class="progress">
             <div class="container">
               <el-steps direction="vertical" :active=index>
-                <el-step title="步骤 1" description="托盘已到位,准备初始化！"></el-step>
-                <el-step title="步骤 2" description="正在请求订单数据！"></el-step>
-                <el-step title="步骤 3" description="正在下发TAG数据！"></el-step>
-                <el-step title="步骤 4" description="初始化成功！"></el-step>
+                <el-step title="托盘已到位,准备初始化！" description=""></el-step>
+                <el-step title="正在请求订单数据！" description=""></el-step>
+                <el-step title="正在下发TAG数据！" description=""></el-step>
+                <el-step title="初始化成功！" description=""></el-step>
               </el-steps>
             </div>
           </div>
@@ -107,7 +107,7 @@
       <el-table :data="gridData">
         <el-table-column prop="productOrderNum" label="订单编号">
         </el-table-column>
-        <el-table-column prop="workOrderNum" label="工单编号">
+        <el-table-column prop="productionOrderNum" label="工单编号">
         </el-table-column>
         <el-table-column prop="productModel" label="机型">
         </el-table-column>
@@ -133,9 +133,9 @@
 </template>
 <script>
   import util from '../../utils/util.js';
-  import httpserver from '../../utils/http.js';
   import api from '../../utils/api.js';
   import mqttLib from '../../utils/mqtt.js';
+  import httpserver from '../../utils/http.js';
 
   export default {
     data() {

@@ -126,24 +126,7 @@
     methods: {
       onSubmit(formName) {
         this.$refs[formName].validate(async (valid) => {
-
-//          httpserver(api.saveSystemCom, this.form).then((res) => {
-//            console.log(res)
-//          },(error)=>{
-//            console.log(error);
-//          })
           if (valid) {
-
-//        let _this = this
-//        this.$http({
-//          headers: {
-//            'Content-Type': 'application/x-www-form-urlencoded',
-//          },
-//          method: 'post',
-//
-//          url: config.apiBaseUrl + 'restful/cm/saveTerminalunit',
-//          data: util.jsonToFormData(this.form)
-//        })
             httpserver(api.saveSystemCom, this.form)
               .then((response) => {
                 if (response.data.returnCode == "0") {

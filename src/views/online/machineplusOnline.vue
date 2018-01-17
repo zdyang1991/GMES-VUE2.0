@@ -69,7 +69,7 @@
       <el-table :data="gridData">
         <el-table-column prop="productOrderNum" label="订单编号">
         </el-table-column>
-        <el-table-column prop="workOrderNum" label="工单编号">
+        <el-table-column prop="productionOrderNum" label="工单编号">
         </el-table-column>
         <el-table-column prop="productModel" label="机型">
         </el-table-column>

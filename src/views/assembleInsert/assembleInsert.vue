@@ -62,28 +62,27 @@
         <el-main>
           <div class="progress">
             <div class="container">
-              <el-steps direction="vertical" :active="1">
-                <el-step title="步骤 1"></el-step>
-                <el-step title="步骤 2"></el-step>
-                <el-step title="步骤 3" description="这是一段很长很长很长的描述性文字"></el-step>
-                <el-step title="步骤 4" description="这是一段很长很长很长的描述性文字"></el-step>
-                <el-step title="步骤 5" description="这是一段很长很长很长的描述性文字"></el-step>
+              <el-steps direction="vertical" :active=index>
+                <el-step title="托盘已到位,准备初始化!" description=""></el-step>
+                <el-step title="正在请求订单数据！" description=""></el-step>
+                <el-step title="正在下发TAG数据！" description=""></el-step>
+                <el-step title="初始化成功！" description=""></el-step>
               </el-steps>
             </div>
           </div>
         </el-main>
       </el-container>
     </div>
-    <div class="fixed-box">
-      <span>TAG初始化</span>
-    </div>
+    <!--<div class="fixed-box">-->
+    <!--<span>TAG初始化</span>-->
+    <!--</div>-->
     <div class="icon-pad-history" @click="getHistoryInfo()">
     </div>
     <el-dialog :visible.sync="dialogTableVisible" width="80%">
       <el-table :data="gridData">
         <el-table-column prop="productOrderNum" label="订单编号">
         </el-table-column>
-        <el-table-column prop="workOrderNum" label="工单编号">
+        <el-table-column prop="productionOrderNum" label="工单编号">
         </el-table-column>
         <el-table-column prop="productModel" label="机型">
         </el-table-column>
@@ -114,6 +113,7 @@
 <script type="text/babel">
   import httpserver from '../../utils/http.js';
   import api from '../../utils/api.js';
+  import mqttLib from '../../utils/mqtt.js';
 
   export default {
     data() {
@@ -121,6 +121,7 @@
         //serialPort:new SerialPort(JSON.parse(window.localStorage.getItem('serialPort')).port,false),
         name: 'pro-gress',
         code: '',
+        index: 0,
         dialogTableVisible: false,
         tableData: [],
         total: 0,
@@ -132,13 +133,54 @@
       console.log("打开串口");
 //      this.openCom();
       this.init();
+      this.subscribe();
     },
     beforeDestroy: function () {
       console.log("销毁前关闭串口");
 //      this.closeCom();
-
+      this.unsubscribe();
     },
     methods: {
+      subscribe() {
+        let _this = this;
+        let topic = "/logs/STN3010";
+        let record
+        let data
+        console.log("begin----------");
+        mqttLib.subscribe(topic, "message");
+        mqttLib.registerMessageHandler(topic, "message", function (message) {
+            record = JSON.parse(message.payloadString).Content.Step;
+            data = JSON.parse(message.payloadString).Content.Data;
+            console.log(data);
+            switch (record) {
+              case "Init":
+                _this.index = 1;
+                break;
+              case "Ready":
+                _this.index = 2;
+                break;
+              case "Download":
+                _this.index = 3;
+                let body = {
+                  workOrderNum: data
+                };
+                httpserver(api.getCurrentProductionOrder, body)
+                  .then((response) => {
+                    _this.proinfo = response.data.data;
+                  });
+                break;
+              case "Complete":
+                _this.index = 4;
+                break;
+            }
+          }
+        );
+      },
+      unsubscribe() {
+        let topic = "/logs";
+        console.log("close----------");
+        mqttLib.unsubscribe(topic, "message");
+      },
       getHistoryInfo() {
         this.dialogTableVisible = true;
         let loc = JSON.parse(window.localStorage.getItem('terminal'));
@@ -209,9 +251,9 @@
             this.gridData = res.data.data;
             if (res.data.returnCode == "0") {
               this.productCount++;
-             if(res.data.data.hotTest=="0") {
-               console.log(document.getElementById("ishotTest").style.display="flex");
-             }
+              if (res.data.data.hotTest == "0") {
+                console.log(document.getElementById("ishotTest").style.display = "flex");
+              }
             }
           })
       },
@@ -226,7 +268,7 @@
 
   }
 </script>
-<style lang="less" scoped>
+<style lang="less">
   @import "../../css/assmbleInsert/assembleInsert.less";
 
 </style>
