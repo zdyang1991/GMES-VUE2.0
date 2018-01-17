@@ -70,6 +70,11 @@ const serviceModule = {
   getPalletizedRecords:{
     url: apiPcsUrl +'restful/pp/getPalletizedRecords',
     method: 'get'
+  },
+//  物料主数据查询：热试
+  getMaterialByCode:{
+    url:apiPcsUrl +'restful/cm/getMaterialByCode',
+    method:'get'
   }
 
 }

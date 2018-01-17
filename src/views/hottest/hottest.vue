@@ -48,9 +48,9 @@
     <div class="convent">
       <div class="convent-input">
         <span style="width: 8rem;font-size: 1.2rem;">物料条码</span>
-        <el-input  :autosize="{ minRows: 4, maxRows: 4}" size="80" @keyup.enter.native="show($event)">
+        <el-input  :autosize="{ minRows: 4, maxRows: 4}" size="80" @keyup.enter.native="show($event)" v-model="code">
         </el-input>
-        <el-button type="primary" @click="getOrderInfo()">确定</el-button>
+        <el-button type="primary" @click="getMaterialByCode()">确定</el-button>
       </div>
     </div>
     <div class="bottom-form">
@@ -64,11 +64,6 @@
           width="60">
         </el-table-column>
         <el-table-column
-          prop="name"
-          label="订单编号"
-          width="180">
-        </el-table-column>
-        <el-table-column
           prop="address"
           label="工单编号">
         </el-table-column>
@@ -78,7 +73,15 @@
         </el-table-column>
         <el-table-column
           prop="address"
-          label="物料编码">
+          label="产品编号">
+        </el-table-column>
+        <el-table-column
+          prop="address"
+          label="产品描述">
+        </el-table-column>
+        <el-table-column
+          prop="address"
+          label="物料编号">
         </el-table-column>
         <el-table-column
           prop="address"
@@ -86,11 +89,11 @@
         </el-table-column>
         <el-table-column
           prop="address"
-          label="计划数量">
+          label="物料条码">
         </el-table-column>
         <el-table-column
           prop="address"
-          label="顺序号">
+          label="扫描时间">
         </el-table-column>
       </el-table>
     </div>
@@ -128,6 +131,7 @@
             })
         }
       },
+//      产品序列号
       getOrderInfo(){
         let body={
           serialNo:this.code
@@ -141,6 +145,10 @@
           })
 
       },
+//      物料条码
+      getMaterialByCode(){
+
+      }
     }
   }
 </script>
