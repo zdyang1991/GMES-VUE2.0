@@ -2,7 +2,7 @@
   <div class="assembleInsert">
     <div class="convent">
       <div class="convent-input">
-        <span style="width: 8rem;font-size: 1.2rem;">发动机号</span>
+        <span style="width: 8rem;font-size: 1.4rem;font-weight: bold;color:#000000">发动机号</span>
         <el-input :autosize="{ minRows: 4, maxRows: 4}" size="80" @keyup.enter.native="show($event)" v-model="code">
 
         </el-input>
