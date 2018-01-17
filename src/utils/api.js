@@ -1,5 +1,5 @@
 const apiBaseUrl = 'http://10.200.188.232:8021/';
-const apiPcsUrl = 'http://10.200.188.232:8041/pcs/';
+const apiPcsUrl = 'http://10.200.151.229:8041/pcs/';
 const serviceModule = {
   //保存串口配置:#系统配置
   saveSystemCom: {
@@ -44,7 +44,7 @@ const serviceModule = {
   //校验物料条码: #机加上线
   validMachiningProductRecord:{
     url:apiPcsUrl + 'restful/pp/validMachiningProductRecord',
-    method:'get'
+    method:'post'
   },
   //根据产品序列号(发动机号)获取工单信息：#机加下线 #装配下线#热试
   getSerialNoInformation: {
@@ -75,6 +75,11 @@ const serviceModule = {
   getMaterialByCode:{
     url:apiPcsUrl +'restful/cm/getMaterialByCode',
     method:'get'
+  },
+  //
+  updateMachiningProduction:{
+    url:apiPcsUrl+'restful/pp/updateMachiningProduction',
+    method: 'post'
   }
 
 }

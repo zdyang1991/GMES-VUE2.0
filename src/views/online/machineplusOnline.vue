@@ -129,7 +129,8 @@
         this.$refs.table.setCurrentRow(row)
       },
       validplannedQty(){
-         if(this.productCount<=this.plannedQty){
+         if(this.productCount<this.plannedQty){
+
            this.validMachiningProductRecord();
          }else{
             this.centerDialogVisible=true;
@@ -141,9 +142,16 @@
       },
       onFinish(){
         this.centerDialogVisible = false;
+        let body={
+          productionOrderNum: this.productionOrderNum
+        };
         this.$confirm('确认完成该工单？')
           .then(_ => {
-
+           httpserver(api.updateMachiningProduction,body).then((res)=>{
+            if(res.data.returnCode=="0"){
+               this.getMachiningProductionQueue();
+             }
+           })
           })
           .catch(_ => {});
       },
