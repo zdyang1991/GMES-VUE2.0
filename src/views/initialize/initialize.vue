@@ -33,8 +33,8 @@
                   </div>
                   <div class="item-container f-f1">
                     <!--机型-->
-                    <label class="label">物料描述</label>
-                    <div class="detail">{{proinfo.materialText}}</div>
+                    <label class="label">订单编号</label>
+                    <div class="detail">{{proinfo.productOrderNum}}</div>
                   </div>
                 </div>
               </div>
@@ -57,10 +57,10 @@
                     <label class="label">发动机号</label>
                     <div class="detail"></div>
                   </div>
-                  <div class="item-container f-f1">
-                    <label class="label">订单编号</label>
-                    <div class="detail">{{proinfo.productOrderNum}}</div>
-                  </div>
+                  <!--<div class="item-container f-f1">-->
+                    <!--<label class="label">订单编号</label>-->
+                    <!--<div class="detail">{{proinfo.productOrderNum}}</div>-->
+                  <!--</div>-->
                 </div>
               </div>
             </div>
@@ -81,26 +81,26 @@
       </el-container>
     </div>
     <div class="bottom-form">
-      <el-table :data="tableData" border style="width: 100%;">
-        <el-table-column prop="productOrderNum" label="订单编号" width="180">
+      <el-table :data="tableData" border  style="width: 100%">
+        <el-table-column prop="productOrderNum" label="订单编号" width="230">
         </el-table-column>
-        <el-table-column prop="productionOrderNum" label="工单编号">
+        <el-table-column prop="productionOrderNum" label="工单编号" width="230">
         </el-table-column>
-        <el-table-column prop="productModel" label="机型">
+        <!--<el-table-column prop="productModel" label="机型" width="100" >-->
+        <!--</el-table-column>-->
+        <el-table-column prop="materialCode" label="物料编码" width="140">
         </el-table-column>
-        <el-table-column prop="materialCode" label="物料编码">
+        <!--<el-table-column prop="materialText" label="物料描述" width="200">-->
+        <!--</el-table-column>-->
+        <el-table-column prop="orderNo" label="顺序号" width="260">
         </el-table-column>
-        <el-table-column prop="materialText" label="物料描述">
-        </el-table-column>
-        <el-table-column prop="orderNo" label="顺序号">
-        </el-table-column>
-        <el-table-column prop="plannedQty" label="计划数量">
+        <el-table-column prop="plannedQty" label="计划数量" width="162">
         </el-table-column>
       </el-table>
     </div>
-    <div class="fixed-box">
-      <span>TAG初始化</span>
-    </div>
+    <!--<div class="fixed-box">-->
+      <!--<span>手动初始化</span>-->
+    <!--</div>-->
     <div class="icon-pad-history" @click="getHistoryInfo()">
     </div>
     <el-dialog :visible.sync="dialogTableVisible" width="80%">
