@@ -2,7 +2,7 @@
   <div class="machineplusOnline">
     <div class="convent">
       <div class="convent-input">
-        <span style="width: 8rem;font-size: 1.2rem;">零件条码</span>
+        <span style="width: 8rem;font-size: 1.4rem;color: #000000;font-weight: bold">零件条码</span>
         <el-input :autosize="{ minRows: 4, maxRows: 4}" size="80" @keyup.enter.native="show($event)" v-model="code">
         </el-input>
         <el-button type="primary" @click="validplannedQty()">确定</el-button>
@@ -49,19 +49,19 @@
     <div class="bottom-form">
       <el-table :data="tableData" border ref="table" style="width: 100%;" highlight-current-row
                 @current-change="handleCurrentChange">
-        <el-table-column prop="orderNo" label="顺序号">
+        <el-table-column prop="orderNo" label="顺序号"  width="240">
         </el-table-column>
-        <el-table-column prop="productionOrderNum" label="工单编号">
+        <el-table-column prop="productionOrderNum" label="工单编号"  width="230">
         </el-table-column>
-        <el-table-column prop="productModel" label="机型">
+        <!--<el-table-column prop="productModel" label="机型">-->
+        <!--</el-table-column>-->
+        <el-table-column prop="materialCode" label="物料编码"  width="180">
         </el-table-column>
-        <el-table-column prop="materialCode" label="物料编码">
+        <!--<el-table-column prop="materialText" label="物料描述">-->
+        <!--</el-table-column>-->
+        <el-table-column prop="plannedQty" label="计划数量"  width="180">
         </el-table-column>
-        <el-table-column prop="materialText" label="物料描述">
-        </el-table-column>
-        <el-table-column prop="plannedQty" label="计划数量">
-        </el-table-column>
-        <el-table-column prop="scanQty" label="已扫数量">
+        <el-table-column prop="scanQty" label="已扫数量"  width="190">
         </el-table-column>
       </el-table>
     </div>
@@ -181,7 +181,7 @@
         let loc = JSON.parse(window.localStorage.getItem('terminal'));
         let body = {
           workCenterCode: loc.workCenterCode,
-          endRow: 3
+          endRow: 4
         };
         httpserver(api.getMachiningProductionQueue, body)
           .then((res) => {
