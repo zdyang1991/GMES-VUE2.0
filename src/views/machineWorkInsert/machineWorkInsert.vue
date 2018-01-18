@@ -17,7 +17,7 @@
           <el-table-column
             label="序号"
             type="index"
-            width="60">
+            width="100">
           </el-table-column>
           <el-table-column
             prop="productionOrderNum"
@@ -25,6 +25,7 @@
             width="180">
           </el-table-column>
           <el-table-column
+            width="150"
             prop="materialCode"
             label="物料编号">
           </el-table-column>
@@ -41,10 +42,8 @@
             prop=""
             label="备注">
           </el-table-column>
-
         </el-table>
       </div>
-
     </div>
     <el-dialog  :visible.sync="dialogTableVisible" width="80%">
       <el-table :data="gridData" style="width: 100%">
@@ -64,21 +63,21 @@
     <el-dialog  :visible.sync="dialogVisible" width="80%" title="托条码补打印">
       <div class="linear-input">
         <span>托条码</span>
-        <el-input v-model="input" placeholder="请输入内容" width="300"></el-input>
-        <el-button type="primary">确认</el-button>
+        <el-input v-model="pallinfo" placeholder="请输入内容" width="300"></el-input>
+        <el-button type="primary" @click="collectPall()">确认</el-button>
       </div>
-      <el-table :data="gridData">
+      <el-table :data="palletizedData">
         <el-table-column
           type="selection"
           width="55">
         </el-table-column>
-        <el-table-column type="index" label="托条码" width="100">
+        <el-table-column type="index" prop="palletBarCode" label="托条码" width="100">
         </el-table-column>
         <el-table-column prop="materialCode" label="物料编号">
         </el-table-column>
         <el-table-column prop="materialText" label="物料描述">
         </el-table-column>
-        <el-table-column prop="orderNo" label="装托时间">
+        <el-table-column prop="roundtripTime" label="装托时间">
         </el-table-column>
       </el-table>
       <!--<el-button type="primary">主要按钮</el-button>-->
@@ -108,13 +107,15 @@
         tableData:[],
         code:"",
         input:'',
-        gridData:[],
+        palletizedData:[],
         sequenceCount:0,
         dialogTableVisible:false,
         dialogVisible:false,
         isHistory:false,
         isPrint:false,
-        total:100,
+        gridData:[],
+        pallinfo:'',
+        total:0,
         //serialPort:new SerialPort('COM3',false),//扫描器端口
       }
     },
@@ -176,7 +177,6 @@
                 this.printContent();
                 localStorage.removeItem('productOrderNums');
               }
-
               localStorage.setItem('productOrderNums',res.data.data.productOrderNum);
               localStorage.setItem('sequenceCount',this.sequenceCount);
               this.sequenceCount=localStorage.getItem('sequenceCount');
@@ -199,6 +199,27 @@
         }
         httpserver(api.getPalletizedRecords, body)
           .then((response) => {
+          var resData=response.data.data;
+            this.palletizedData = resData.palletizedRecords;
+            this.total = resData.toalCount;
+            console.log( this.total)
+          })
+
+      },
+//查询物料
+      collectPall(){
+//        palletBarCode = this.pallinfo;
+        let body={
+          palletBarCode:this.pallinfo,
+          pageNo:1,
+          pageSize:3
+        }
+        httpserver(api.getPalletizedRecords, body)
+          .then((response) => {
+            var resData=response.data.data;
+            this.palletizedData = resData.palletizedRecords;
+            this.total = resData.toalCount;
+            console.log(response)
           })
       },
 //      调用打印机接口
