@@ -13,7 +13,7 @@
         <el-table
           :data="tableData"
           border
-          style="width: 100%;font-size: 1.2rem">
+          style="width: 100%;font-size: 1.2rem;max-height: 10rem">
           <el-table-column
             label="序号"
             type="index"

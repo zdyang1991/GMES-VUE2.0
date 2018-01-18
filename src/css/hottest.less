@@ -1,7 +1,8 @@
 .hottest{
   height: 100%;
-  background-color: #fff;
+  //background-color: #fff;
   .convent {
+    margin-bottom:10px;
     background-color: #fff;
     height: 7rem;
     align-items: center;
@@ -54,8 +55,9 @@
   .right-container {
     height: 100%;
     display: flex;
-    width: 85%;
-    margin-left: 4rem;
+    width: 100%;
+    //margin-left: 4rem;
+    background-color: #fff;
     flex-direction: column;
   }
 
@@ -79,9 +81,10 @@
   }
 
   .label {
-    color: #595959;
-    font-size: 1.4rem;
-    line-height: 2rem;
+    color: #000000;
+    font-size: 1.6rem;
+    line-height: 2.2rem;
+    font-weight: bold;
   }
 
   .detail {
@@ -204,14 +207,58 @@
     padding-left: 10px;
   }
   .bottom-form{
-    width: 90%;
+    width: 100%;
+    margin-top: 10px;
     margin: 0 auto;
   }
-  //.hottest .right-container {
-  //  height: 100%;
-  //  display: flex;
-  //  width: 93%;
-  //  margin-left: 3rem;
-  //  flex-direction: column;
-  //}
+  .topbox{
+    margin-top: 10px;
+    margin-bottom:10px;
+  }
+    .el-table th > .cell {
+     color: #222;
+     font-size: 1.55rem;
+   }
+   .bottom-form .el-table .el-table__body-wrapper{
+     font-size: 1.5rem;
+     color: #000000;
+
+   }
+  .el-dialog{
+    .el-table th > .cell {
+      color: #222;
+      font-size: 1.2rem;
+    }
+  }
+
+  .icon-pad-history {
+    position: absolute;
+    right: 1rem;
+    top: 32rem;
+    width: 70px;
+    height: 70px;
+    background-size: 100% 100%;
+    background: url("../assets/history.png");
+    background-size: 100% 100%;
+  }
+.el-dialog{
+  max-height: 34rem;
+  font-size: 1.5rem;
+  .linear-input{
+    padding-left: 1rem;
+    margin-bottom: 2rem;
+    margin-left: 5rem;
+    span{
+      font-weight: 700;
+      font-size: 1.5rem;
+    }
+    .el-input{
+      width: 60%;
+    }
+    .el-button--primary{
+      margin-left: 2rem;
+    }
+  }
+}
+
 }
