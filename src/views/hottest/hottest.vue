@@ -85,6 +85,7 @@
     </div>
     <!--<el-button type="primary"></el-button>-->
     <div class="icon-pad-history" @click="getHistoryInfo()"></div>
+    <div class="icon-pad-save" @click="saveHistoryInfo()">保存</div>
     <el-dialog :visible.sync="dialogTableVisible" width="80%">
       <div class="linear-input">
         <span>发动机号</span>
@@ -94,6 +95,7 @@
       <div class="bottom-form">
         <el-table
           :data="tableData"
+          height="350"
           border
           style="width: 100%">
           <el-table-column
@@ -184,6 +186,10 @@
             var resData = res.data.data;
             this.tableData.push(resData)
           })
+      },
+//保存
+      saveHistoryInfo(){
+        this.tableData = [];
       },
       getHistoryInfo() {
         this.dialogTableVisible = true;
