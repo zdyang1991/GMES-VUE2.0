@@ -11,6 +11,7 @@ import AssembleInsert from '@/views/assembleInsert/assembleInsert.vue';
 import HostTest from '@/views/hottest/hottest.vue';
 import MachineInsert from '@/views/machineWorkInsert/machineWorkInsert.vue';
 import Home from '@/views/home/home.vue';
+import crankshaftOnline from '@/views/online/crankshaftOnline.vue';
 const routes = [
   {
     path: '/', component: Index, redirect: '/login',
@@ -22,6 +23,7 @@ const routes = [
       {path: '/assembleInsert', component: AssembleInsert, name: '装配下线'},
       {path: '/hothost', component: HostTest, name: '热试'},
       {path: '/MachineInsert', component: MachineInsert, name: '机加下线'},
+      {path: '/online/crankshaftOnline', component: crankshaftOnline, name: '曲轴上线'},
       {path:'/home', component: Home, name:'首页'}
     ]
   },
