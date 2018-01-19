@@ -190,6 +190,7 @@
 //保存
       saveHistoryInfo(){
         this.tableData = [];
+        httpserver(api.batchSavePartsData)
       },
       getHistoryInfo() {
         this.dialogTableVisible = true;

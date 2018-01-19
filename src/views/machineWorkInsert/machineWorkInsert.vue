@@ -2,7 +2,7 @@
   <div class="macheineWorkInsert">
     <div class="convent">
       <div class="convent-input">
-        <span style="width: 8rem;font-size: 1.2rem;">产品序列号</span>
+        <span style="width: 11rem;font-size: 1.4rem;color: rgb(0, 0, 0);font-weight: bold;">产品序列号</span>
         <el-input  :autosize="{ minRows: 4, maxRows: 4}" size="80" @keyup.enter.native="show($event)" v-model="code">
         </el-input>
         <el-button type="primary" @click="getOrderInfo()">确定</el-button>
@@ -47,7 +47,7 @@
     </div>
     <el-dialog  :visible.sync="dialogTableVisible" width="80%">
       <el-table :data="gridData" style="width: 100%">
-        <el-table-column type="index" label="序号" >
+        <el-table-column type="index" label="序号" width="100">
         </el-table-column>
         <el-table-column prop="materialCode" label="物料编号">
         </el-table-column>
@@ -81,7 +81,7 @@
         </el-table-column>
       </el-table>
       <!--<el-button type="primary">主要按钮</el-button>-->
-      <button class="print">补打印</button>
+      <button class="print" @click="addPrint">补打印</button>
       <el-pagination
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
@@ -91,10 +91,12 @@
         :total="total">
       </el-pagination>
     </el-dialog>
-    <div class="fixed-box">
-      <span @click="getHistoryInfo()">历史记录</span>
-      <span @click="replenishPrint()">补打印</span>
-    </div>
+    <div class="icon-pad-history" @click="getHistoryInfo()"></div>
+    <div class="icon-pad-save" @click="replenishPrint()">保存</div>
+    <!--<div class="fixed-box">-->
+      <!--<span @click="getHistoryInfo()">历史记录</span>-->
+      <!--<span @click="replenishPrint()">补打印</span>-->
+    <!--</div>-->
   </div>
 </template>
 

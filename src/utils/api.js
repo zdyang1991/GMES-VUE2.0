@@ -80,6 +80,11 @@ const serviceModule = {
   updateMachiningProduction:{
     url:apiPcsUrl+'restful/pp/updateMachiningProduction',
     method: 'post'
+  },
+//  装配明细批量上传
+  batchSavePartsData:{
+    url:apiPcsUrl+'restful/pp/batchSavePartsData',
+    method:"post"
   }
 
 }
