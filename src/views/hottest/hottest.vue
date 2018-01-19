@@ -189,8 +189,35 @@
       },
 //保存
       saveHistoryInfo(){
-        this.tableData = [];
-        httpserver(api.batchSavePartsData)
+        let motorObj = {
+              addressHex:'',
+              materialCode:'',
+              motorLable:'',
+              motorNumber:'',
+              post:0,
+              qty:0,
+              title:'',
+              workCenterCode:''
+
+          }
+        let motorArr=[];
+        for(var i=0;i<this.tableData.length;i++){
+          let infoData = this.tableData[i];
+          motorObj.materialCode = infoData.materialCode;
+          motorObj.workCenterCode = infoData.siteCode;
+          motorObj.motorLable = infoData.materialTypeCode;
+          motorArr.push(motorObj);
+        }
+        let body={
+          list:motorArr
+        };
+        console.log(body);
+        console.log(this.tableData);
+        httpserver(api.batchSavePartsData,body)
+          .then((res)=>{
+          console.log(res);
+            this.tableData = [];
+          })
       },
       getHistoryInfo() {
         this.dialogTableVisible = true;
