@@ -53,6 +53,7 @@
             httpserver(api.logout)
           .then((res) => {
             util.sessionClean();
+            clearInterval(this.$store.state.timer1);
             this.$router.push('/login');
           })
       },

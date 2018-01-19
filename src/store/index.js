@@ -6,8 +6,8 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state:{
     menulist: [],
-    title:''
-
+    title:'',
+    timer1:'',
   },
   mutations:{
     hideSearch(state){

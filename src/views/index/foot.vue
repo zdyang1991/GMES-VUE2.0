@@ -51,7 +51,16 @@
         wifiStatus: '0'
       }
     },
-    computed: {},
+    computed: {
+      time:{
+        set(val){
+          this.$store.state.timer1 = val;
+        },
+        get() {
+          return this.$store.state.timer1;
+        }
+      }
+    },
     created() {
       let body = document.querySelector('body');
       body.addEventListener('click', (e) => {
@@ -59,24 +68,11 @@
           this.isMenuShow = false;
         }
       }, false);
-
       this.getServertime();
-//     window.setInterval(function () {
-//        httpserver(api.getServertime)
-//          .then((response) => {
-//            this.wifiStatus = response.data.returnCode;
-//            this.wifiStatus ="1";
-//            let data = (new Date(response.data.data)).getTime();//转换为毫秒数
-//            const date = getTime.gettime(data);
-//            this.sysdate = getTime.five(date);
-//            this.week = date.week;
-//            window.setInterval(function () {
-//              data = data + 1000
-//              this.systime = getTime.six(data)
-//            }, 1000)
-//          });
-//
-//      },60000)
+      if ( this.time ) {
+        clearInterval(this.time);
+      }
+      this.gettest();
     },
 
 
@@ -111,11 +107,15 @@
       getMessage() {
         this.messageDialogVisible = true
       },
+      gettest() {
+        this.$store.state.timer1=window.setInterval(()=>{
+        this.getServertime()
+        },10000);
+      },
       getServertime() {
         let _this = this;
-        httpserver(api.getServertime)
+       httpserver(api.getServertime)
           .then((response) => {
-            //this.wifiStatus = response.data.returnCode;
             let data = (new Date(response.data.data)).getTime();//转换为毫秒数
             const date = getTime.gettime(data);
             _this.sysdate = getTime.five(date);
