@@ -15,7 +15,6 @@
         <el-button type="primary" @click="subscribe()">订阅消息</el-button>
         <el-button type="primary" @click="unsubscribe()">取消订阅</el-button>
         </span>
-
       </el-dialog>
     </div>
     <div class="system-info" sw-role="cell">
