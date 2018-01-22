@@ -5,8 +5,12 @@
       <div class="foot-btn f-cp icon-pad-menu" id="ment-list" v-on:click="menuClick()" style="color:#fff;">
 
       </div>
-      <div class="foot-btn f-cp icon-pad-message" v-on:click="getMessage()">
-      </div>
+      <router-link :to="{name:'消息'}">
+        <div class="foot-btn f-cp icon-pad-message">
+        </div>
+      </router-link>
+
+
       <div class="foot-btn f-cp icon-pad-fullscreen" v-on:click="requestFullScreen()">
       </div>
       <el-dialog title="测试消息" :visible.sync="messageDialogVisible" width="80%" center>
@@ -22,15 +26,15 @@
         <div>{{systime}}</div>
         <div>{{sysdate}}/{{week}}</div>
       </div>
-      <div class="signal" :class="wifiStatus=='0'?'success':'fail'">
+        <div class="signal" :class="wifiStatus=='0'?'success':'fail'">
 
-        <!--<div class="infoStrong"  v-if="this.connectTime<30"></div>-->
-        <!--<div class="infoStrong1" v-if="this.connectTime<25"></div>-->
-        <!--<div class="infoStrong2" v-if="this.connectTime<20"></div>-->
-        <!--<div class="infoStrong3" v-if="this.connectTime<15"></div>-->
-        <!--<div class="infoStrong4" v-if="this.connectTime<10"></div>-->
-        <!--<div class="infoStrong5" v-if="this.connectTime<5"></div>-->
-      </div>
+          <!--<div class="infoStrong"  v-if="this.connectTime<30"></div>-->
+          <!--<div class="infoStrong1" v-if="this.connectTime<25"></div>-->
+          <!--<div class="infoStrong2" v-if="this.connectTime<20"></div>-->
+          <!--<div class="infoStrong3" v-if="this.connectTime<15"></div>-->
+          <!--<div class="infoStrong4" v-if="this.connectTime<10"></div>-->
+          <!--<div class="infoStrong5" v-if="this.connectTime<5"></div>-->
+        </div>
     </div>
     <navlist :isMenuShow='isMenuShow'></navlist>
   </div>
@@ -55,7 +59,7 @@
         systime: '',
         isMenuShow: false,
         wifiStatus: '0',
-        connectTime:0
+//        connectTime:0
       }
     },
     computed: {
@@ -118,8 +122,8 @@
     // 入口
         const [entry] = performance.getEntriesByType("navigation");
         let navigaInfo = entry.toJSON();
-        this.connectTime=parseInt(navigaInfo.connectEnd)
-        console.log(connectTime)
+//        this.connectTime=parseInt(navigaInfo.connectEnd)
+//        console.log(connectTime)
       },
       getMessage() {
         this.messageDialogVisible = true

@@ -12,6 +12,7 @@ import HostTest from '@/views/hottest/hottest.vue';
 import MachineInsert from '@/views/machineWorkInsert/machineWorkInsert.vue';
 import Home from '@/views/home/home.vue';
 import crankshaftOnline from '@/views/online/crankshaftOnline.vue';
+import Message from '@/views/index/message.vue';
 const routes = [
   {
     path: '/', component: Index, redirect: '/login',
@@ -24,7 +25,8 @@ const routes = [
       {path: '/hothost', component: HostTest, name: '热试'},
       {path: '/MachineInsert', component: MachineInsert, name: '机加下线'},
       {path: '/online/crankshaftOnline', component: crankshaftOnline, name: '曲轴上线'},
-      {path:'/home', component: Home, name:'首页'}
+      {path:'/home', component: Home, name:'首页'},
+      {path:'/message', component: Message, name:'消息'}
     ]
   },
   {path: '/login', component: Login}
