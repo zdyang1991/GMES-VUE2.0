@@ -56,7 +56,7 @@
     </div>
     <div class="bottom-form">
       <el-table
-        :data="tableData"
+        :data="motorData"
         height="200"
         border
         style="width: 100%">
@@ -139,6 +139,7 @@
         currentRow: '',
         productionOrderNum: '',
         tableData: [],
+        motorData:[],
         gridData: [],
         code: '',
         productNo:'',//发动机号
@@ -173,6 +174,7 @@
           .then((res) => {
             console.log(res);
             this.proinfo = res.data.data;
+            this.tableData.push(this.proinfo)
           })
 
       },
@@ -184,32 +186,40 @@
         httpserver(api.getMaterialByCode, body)
           .then((res) => {
             var resData = res.data.data;
-            this.tableData.push(resData)
+            this.motorData.push(resData)
           })
       },
-//保存
+//保存发动机信息及物料信息
       saveHistoryInfo(){
         let motorObj = {
-              addressHex:'',
-              materialCode:'',
-              motorLable:'',
-              motorNumber:'',
-              post:0,
-              qty:0,
-              title:'',
-              workCenterCode:''
-
-          }
+//              addressHex:'',
+////              materialCode:'',
+////              motorLable:'',
+////              motorNumber:'',
+//              post:0,
+//              qty:0,
+////              title:'',
+////              workCenterCode:''
+          };
         let motorArr=[];
+        console.log()
         for(var i=0;i<this.tableData.length;i++){
           let infoData = this.tableData[i];
+          motorObj.addressHex='';
+          motorObj.post=0;
+          motorObj.title='';
+//          motorObj.qty=0;
           motorObj.materialCode = infoData.materialCode;
-          motorObj.workCenterCode = infoData.siteCode;
-          motorObj.motorLable = infoData.materialTypeCode;
+          motorObj.motorLabel='';
+          motorObj.qty=this.tableData.length;
+          motorObj.workCenterCode = JSON.parse(localStorage.getItem('terminal')).workCenterCode;
+          motorObj.workStationCode=JSON.parse(localStorage.getItem('terminal')).workStationCode
+          motorObj.motorNumber=infoData.serialNo;
           motorArr.push(motorObj);
         }
         let body={
-          list:motorArr
+          list:motorArr,
+
         };
         console.log(body);
         console.log(this.tableData);

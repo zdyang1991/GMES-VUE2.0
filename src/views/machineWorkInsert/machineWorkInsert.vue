@@ -183,11 +183,8 @@
               localStorage.setItem('sequenceCount',this.sequenceCount);
               this.sequenceCount=localStorage.getItem('sequenceCount');
               this.sequenceCount++;
-
             }
-
           })
-
       },
 
 //      补打印
