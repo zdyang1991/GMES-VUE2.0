@@ -81,7 +81,7 @@
         </el-table-column>
       </el-table>
       <!--<el-button type="primary">主要按钮</el-button>-->
-      <button class="print" @click="addPrint">补打印</button>
+      <button class="print" @click="replenishPrint()">补打印</button>
       <el-pagination
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"

@@ -23,7 +23,14 @@
         <div>{{systime}}</div>
         <div>{{sysdate}}/{{week}}</div>
       </div>
-      <div class="signal" :class="this.wifiStatus=='0'?'success':'fail'">
+      <div class="signal" :class="wifiStatus=='0'?'success':'fail'">
+
+        <!--<div class="infoStrong"  v-if="this.connectTime<30"></div>-->
+        <!--<div class="infoStrong1" v-if="this.connectTime<25"></div>-->
+        <!--<div class="infoStrong2" v-if="this.connectTime<20"></div>-->
+        <!--<div class="infoStrong3" v-if="this.connectTime<15"></div>-->
+        <!--<div class="infoStrong4" v-if="this.connectTime<10"></div>-->
+        <!--<div class="infoStrong5" v-if="this.connectTime<5"></div>-->
       </div>
     </div>
     <navlist :isMenuShow='isMenuShow'></navlist>
@@ -48,7 +55,8 @@
         week: '',
         systime: '',
         isMenuShow: false,
-        wifiStatus: '0'
+        wifiStatus: '0',
+        connectTime:0
       }
     },
     computed: {
@@ -62,6 +70,7 @@
       }
     },
     created() {
+
       let body = document.querySelector('body');
       body.addEventListener('click', (e) => {
         if (e.target.id !== 'ment-list') {
@@ -77,6 +86,7 @@
 
 
     methods: {
+//      全屏
       requestFullScreen() {
         var element = document.documentElement;
         if (this.fullscreen == true) {
@@ -101,17 +111,27 @@
           this.fullscreen = !this.fullscreen;
         }
       },
+//      菜单
       menuClick() {
         this.isMenuShow = !this.isMenuShow
+      },
+      showNavigationDetails() {
+    // 入口
+        const [entry] = performance.getEntriesByType("navigation");
+        let navigaInfo = entry.toJSON();
+        this.connectTime=parseInt(navigaInfo.connectEnd)
+        console.log(connectTime)
       },
       getMessage() {
         this.messageDialogVisible = true
       },
       gettest() {
         this.$store.state.timer1=window.setInterval(()=>{
-        this.getServertime()
-        },10000);
+        this.getServertime();
+        this.showNavigationDetails();
+        },5000);
       },
+//      时间+信号
       getServertime() {
         let _this = this;
        httpserver(api.getServertime)
@@ -123,7 +143,7 @@
             window.setInterval(function () {
               data = data + 1000
               _this.systime = getTime.six(data)
-            }, 1000)
+            }, 50000)
           })
       },
       subscribe() {
@@ -268,5 +288,51 @@
     background: url("../../assets/fullscreen.png");
     background-size: 100% 100%;
   }
-
+  .infoStrong{
+    height: 5px;
+    width: 2px;
+    background-color: #6FFC77;
+    display: flex;
+    align-self: flex-end;
+  }
+.infoStrong1{
+  height: 10px;
+  width: 2px;
+  margin-left: 2px;
+  background-color: #6FFC77;
+  display: flex;
+  align-self: flex-end;
+}
+  .infoStrong2{
+    height: 15px;
+    width: 2px;
+    margin-left: 2px;
+    background-color: #6FFC77;
+    display: flex;
+    align-self: flex-end;
+  }
+  .infoStrong3{
+    height: 20px;
+    width: 2px;
+    margin-left: 2px;
+    background-color: #6FFC77;
+    display: flex;
+    align-self: flex-end;
+  }
+  .infoStrong4{
+    height: 25px;
+    width: 2px;
+    margin-left: 2px;
+    background-color: #6FFC77;
+    display: flex;
+    align-self: flex-end;
+  }
+  .infoStrong5{
+    height: 30px;
+    width: 2px;
+    margin-left: 2px;
+    background-color: #6FFC77;
+    display: flex;
+    align-self: flex-end;
+  }
 </style>
