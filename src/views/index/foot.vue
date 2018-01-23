@@ -146,7 +146,7 @@
             window.setInterval(function () {
               data = data + 1000
               _this.systime = getTime.six(data)
-            }, 50000)
+            }, 1000)
           })
       },
       subscribe() {
