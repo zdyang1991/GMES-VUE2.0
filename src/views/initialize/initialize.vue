@@ -262,7 +262,6 @@
       },
       unsubscribe() {
         let topic = "/logs";
-        console.log("close----------");
         mqttLib.unsubscribe(topic, "message");
       }
     }

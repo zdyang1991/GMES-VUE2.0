@@ -73,7 +73,6 @@
       }
     },
     created() {
-
       let body = document.querySelector('body');
       body.addEventListener('click', (e) => {
         if (e.target.id !== 'ment-list') {
@@ -86,8 +85,6 @@
       }
       this.gettest();
     },
-
-
     methods: {
 //      全屏
       requestFullScreen() {
@@ -124,7 +121,7 @@
       gettest() {
         this.$store.state.timer1=window.setInterval(()=>{
         this.getServertime();
-        },5000);
+        },20000);
       },
 //      时间+信号
       getServertime() {

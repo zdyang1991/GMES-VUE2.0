@@ -118,17 +118,17 @@
         gridData:[],
         pallinfo:'',
         total:0,
-        //serialPort:new SerialPort('COM3',false),//扫描器端口
+        serialPort:'',//扫描器端口
       }
     },
-    created() {
-      console.log("打开串口");
-      this.openCom();
-    },
-    beforeDestroy: function () {
-      console.log("销毁前关闭串口");
+    beforeRouteLeave(to, from, next) {
+      console.log("close");
       this.closeCom();
-
+      next()
+    },
+    created() {
+      console.log("open");
+      this.openCom();
     },
     methods:{
       getHistoryInfo() {
@@ -235,19 +235,33 @@
       },
       openCom() {
         let _this = this;
+        let port = new SerialPort(JSON.parse(window.localStorage.getItem('serialPort')).port, {autoOpen: false});
         let Readline = SerialPort.parsers.Readline;
         let parser = new Readline();
-        _this.serialPort.pipe(parser);
-        _this.serialPort.open(function (error) {
-          console.log("打开" + error);
-        })
+        port.pipe(parser);
+        port.open(function (error) {
+          if (error) {
+            return console.log("Error opening port:", error.message);
+          } else {
+            console.log("串口打开成功");
+          }
+        });
         parser.on('data', function (data) {
           _this.code = data;
-        })
+        });
+        _this.serialPort = port;
       },
       closeCom() {
-        let _this = this;
-        _this.serialPort.close();
+        if (this.serialPort.isOpen) {
+          let _this = this;
+          _this.serialPort.close(function (err) {
+            if(err){
+              console.log(err);
+            }else{
+              console.log("串口关闭成功");
+            }
+          })
+        }
       },
 //      键盘事件
       show: function (ev) {
