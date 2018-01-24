@@ -127,6 +127,8 @@
       next()
     },
     created() {
+    },
+    mounted() {
       console.log("open");
       this.openCom();
     },

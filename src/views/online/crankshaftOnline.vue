@@ -136,11 +136,12 @@
       next()
     },
     created() {
-      console.log("open");
-      this.openCom();
       this.getMachiningProductionQueue();
     },
-
+    mounted() {
+      console.log("open");
+      this.openCom();
+    },
     methods: {
       openCom() {
         let _this = this;

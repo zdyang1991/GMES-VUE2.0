@@ -141,9 +141,11 @@
       next()
     },
     created() {
+      this.subscribe();
+    },
+    mounted() {
       console.log("open");
       this.openCom();
-      this.subscribe();
     },
     beforeDestroy() {
       this.unsubscribe();

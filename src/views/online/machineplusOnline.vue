@@ -133,9 +133,11 @@
       next()
     },
     created() {
+      this.getMachiningProductionQueue();
+    },
+    mounted() {
       console.log("open");
       this.openCom();
-      this.getMachiningProductionQueue();
     },
     methods: {
       openCom() {
