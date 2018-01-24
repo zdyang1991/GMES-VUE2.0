@@ -118,20 +118,12 @@
       menuClick() {
         this.isMenuShow = !this.isMenuShow
       },
-      showNavigationDetails() {
-    // 入口
-        const [entry] = performance.getEntriesByType("navigation");
-        let navigaInfo = entry.toJSON();
-//        this.connectTime=parseInt(navigaInfo.connectEnd)
-//        console.log(connectTime)
-      },
       getMessage() {
         this.messageDialogVisible = true
       },
       gettest() {
         this.$store.state.timer1=window.setInterval(()=>{
         this.getServertime();
-        this.showNavigationDetails();
         },5000);
       },
 //      时间+信号
