@@ -16,7 +16,7 @@ function errorState(response) {
     Message({
       message: '服务器异常,请稍候再试',
       type: 'error'
-    })
+    });
   }
 }
 
@@ -27,7 +27,7 @@ function jsonToFormData(json) {
     i === (keys.length - 1) ? data += `${key}=${json[key]}` : data += `${key}=${json[key]}&`
   });
   return data;
-};
+}
 
 function successState(res) {
   if (res.data.returnCode != "0") {
@@ -50,11 +50,11 @@ const httpServer = (opts, data) => {
     return Promise.reject(error)
   })
 
-  let sitecode
+  let sitecode;
   if (window.localStorage.getItem('terminal')) {
     sitecode = JSON.parse(window.localStorage.getItem('terminal')).siteCode
   } else {
-    sitecode = ''
+    sitecode = '';
   }
   let Public = { //公共参数
     siteCode: sitecode,
@@ -83,12 +83,12 @@ const httpServer = (opts, data) => {
   } else {
     delete httpDefaultOpts.params;
   }
-  
+
   let promise = new Promise(function (resolve, reject) {
     axios(httpDefaultOpts).then(
       (res) => {
-        successState(res)
-        resolve(res)
+        successState(res);
+        resolve(res);
       }
     ).catch(
       (response) => {

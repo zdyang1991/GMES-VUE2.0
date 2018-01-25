@@ -129,12 +129,6 @@
         productCount: 0
       }
     },
-    // beforeRouteEnter(to, from, next) {
-    //   console.log("open aaaa");
-    //   next(vm =>{
-    //     this.openCom();
-    //   })
-    // },
     beforeRouteLeave(to, from, next) {
       this.closeCom();
       next()
@@ -188,6 +182,7 @@
         mqttLib.unsubscribe(topic, "message");
       },
       getHistoryInfo() {
+        let loading = this.$loading({text:"玩命加载中..."});
         this.dialogTableVisible = true;
         let loc = JSON.parse(window.localStorage.getItem('terminal'));
         let body = {
@@ -197,20 +192,18 @@
         };
         httpserver(api.getHistoryInfo, body)
           .then((response) => {
+            loading.close();
             let resData = response.data.data;
             this.gridData = resData.productionStnRecords;
             this.total = resData.toalCount;
-
           })
       },
 //      控制每页几条
       handleSizeChange(val) {
 
-
       },
 //      当前的页数
       handleCurrentChange(val) {
-        console.log(val)
         this.dialogTableVisible = true;
         let loc = JSON.parse(window.localStorage.getItem('terminal'));
         let body = {
@@ -220,7 +213,6 @@
         };
         httpserver(api.getHistoryInfo, body)
           .then((response) => {
-            console.log(333)
             let resData = response.data.data;
             this.gridData = resData.productionStnRecords;
             this.total = resData.toalCount;
@@ -250,8 +242,8 @@
           // console.log(err);
         } finally {
           this.$message({
-            message:'窗口打开失败',
-            type:'error'
+            message: '窗口打开失败',
+            type: 'error'
           });
         }
 
@@ -273,8 +265,8 @@
           // console.log(err);
         } finally {
           this.$message({
-            message:'窗口关闭失败',
-            type:'error'
+            message: '窗口关闭失败',
+            type: 'error'
           });
         }
       },
@@ -282,26 +274,19 @@
         let body = {
           serialNo: this.code
         };
-
         httpserver(api.getSerialNoInformation, body)
           .then((res) => {
-            console.log(res);
             //6947463266069
-            this.gridData = res.data.data;
             if (res.data.returnCode == "0") {
+              this.gridData = res.data.data;
               this.productCount++;
               if (res.data.data.hotTest == "0") {
                 console.log(document.getElementById("ishotTest").style.display = "flex");
               }
+            }else{
             }
           })
       },
-      init: function () {
-        this.bsStep(2)
-      },
-      bsStep: function (i) {
-
-      }
 
     }
 

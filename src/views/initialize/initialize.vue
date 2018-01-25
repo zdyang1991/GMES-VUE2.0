@@ -81,7 +81,7 @@
       </el-container>
     </div>
     <div class="bottom-form">
-      <el-table :data="tableData" border style="width: 100%">
+      <el-table :data="tableData"  border style="width: 100%">
         <el-table-column prop="productOrderNum" label="订单编号" width="230">
         </el-table-column>
         <el-table-column prop="productionOrderNum" label="工单编号" width="230">
@@ -146,7 +146,6 @@
         dialogFormVisible: false,
         gridData: [],
         total: 0
-
       }
     },
     computed: {},
@@ -159,7 +158,6 @@
     },
     methods: {
       getData: function () {
-
         let loc = JSON.parse(window.localStorage.getItem('terminal'));
         let body = {
           workCenterCode: loc.workCenterCode,
@@ -181,14 +179,11 @@
         };
         httpserver(api.getHistoryInfo, body)
           .then((response) => {
-            console.log(response);
-
             if (response.data.returnCode == "0") {
               let resData = response.data.data;
               this.gridData = resData.productionStnRecords;
               this.total = resData.toalCount;
             }
-
           })
       },
 //      控制每页几条
@@ -257,4 +252,7 @@
 </script>
 <style lang="less">
   @import "../../css/initialize/initialize.less";
+  body{
+    margin:0;
+  }
 </style>

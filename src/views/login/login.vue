@@ -85,7 +85,7 @@
                     console.log(serialPort);
                     this.$router.push('/system');
                   }
-                  console.log(response.data.data.terminal.homePage);
+                  // console.log(response.data.data.terminal.homePage);
                   let homepage = response.data.data.terminal.homePage;
                   if (homepage == null || homepage == undefined || homepage == "") {
                     this.$message({
