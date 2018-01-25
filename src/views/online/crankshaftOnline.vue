@@ -113,6 +113,7 @@
   import httpserver from '../../utils/http.js';
   import api from '../../utils/api.js';
 
+
   export default {
     data() {
       return {
@@ -131,7 +132,6 @@
       }
     },
     beforeRouteLeave(to, from, next) {
-      console.log("close");
       this.closeCom();
       next()
     },
@@ -139,38 +139,58 @@
       this.getMachiningProductionQueue();
     },
     mounted() {
-      console.log("open");
       this.openCom();
     },
     methods: {
       openCom() {
-        let _this = this;
-        let port = new SerialPort(JSON.parse(window.localStorage.getItem('serialPort')).port, {autoOpen: false});
-        let Readline = SerialPort.parsers.Readline;
-        let parser = new Readline();
-        port.pipe(parser);
-        port.open(function (error) {
-          if (error) {
-            return console.log("Error opening port:", error.message);
-          } else {
-            console.log("串口打开成功");
-          }
-        });
-        parser.on('data', function (data) {
-          _this.code = data;
-        });
-        _this.serialPort = port;
+        try {
+          let _this = this;
+          let port = new SerialPort(JSON.parse(window.localStorage.getItem('serialPort')).port, {autoOpen: false});
+          let Readline = SerialPort.parsers.Readline;
+          let parser = new Readline();
+          port.pipe(parser);
+          port.open(function (error) {
+            if (error) {
+              return console.log("Error opening port:", error.message);
+            } else {
+              console.log("串口打开成功");
+            }
+          });
+          parser.on('data', function (data) {
+            _this.code = data;
+          });
+          _this.serialPort = port;
+        }
+        catch (err) {
+          // console.log(err);
+        } finally {
+          this.$message({
+            message:'窗口打开失败',
+            type:'error'
+          });
+        }
+
       },
       closeCom() {
-        if (this.serialPort.isOpen) {
-          let _this = this;
-          _this.serialPort.close(function (err) {
-            if(err){
-              console.log(err);
-            }else{
-              console.log("串口关闭成功");
-            }
-          })
+        try {
+          if (this.serialPort.isOpen) {
+            let _this = this;
+            _this.serialPort.close(function (err) {
+              if (err) {
+                console.log(err);
+              } else {
+                console.log("串口关闭成功");
+              }
+            })
+          }
+        }
+        catch (err) {
+          // console.log(err);
+        } finally {
+          this.$message({
+            message:'窗口关闭失败',
+            type:'error'
+          });
         }
       },
       setCurrent(row) {
@@ -243,7 +263,6 @@
         };
         httpserver(api.getMachiningProductionQueue, body)
           .then((res) => {
-            console.log(res);
             this.tableData = res.data.data;
           })
       },

@@ -139,10 +139,10 @@
         currentRow: '',
         productionOrderNum: '',
         tableData: [],
-        motorData:[],
+        motorData: [],
         gridData: [],
         code: '',
-        productNo:'',//发动机号
+        productNo: '',//发动机号
         productCount: 0,
         dialogTableVisible: false,
         currentRow: null,
@@ -151,47 +151,15 @@
       }
     },
     beforeRouteLeave(to, from, next) {
-      console.log("close");
       this.closeCom();
       next()
     },
     created() {
     },
     mounted() {
-      console.log("open");
       this.openCom();
     },
     methods: {
-      openCom() {
-        let _this = this;
-        let port = new SerialPort(JSON.parse(window.localStorage.getItem('serialPort')).port, {autoOpen: false});
-        let Readline = SerialPort.parsers.Readline;
-        let parser = new Readline();
-        port.pipe(parser);
-        port.open(function (error) {
-          if (error) {
-            return console.log("Error opening port:", error.message);
-          } else {
-            console.log("串口打开成功");
-          }
-        });
-        parser.on('data', function (data) {
-          _this.code = data;
-        });
-        _this.serialPort = port;
-      },
-      closeCom() {
-        if (this.serialPort.isOpen) {
-          let _this = this;
-          _this.serialPort.close(function (err) {
-            if(err){
-              console.log(err);
-            }else{
-              console.log("串口关闭成功");
-            }
-          })
-        }
-      },
       show: function (ev) {
         let _this = this;
         if (ev.keyCode == 13) {
@@ -231,7 +199,7 @@
           })
       },
 //保存发动机信息及物料信息
-      saveHistoryInfo(){
+      saveHistoryInfo() {
         let motorObj = {
 //              addressHex:'',
 ////              materialCode:'',
@@ -241,32 +209,32 @@
 //              qty:0,
 ////              title:'',
 ////              workCenterCode:''
-          };
-        let motorArr=[];
+        };
+        let motorArr = [];
         console.log()
-        for(var i=0;i<this.tableData.length;i++){
+        for (var i = 0; i < this.tableData.length; i++) {
           let infoData = this.tableData[i];
-          motorObj.addressHex='';
-          motorObj.post=0;
-          motorObj.title='';
+          motorObj.addressHex = '';
+          motorObj.post = 0;
+          motorObj.title = '';
 //          motorObj.qty=0;
           motorObj.materialCode = infoData.materialCode;
-          motorObj.motorLabel='';
-          motorObj.qty=this.tableData.length;
+          motorObj.motorLabel = '';
+          motorObj.qty = this.tableData.length;
           motorObj.workCenterCode = JSON.parse(localStorage.getItem('terminal')).workCenterCode;
-          motorObj.workStationCode=JSON.parse(localStorage.getItem('terminal')).workStationCode
-          motorObj.motorNumber=infoData.serialNo;
+          motorObj.workStationCode = JSON.parse(localStorage.getItem('terminal')).workStationCode
+          motorObj.motorNumber = infoData.serialNo;
           motorArr.push(motorObj);
         }
-        let body={
-          list:motorArr,
+        let body = {
+          list: motorArr,
 
         };
         console.log(body);
         console.log(this.tableData);
-        httpserver(api.batchSavePartsData,body)
-          .then((res)=>{
-          console.log(res);
+        httpserver(api.batchSavePartsData, body)
+          .then((res) => {
+            console.log(res);
             this.tableData = [];
           })
       },
@@ -281,11 +249,62 @@
         };
         httpserver(api.getHistoryInfo, body)
           .then((response) => {
-          console.log(response)
+            console.log(response)
             let resData = response.data.data;
             this.gridData = resData.productionStnRecords;
           })
-      }
+      },
+      openCom() {
+        try {
+          let _this = this;
+          let port = new SerialPort(JSON.parse(window.localStorage.getItem('serialPort')).port, {autoOpen: false});
+          let Readline = SerialPort.parsers.Readline;
+          let parser = new Readline();
+          port.pipe(parser);
+          port.open(function (error) {
+            if (error) {
+              return console.log("Error opening port:", error.message);
+            } else {
+              console.log("串口打开成功");
+            }
+          });
+          parser.on('data', function (data) {
+            _this.code = data;
+          });
+          _this.serialPort = port;
+        }
+        catch (err) {
+          // console.log(err);
+        } finally {
+          this.$message({
+            message:'窗口打开失败',
+            type:'error'
+          });
+        }
+
+      },
+      closeCom() {
+        try {
+          if (this.serialPort.isOpen) {
+            let _this = this;
+            _this.serialPort.close(function (err) {
+              if (err) {
+                console.log(err);
+              } else {
+                console.log("串口关闭成功");
+              }
+            })
+          }
+        }
+        catch (err) {
+          // console.log(err);
+        } finally {
+          this.$message({
+            message:'窗口关闭失败',
+            type:'error'
+          });
+        }
+      },
     }
   }
 </script>

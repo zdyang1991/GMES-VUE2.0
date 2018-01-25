@@ -58,8 +58,8 @@
                     <div class="detail"></div>
                   </div>
                   <!--<div class="item-container f-f1">-->
-                    <!--<label class="label">订单编号</label>-->
-                    <!--<div class="detail">{{proinfo.productOrderNum}}</div>-->
+                  <!--<label class="label">订单编号</label>-->
+                  <!--<div class="detail">{{proinfo.productOrderNum}}</div>-->
                   <!--</div>-->
                 </div>
               </div>
@@ -81,7 +81,7 @@
       </el-container>
     </div>
     <div class="bottom-form">
-      <el-table :data="tableData" border  style="width: 100%">
+      <el-table :data="tableData" border style="width: 100%">
         <el-table-column prop="productOrderNum" label="订单编号" width="230">
         </el-table-column>
         <el-table-column prop="productionOrderNum" label="工单编号" width="230">
@@ -99,7 +99,7 @@
       </el-table>
     </div>
     <!--<div class="fixed-box">-->
-      <!--<span>手动初始化</span>-->
+    <!--<span>手动初始化</span>-->
     <!--</div>-->
     <div class="icon-pad-history" @click="getHistoryInfo()">
     </div>
@@ -132,7 +132,6 @@
   </div>
 </template>
 <script>
-  import util from '../../utils/util.js';
   import api from '../../utils/api.js';
   import mqttLib from '../../utils/mqtt.js';
   import httpserver from '../../utils/http.js';
@@ -153,12 +152,10 @@
     computed: {},
     created() {
       this.getData();
-//      this.setReviseInfo();
       this.subscribe();
     },
     beforeDestroy: function () {
       this.unsubscribe();
-
     },
     methods: {
       getData: function () {
@@ -174,14 +171,6 @@
             this.tableData = res.data.data;
           })
       },
-      //工单修改信息上传
-//      setReviseInfo: function () {
-//        let loc = JSON.parse(window.localStorage.getItem('terminal'));
-//        this.ReviseInfo.statuseCode = '10';
-//        httpserver(api.setReviseInfo, this.ReviseInfo)
-//          .then((response) => {
-//          })
-//      },
       getHistoryInfo() {
         this.dialogTableVisible = true;
         let loc = JSON.parse(window.localStorage.getItem('terminal'));
@@ -228,13 +217,10 @@
       subscribe() {
         let _this = this;
         let topic = "/logs/STN3010";
-        let record
-        let data
-        console.log("begin----------");
         mqttLib.subscribe(topic, "message");
         mqttLib.registerMessageHandler(topic, "message", function (message) {
-            record = JSON.parse(message.payloadString).Content.Step;
-            data = JSON.parse(message.payloadString).Content.Data;
+            let record = JSON.parse(message.payloadString).Content.Step;
+            let data = JSON.parse(message.payloadString).Content.Data;
             console.log(data);
             switch (record) {
               case "Init":
@@ -250,7 +236,7 @@
                 };
                 httpserver(api.getCurrentProductionOrder, body)
                   .then((response) => {
-                   _this.proinfo=response.data.data;
+                    _this.proinfo = response.data.data;
                   });
                 break;
               case "Complete":
